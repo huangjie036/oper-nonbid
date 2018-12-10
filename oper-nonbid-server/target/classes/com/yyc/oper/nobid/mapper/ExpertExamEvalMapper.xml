@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.ExpertExamEvalMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExpertExamEvalBean">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="work_department" jdbcType="VARCHAR" property="workDepartment" />
+    <result column="id_num" jdbcType="VARCHAR" property="idNum" />
+    <result column="expert_name" jdbcType="VARCHAR" property="expertName" />
+    <result column="major_exam_results" jdbcType="VARCHAR" property="majorExamResults" />
+    <result column="comprehensive_exam_results" jdbcType="VARCHAR" property="comprehensiveExamResults" />
+    <result column="eval_opinion" jdbcType="VARCHAR" property="evalOpinion" />
+    <result column="report_department" jdbcType="VARCHAR" property="reportDepartment" />
+    <result column="exam_date" jdbcType="VARCHAR" property="examDate" />
+    <result column="exam_place" jdbcType="VARCHAR" property="examPlace" />
+    <result column="eval_count_time" jdbcType="VARCHAR" property="evalCountTime" />
+    <result column="eval_count_by" jdbcType="VARCHAR" property="evalCountBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+    <result column="ope_time" jdbcType="VARCHAR" property="opeTime" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, work_department, id_num, expert_name, major_exam_results, comprehensive_exam_results, 
+    eval_opinion, report_department, exam_date, exam_place, eval_count_time, eval_count_by, 
+    remark, create_by, create_time, ope_by, ope_time, del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_expert_exam_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nonbid_expert_exam_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.ExpertExamEvalBean">
+    insert into nonbid_expert_exam_eval (id, work_department, id_num, 
+      expert_name, major_exam_results, comprehensive_exam_results, 
+      eval_opinion, report_department, exam_date, 
+      exam_place, eval_count_time, eval_count_by, 
+      remark, create_by, 
+      ope_by, ope_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{workDepartment,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, 
+      #{expertName,jdbcType=VARCHAR}, #{majorExamResults,jdbcType=VARCHAR}, #{comprehensiveExamResults,jdbcType=VARCHAR}, 
+      #{evalOpinion,jdbcType=VARCHAR}, #{reportDepartment,jdbcType=VARCHAR}, #{examDate,jdbcType=VARCHAR}, 
+      #{examPlace,jdbcType=VARCHAR}, #{evalCountTime,jdbcType=VARCHAR}, #{evalCountBy,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{opeBy,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.ExpertExamEvalBean">
+    insert into nonbid_expert_exam_eval
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="workDepartment != null">
+        work_department,
+      </if>
+      <if test="idNum != null">
+        id_num,
+      </if>
+      <if test="expertName != null">
+        expert_name,
+      </if>
+      <if test="majorExamResults != null">
+        major_exam_results,
+      </if>
+      <if test="comprehensiveExamResults != null">
+        comprehensive_exam_results,
+      </if>
+      <if test="evalOpinion != null">
+        eval_opinion,
+      </if>
+      <if test="reportDepartment != null">
+        report_department,
+      </if>
+      <if test="examDate != null">
+        exam_date,
+      </if>
+      <if test="examPlace != null">
+        exam_place,
+      </if>
+      <if test="evalCountTime != null">
+        eval_count_time,
+      </if>
+      <if test="evalCountBy != null">
+        eval_count_by,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="opeBy != null">
+        ope_by,
+      </if>
+      <if test="opeTime != null">
+        ope_time,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="workDepartment != null">
+        #{workDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null">
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null">
+        #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorExamResults != null">
+        #{majorExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensiveExamResults != null">
+        #{comprehensiveExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="evalOpinion != null">
+        #{evalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDepartment != null">
+        #{reportDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null">
+        #{examDate,jdbcType=VARCHAR},
+      </if>
+      <if test="examPlace != null">
+        #{examPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null">
+        #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null">
+        #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null">
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.ExpertExamEvalBean">
+    update nonbid_expert_exam_eval
+    <set>
+      <if test="workDepartment != null and workDepartment != ''">
+        work_department = #{workDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null and idNum != ''">
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null and expertName != ''">
+        expert_name = #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorExamResults != null and majorExamResults != ''">
+        major_exam_results = #{majorExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensiveExamResults != null and comprehensiveExamResults != ''">
+        comprehensive_exam_results = #{comprehensiveExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="evalOpinion != null and evalOpinion != ''">
+        eval_opinion = #{evalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDepartment != null and reportDepartment != ''">
+        report_department = #{reportDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null and examDate != ''">
+        exam_date = #{examDate,jdbcType=VARCHAR},
+      </if>
+      <if test="examPlace != null and examPlace != ''">
+        exam_place = #{examPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null and evalCountTime != ''">
+        eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null and evalCountBy != ''">
+        eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null and opeBy != ''">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null and opeTime != ''">
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null and del != ''">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.ExpertExamEvalBean">
+    update nonbid_expert_exam_eval
+    <set>
+      <if test="workDepartment != null and workDepartment != ''">
+        work_department = #{workDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null and idNum != ''">
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null and expertName != ''">
+        expert_name = #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorExamResults != null and majorExamResults != ''">
+        major_exam_results = #{majorExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensiveExamResults != null and comprehensiveExamResults != ''">
+        comprehensive_exam_results = #{comprehensiveExamResults,jdbcType=VARCHAR},
+      </if>
+      <if test="evalOpinion != null and evalOpinion != ''">
+        eval_opinion = #{evalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="reportDepartment != null and reportDepartment != ''">
+        report_department = #{reportDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="examDate != null and examDate != ''">
+        exam_date = #{examDate,jdbcType=VARCHAR},
+      </if>
+      <if test="examPlace != null and examPlace != ''">
+        exam_place = #{examPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null and evalCountTime != ''">
+        eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null and evalCountBy != ''">
+        eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime != ''">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null and opeBy != ''">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null and opeTime != ''">
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null and del != ''">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getEvalsByCondition" parameterType="com.yyc.oper.nobid.expert.ExpertExamEvalBean" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from nonbid_expert_exam_eval
+  	<where>
+  		del = '0'
+  		<if test="expertName != null and expertName != ''">
+  			and expert_name like concat('%',#{expertName},'%')
+  		</if>
+  		<if test="evalOpinion != null and evalOpinion != ''">
+  			and eval_opinion = #{expertName}
+  		</if>
+  		<if test="examDate != null and examDate != ''">
+  			and exam_date like concat('%',#{examDate},'%')
+  		</if>
+  		<if test="evalCountBy != null and evalCountBy != ''">
+  			and eval_count_by like concat('%',#{evalCountBy},'%')
+  		</if>
+	  	ORDER BY create_time DESC
+  	</where>
+  </select>
+  
+  <update id="deleteExpertExamEval" parameterType="java.lang.String">
+   	update nonbid_expert_exam_eval set del = '1' where id = #{id}
+  </update>
+  
+  <select id="selectExamEvals" parameterType="java.lang.String" resultType = "java.util.Map">
+  	select 
+		work_department workDepartment,
+		id_num idNum,
+		expert_name expertName,
+		major_exam_results majorExamResults,
+		comprehensive_exam_results comprehensiveExamResults, 
+	    eval_opinion evalOpinion, 
+	    report_department reportDepartment, 
+	    exam_date examDate,
+	    exam_place examPlace, 
+	    eval_count_time evalCountTime, 
+	    eval_count_by evalCountBy, 
+	    remark
+  	from nonbid_expert_exam_eval where id = #{id} 
+  </select>
+  
+</mapper>

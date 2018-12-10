@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierColatitudeMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierColatitudeBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="colatitude_id" property="colatitudeId" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, supplier_id, colatitude_id, del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_supplier_colatitude
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_supplier_colatitude
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierColatitudeBean" >
+    insert into nonbid_supplier_colatitude (id, supplier_id, colatitude_id, 
+      del)
+    values (#{id,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{colatitudeId,jdbcType=VARCHAR}, 
+      #{del,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierColatitudeBean" >
+    insert into nonbid_supplier_colatitude
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="colatitudeId != null" >
+        colatitude_id,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="colatitudeId != null" >
+        #{colatitudeId,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierColatitudeBean" >
+    update nonbid_supplier_colatitude
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="colatitudeId != null" >
+        colatitude_id = #{colatitudeId,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierColatitudeBean" >
+    update nonbid_supplier_colatitude
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      colatitude_id = #{colatitudeId,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+      <insert id="addColatitudeList">
+    INSERT INTO 
+    nonbid_supplier_colatitude
+    	 (
+    	  id,
+    	  supplier_id,
+    	  colatitude_id,
+    	  del
+    	  ) 
+    		VALUES
+    <foreach collection ="colatitudelist" item="item" separator =","  >
+    (
+    #{item.id,jdbcType=VARCHAR},
+    #{item.supplierId,jdbcType=VARCHAR}, 
+    #{item.colatitudeId,jdbcType=VARCHAR},
+    #{item.del,jdbcType=VARCHAR}
+    )
+    </foreach>
+        ON DUPLICATE KEY UPDATE
+    supplier_id = VALUES(supplier_id),colatitude_id = VALUES(colatitude_id)
+  </insert>
+
+
+
+</mapper>

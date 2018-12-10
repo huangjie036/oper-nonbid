@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.ExpertMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExpertBean" >
+    <id column="expert_code" property="expertCode" jdbcType="VARCHAR" />
+    <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+    <result column="expert_id" property="expertId" jdbcType="VARCHAR" />
+    <result column="expert_sex" property="expertSex" jdbcType="VARCHAR" />
+    <result column="expert_mb_num" property="expertMbNum" jdbcType="VARCHAR" />
+    <result column="expert_tel_num" property="expertTelNum" jdbcType="VARCHAR" />
+    <result column="expert_mail" property="expertMail" jdbcType="VARCHAR" />
+    <result column="declaration_dep" property="declarationDep" jdbcType="VARCHAR" />
+    <result column="graduate_from" property="graduateFrom" jdbcType="VARCHAR" />
+    <result column="work_dep" property="workDep" jdbcType="VARCHAR" />
+    <result column="work_position" property="workPosition" jdbcType="VARCHAR" />
+    <result column="position_kind" property="positionKind" jdbcType="VARCHAR" />
+    <result column="start_work_time" property="startWorkTime" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="major_qualification_name" property="majorQualificationName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="major_qualification_type" property="majorQualificationType" jdbcType="VARCHAR" />
+    <collection property="listMajorBean" ofType="com.yyc.oper.nobid.major.MajorBean">
+	  <id column="major_id" jdbcType="VARCHAR" property="majorId" />
+      <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+      <result column="remark" jdbcType="VARCHAR" property="remark" />
+      <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+      <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+      <result column="path" jdbcType="VARCHAR" property="path" />
+      <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+      <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+      <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+      <result column="ope_time" jdbcType="VARCHAR" property="opeTime" />
+      <result column="del" jdbcType="VARCHAR" property="del" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.expert_code, a.expert_name, a.expert_id, a.expert_sex, a.expert_mb_num, a.expert_tel_num, a.expert_mail, 
+    a.declaration_dep, a.graduate_from, a.work_dep, a.work_position, a.position_kind, a.start_work_time, 
+    a.del, a.major_qualification_name, a.state, a.major_qualification_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    select 
+    <include refid="Base_Column_List" />,
+    GROUP_CONCAT(c.major_name) major_name,
+    GROUP_CONCAT(c.major_id) major_id
+    from mm_nonbid_expert a
+    LEFT JOIN mm_nonbid_expert_major b ON a.expert_code = b.expert_code
+    LEFT JOIN mm_nonbid_major c ON b.major_id = c.major_id
+    <where>
+	  <if test="1 == 1">
+	    and a.state = 0
+	    and (a.del != 1 or a.del is null)
+	  </if>
+	  <if test="expertCode != null and expertCode != ''">
+	    and a.expert_code = #{expertCode}
+	  </if>
+	  <if test="expertName != null and expertName != ''">
+	    and a.expert_name LIKE concat('%',#{expertName},'%') 
+	  </if>
+	</where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mm_nonbid_expert
+    where expert_code = #{expertCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    insert into mm_nonbid_expert (expert_code, expert_name, expert_id, 
+      expert_sex, expert_mb_num, expert_tel_num, 
+      expert_mail, declaration_dep, graduate_from, 
+      work_dep, work_position, position_kind, 
+      start_work_time, del, major_qualification_name,
+      state, major_qualification_type
+      )
+    values (#{expertCode,jdbcType=VARCHAR}, #{expertName,jdbcType=VARCHAR}, #{expertId,jdbcType=VARCHAR}, 
+      #{expertSex,jdbcType=VARCHAR}, #{expertMbNum,jdbcType=VARCHAR}, #{expertTelNum,jdbcType=VARCHAR}, 
+      #{expertMail,jdbcType=VARCHAR}, #{declarationDep,jdbcType=VARCHAR}, #{graduateFrom,jdbcType=VARCHAR}, 
+      #{workDep,jdbcType=VARCHAR}, #{workPosition,jdbcType=VARCHAR}, #{positionKind,jdbcType=VARCHAR}, 
+      #{startWorkTime,jdbcType=VARCHAR}, #{del,jdbcType=VARCHAR}, #{majorQualificationName,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR},#{majorQualificationType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    insert into mm_nonbid_expert
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="expertCode != null" >
+        expert_code,
+      </if>
+      <if test="expertName != null" >
+        expert_name,
+      </if>
+      <if test="expertId != null" >
+        expert_id,
+      </if>
+      <if test="expertSex != null" >
+        expert_sex,
+      </if>
+      <if test="expertMbNum != null" >
+        expert_mb_num,
+      </if>
+      <if test="expertTelNum != null" >
+        expert_tel_num,
+      </if>
+      <if test="expertMail != null" >
+        expert_mail,
+      </if>
+      <if test="declarationDep != null" >
+        declaration_dep,
+      </if>
+      <if test="graduateFrom != null" >
+        graduate_from,
+      </if>
+      <if test="workDep != null" >
+        work_dep,
+      </if>
+      <if test="workPosition != null" >
+        work_position,
+      </if>
+      <if test="positionKind != null" >
+        position_kind,
+      </if>
+      <if test="startWorkTime != null" >
+        start_work_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="majorQualificationName != null" >
+        major_qualification_name,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="majorQualificationType != null" >
+        major_qualification_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="expertCode != null" >
+        #{expertCode,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null" >
+        #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="expertId != null" >
+        #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertSex != null" >
+        #{expertSex,jdbcType=VARCHAR},
+      </if>
+      <if test="expertMbNum != null" >
+        #{expertMbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertTelNum != null" >
+        #{expertTelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertMail != null" >
+        #{expertMail,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationDep != null" >
+        #{declarationDep,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateFrom != null" >
+        #{graduateFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="workDep != null" >
+        #{workDep,jdbcType=VARCHAR},
+      </if>
+      <if test="workPosition != null" >
+        #{workPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="positionKind != null" >
+        #{positionKind,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null" >
+        #{startWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="majorQualificationName != null" >
+        #{majorQualificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="majorQualificationType != null" >
+        #{majorQualificationType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    update mm_nonbid_expert
+    <set >
+      <if test="expertName != null" >
+        expert_name = #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="expertId != null" >
+        expert_id = #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertSex != null" >
+        expert_sex = #{expertSex,jdbcType=VARCHAR},
+      </if>
+      <if test="expertMbNum != null" >
+        expert_mb_num = #{expertMbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertTelNum != null" >
+        expert_tel_num = #{expertTelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="expertMail != null" >
+        expert_mail = #{expertMail,jdbcType=VARCHAR},
+      </if>
+      <if test="declarationDep != null" >
+        declaration_dep = #{declarationDep,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateFrom != null" >
+        graduate_from = #{graduateFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="workDep != null" >
+        work_dep = #{workDep,jdbcType=VARCHAR},
+      </if>
+      <if test="workPosition != null" >
+        work_position = #{workPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="positionKind != null" >
+        position_kind = #{positionKind,jdbcType=VARCHAR},
+      </if>
+      <if test="startWorkTime != null" >
+        start_work_time = #{startWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="majorQualificationName != null" >
+        major_qualification_name = #{majorQualificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="majorQualificationType != null" >
+        major_qualification_type = #{majorQualificationType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where expert_code = #{expertCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    update mm_nonbid_expert
+    set expert_name = #{expertName,jdbcType=VARCHAR},
+      expert_id = #{expertId,jdbcType=VARCHAR},
+      expert_sex = #{expertSex,jdbcType=VARCHAR},
+      expert_mb_num = #{expertMbNum,jdbcType=VARCHAR},
+      expert_tel_num = #{expertTelNum,jdbcType=VARCHAR},
+      expert_mail = #{expertMail,jdbcType=VARCHAR},
+      declaration_dep = #{declarationDep,jdbcType=VARCHAR},
+      graduate_from = #{graduateFrom,jdbcType=VARCHAR},
+      work_dep = #{workDep,jdbcType=VARCHAR},
+      work_position = #{workPosition,jdbcType=VARCHAR},
+      position_kind = #{positionKind,jdbcType=VARCHAR},
+      start_work_time = #{startWorkTime,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR},
+      major_qualification_name = #{majorQualificationName,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      major_qualification_type = #{majorQualificationType,jdbcType=VARCHAR}
+    where expert_code = #{expertCode,jdbcType=VARCHAR}
+  </update>
+  <select id="findExpertByRand" resultMap="BaseResultMap" parameterType="com.yyc.oper.nobid.expert.ExpertBean" >
+    select 
+    <include refid="Base_Column_List" />
+    from mm_nonbid_expert a
+    left join mm_nonbid_expert_major b on a.expert_code = b.expert_code and (b.del != 1 or b.del is null)
+    <where>
+	  <if test="1 == 1">
+	    and a.state = 0
+	    and (a.del != 1 or a.del is null)
+	  </if>
+	  <if test="majorIds != null">
+	    and b.major_id in 
+	    <foreach collection="majorIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+<!-- 	    ( -->
+<!-- 	    <foreach collection="majorQualificationName.split(',')" item="item" index="index" separator=","> -->
+<!--           #{item} -->
+<!--         </foreach> -->
+<!--         ) -->
+	  </if>
+	  <if test="majorQualificationType != null and majorQualificationType != ''">
+	    and major_qualification_type = #{majorQualificationType}
+	  </if>
+	</where>
+	order By Rand()
+	<if test="pageSize != null and pageSize != ''">
+	LIMIT #{pageSize}
+	</if>
+  </select>
+</mapper>

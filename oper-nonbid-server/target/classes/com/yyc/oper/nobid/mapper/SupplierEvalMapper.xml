@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierEvalMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierEvalBean" >
+    <id column="supplier_eval_id" property="supplierEvalId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="extract_record" property="extractRecord" jdbcType="VARCHAR" />
+    <result column="eval_phase" property="evalPhase" jdbcType="VARCHAR" />
+    <result column="eval_project" property="evalProject" jdbcType="VARCHAR" />
+    <result column="eval_time" property="evalTime" jdbcType="TIMESTAMP" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+    <result column="serial_num" property="serialNum" jdbcType="VARCHAR" />
+    <result column="extract_project" property="extractProject" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="question_link_id" property="questionLinkId" jdbcType="VARCHAR" />
+    <result column="supplier_eval_type_id" property="supplierEvalTypeId" jdbcType="VARCHAR" />
+    <result column="question_happen_time" property="questionHappenTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="projectName" type="com.yyc.oper.nobid.supplier.SupplierEvalShowBean" >
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="evalList" type="com.yyc.oper.nobid.supplier.SupplierEvalShowListBean" >
+  <id column="supplier_eval_id" property="supplierEvalId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="question_link_name" property="questionLinkName" jdbcType="VARCHAR" />
+    <result column="extractTime" property="extractTime" jdbcType="VARCHAR" />
+    <result column="winTime" property="winTime" jdbcType="VARCHAR" />
+    <result column="occurTime" property="occurTime" jdbcType="VARCHAR" />
+    <result column="question_link_id" property="questionLinkId" jdbcType="VARCHAR" />
+    <result column="supplier_eval_type_id" property="supplierEvalTypeId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    supplier_eval_id, supplier_id, extract_record, eval_phase, eval_project, eval_time, 
+    supplier_name, remark, batch_num, serial_num, extract_project, create_by, create_time, 
+    ope_by, ope_time, del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="evalList" parameterType="java.lang.String" >
+SELECT
+	eval.supplier_eval_id,
+	eval.supplier_id,
+	eval.project_id,
+	eval.question_link_id,
+	eval.supplier_eval_type_id,
+	supplier.supplier_name,
+	question.question_link_name,
+	record.project_name,
+	eval.remark,
+	(
+		SELECT
+			COUNT(supplier_id)
+		FROM
+			nonbid_supplier_extract extract
+		WHERE
+			extract.supplier_id = eval.supplier_id
+	) AS extractTime,
+	(
+		SELECT
+			COUNT(supplier_win_id)
+		FROM
+			nonbid_supplier_win win
+		WHERE
+			win.supplier_win_id = eval.supplier_id
+	) AS winTime,
+	(
+		SELECT
+			a.num
+		FROM
+			(
+				SELECT
+					COUNT(*) AS num,
+					question_link_id,
+					supplier_id
+				FROM
+					nonbid_supplier_eval eval
+				GROUP BY
+					eval.supplier_id
+			) a
+		WHERE
+			eval.supplier_id = a.supplier_id 
+			
+	) AS occurTime
+FROM
+	nonbid_supplier_eval eval
+LEFT JOIN nonbid_supplier_eval_question_link question ON eval.question_link_id = question.question_link_id
+LEFT JOIN mm_nonbid_supplier supplier ON eval.supplier_id = supplier.supplier_id
+LEFT JOIN nonbid_merge_record record ON eval.project_id = record.project_id
+LEFT JOIN nonbid_supplier_colatitude colatitude ON eval.supplier_id = colatitude.supplier_id
+    <where>
+      <if test="1 == 1">
+	    and (eval.del != 1 or eval.del is null)
+	  </if>
+	  <if test="supplierId != null and supplierId != ''">
+	    and eval.supplier_id = #{supplierId}
+	  </if>
+	  <if test="contact != null and contact != ''">
+	    and supplier.contact LIKE concat('%',#{contact},'%') 
+	  </if>
+	  <if test="colatitudeId != null and colatitudeId != ''">
+	    and colatitude.colatitude_id = #{colatitudeId}
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and eval.supplier_name LIKE concat('%',#{supplierName},'%') 
+	  </if>
+	  <if test="projectName != null and projectName != ''">
+	    and record.project_name LIKE concat('%',#{projectName},'%') 
+	  </if>
+	  <if test="projectId != null and projectId != ''">
+	    and eval.project_id = #{projectId}
+	  </if>
+	</where>
+	order by eval.supplier_id desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_supplier_eval
+    where supplier_eval_id = #{supplierEvalId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalBean" >
+    insert into nonbid_supplier_eval (supplier_eval_id, supplier_id, extract_record, 
+      eval_phase, eval_project, eval_time, 
+      supplier_name, remark, batch_num, 
+      serial_num, extract_project, create_by, 
+      create_time, ope_by, ope_time, 
+      del)
+    values (#{supplierEvalId,jdbcType=VARCHAR}, #{supplierId,jdbcType=VARCHAR}, #{extractRecord,jdbcType=VARCHAR}, 
+      #{evalPhase,jdbcType=VARCHAR}, #{evalProject,jdbcType=VARCHAR}, #{evalTime,jdbcType=TIMESTAMP}, 
+      #{supplierName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{batchNum,jdbcType=VARCHAR}, 
+      #{serialNum,jdbcType=VARCHAR}, #{extractProject,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{opeBy,jdbcType=VARCHAR}, #{opeTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalBean" >
+    insert into nonbid_supplier_eval
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierEvalId != null" >
+        supplier_eval_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="extractRecord != null" >
+        extract_record,
+      </if>
+      <if test="evalPhase != null" >
+        eval_phase,
+      </if>
+      <if test="evalProjectName != null" >
+        eval_project_name,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="evalTime != null" >
+        eval_time,
+      </if>
+      <if test="supplierName != null" >
+        supplier_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="batchNum != null" >
+        batch_num,
+      </if>
+      <if test="serialNum != null" >
+        serial_num,
+      </if>
+      <if test="extractProject != null" >
+        extract_project,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="questionLinkId != null" >
+        question_link_id,
+      </if>
+      <if test="supplierEvalTypeId != null" >
+        supplier_eval_type_id,
+      </if>
+      <if test="questionHappenTime != null" >
+        question_happen_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierEvalId != null" >
+        #{supplierEvalId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="extractRecord != null" >
+        #{extractRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="evalPhase != null" >
+        #{evalPhase,jdbcType=VARCHAR},
+      </if>
+      <if test="evalProjectName != null" >
+        #{evalProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="evalTime != null" >
+        #{evalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierName != null" >
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="extractProject != null" >
+        #{extractProject,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="questionLinkId != null" >
+        #{questionLinkId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierEvalTypeId != null" >
+        #{supplierEvalTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionHappenTime != null" >
+        #{questionHappenTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalBean" >
+    update nonbid_supplier_eval
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="extractRecord != null" >
+        extract_record = #{extractRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="evalPhase != null" >
+        eval_phase = #{evalPhase,jdbcType=VARCHAR},
+      </if>
+      <if test="evalProjectName != null" >
+        eval_project_name = #{evalProjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="evalTime != null" >
+        eval_time = #{evalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierName != null" >
+        supplier_name = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        batch_num = #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        serial_num = #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="extractProject != null" >
+        extract_project = #{extractProject,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="questionLinkId != null" >
+        question_link_id = #{questionLinkId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierEvalTypeId != null" >
+        supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="questionHappenTime != null" >
+        question_happen_time = #{questionHappenTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplier_eval_id = #{supplierEvalId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalBean" >
+    update nonbid_supplier_eval
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      extract_record = #{extractRecord,jdbcType=VARCHAR},
+      eval_phase = #{evalPhase,jdbcType=VARCHAR},
+      eval_project_name = #{evalProjectName,jdbcType=VARCHAR},
+      eval_time = #{evalTime,jdbcType=TIMESTAMP},
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      batch_num = #{batchNum,jdbcType=VARCHAR},
+      serial_num = #{serialNum,jdbcType=VARCHAR},
+      extract_project = #{extractProject,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR},
+      question_link_id = #{questionLinkId,jdbcType=VARCHAR},
+      supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      question_happen_time = #{questionHappenTime,jdbcType=VARCHAR},
+    where supplier_eval_id = #{supplierEvalId,jdbcType=VARCHAR}
+  </update>
+  
+    <select id="selectProjectBySupplier" resultMap="projectName" parameterType="java.lang.String" >
+     select 
+     	record.project_id,
+	    record.project_name
+          from nonbid_supplier_extract extract
+     LEFT JOIN nonbid_supplier_extract_result result on extract.extract_id = result.extract_id
+     LEFT JOIN nonbid_merge_record record on record.merge_id = result.merge_id
+    <where>
+	  <if test="supplierId != null and supplierId != ''">
+	    and supplier_id = #{supplierId}
+	  </if>
+	</where>
+  </select>
+</mapper>

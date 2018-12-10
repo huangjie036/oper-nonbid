@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.ExpertSumEvalMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExpertSumEvalBean">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="attendance" jdbcType="VARCHAR" property="attendance" />
+    <result column="good_num" jdbcType="VARCHAR" property="goodNum" />
+    <result column="competent_num" jdbcType="VARCHAR" property="competentNum" />
+    <result column="basic_competent_num" jdbcType="VARCHAR" property="basicCompetentNum" />
+    <result column="incompetent_num" jdbcType="VARCHAR" property="incompetentNum" />
+    <result column="education_num" jdbcType="VARCHAR" property="educationNum" />
+    <result column="comprehensive_eval_result" jdbcType="VARCHAR" property="comprehensiveEvalResult" />
+    <result column="eval_count_by" jdbcType="VARCHAR" property="evalCountBy" />
+    <result column="eval_count_time" jdbcType="VARCHAR" property="evalCountTime" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+    <result column="ope_time" jdbcType="VARCHAR" property="opeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, attendance, good_num, competent_num, basic_competent_num, incompetent_num, 
+    education_num, comprehensive_eval_result, eval_count_by, eval_count_time, year, remark, 
+    del, create_by, create_time, ope_by, ope_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_expert_sum_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nonbid_expert_sum_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.ExpertSumEvalBean">
+    insert into nonbid_expert_sum_eval (id, name, attendance, 
+      good_num, competent_num, basic_competent_num, 
+      incompetent_num, education_num, comprehensive_eval_result, 
+      eval_count_by, eval_count_time, year, 
+      remark,create_by, 
+      ope_by,ope_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{attendance,jdbcType=VARCHAR}, 
+      #{goodNum,jdbcType=VARCHAR}, #{competentNum,jdbcType=VARCHAR}, #{basicCompetentNum,jdbcType=VARCHAR}, 
+      #{incompetentNum,jdbcType=VARCHAR}, #{educationNum,jdbcType=VARCHAR}, #{comprehensiveEvalResult,jdbcType=VARCHAR}, 
+      #{evalCountBy,jdbcType=VARCHAR}, #{evalCountTime,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{opeBy,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.ExpertSumEvalBean">
+    insert into nonbid_expert_sum_eval
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="attendance != null">
+        attendance,
+      </if>
+      <if test="goodNum != null">
+        good_num,
+      </if>
+      <if test="competentNum != null">
+        competent_num,
+      </if>
+      <if test="basicCompetentNum != null">
+        basic_competent_num,
+      </if>
+      <if test="incompetentNum != null">
+        incompetent_num,
+      </if>
+      <if test="educationNum != null">
+        education_num,
+      </if>
+      <if test="comprehensiveEvalResult != null">
+        comprehensive_eval_result,
+      </if>
+      <if test="evalCountBy != null">
+        eval_count_by,
+      </if>
+      <if test="evalCountTime != null">
+        eval_count_time,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="opeBy != null">
+        ope_by,
+      </if>
+      <if test="opeTime != null">
+        ope_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="attendance != null">
+        #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="goodNum != null">
+        #{goodNum,jdbcType=VARCHAR},
+      </if>
+      <if test="competentNum != null">
+        #{competentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="basicCompetentNum != null">
+        #{basicCompetentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="incompetentNum != null">
+        #{incompetentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="educationNum != null">
+        #{educationNum,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensiveEvalResult != null">
+        #{comprehensiveEvalResult,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null">
+        #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null">
+        #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null">
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.ExpertSumEvalBean">
+    update nonbid_expert_sum_eval
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="attendance != null and attendance != ''">
+        attendance = #{attendance,jdbcType=VARCHAR},
+      </if>
+      <if test="goodNum != null and goodNum != ''">
+        good_num = #{goodNum,jdbcType=VARCHAR},
+      </if>
+      <if test="competentNum != null and competentNum != ''">
+        competent_num = #{competentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="basicCompetentNum != null and basicCompetentNum != ''">
+        basic_competent_num = #{basicCompetentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="incompetentNum != null and incompetentNum != ''">
+        incompetent_num = #{incompetentNum,jdbcType=VARCHAR},
+      </if>
+      <if test="educationNum != null and educationNum != ''">
+        education_num = #{educationNum,jdbcType=VARCHAR},
+      </if>
+      <if test="comprehensiveEvalResult != null and comprehensiveEvalResult != ''">
+        comprehensive_eval_result = #{comprehensiveEvalResult,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null and evalCountBy != ''">
+        eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null and evalCountTime != ''">
+        eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null and year != ''">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null and del != ''">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null and opeBy != ''">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null and opeTime != ''">
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.ExpertSumEvalBean">
+    update nonbid_expert_sum_eval
+    set name = #{name,jdbcType=VARCHAR},
+      attendance = #{attendance,jdbcType=VARCHAR},
+      good_num = #{goodNum,jdbcType=VARCHAR},
+      competent_num = #{competentNum,jdbcType=VARCHAR},
+      basic_competent_num = #{basicCompetentNum,jdbcType=VARCHAR},
+      incompetent_num = #{incompetentNum,jdbcType=VARCHAR},
+      education_num = #{educationNum,jdbcType=VARCHAR},
+      comprehensive_eval_result = #{comprehensiveEvalResult,jdbcType=VARCHAR},
+      eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getSumEvalsByCondition" parameterType="com.yyc.oper.nobid.expert.ExpertSumEvalBean" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from nonbid_expert_sum_eval
+  	<where>
+  		del = '0'
+  		<if test="name != null and name != ''">
+  			and name like concat('%',#{name},'%')
+  		</if>
+  		<if test="year != null and year != ''">
+  			and year = #{year}
+  		</if>
+  		<if test="comprehensiveEvalResult != null and comprehensiveEvalResult != ''">
+  			and comprehensive_eval_result = #{comprehensiveEvalResult}
+  		</if>
+  		ORDER BY create_time DESC
+  	</where>
+  </select>
+  
+  <update id="deleteSumEval" parameterType="java.lang.String">
+   	update nonbid_expert_sum_eval set del = '1' where id = #{id}
+  </update>
+  
+  <select id="selectSumEvals" parameterType="java.lang.String" resultType="java.util.Map">
+  		select 
+  			name, 
+  			attendance, 
+  			good_num goodNum, 
+  			competent_num competentNum, 
+  			basic_competent_num basicCompetentNum, 
+  			incompetent_num incompetentNum, 
+    		education_num educationNum, 
+    		comprehensive_eval_result comprehensiveEvalResult, 
+    		eval_count_by evalCountBy, 
+    		eval_count_time evalCountTime, 
+    		year, 
+    		remark
+  		from nonbid_expert_sum_eval where id = #{id}
+  </select>
+</mapper>

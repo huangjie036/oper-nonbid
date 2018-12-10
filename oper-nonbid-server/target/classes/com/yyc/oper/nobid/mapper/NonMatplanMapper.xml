@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.NonMatplanMapper" >
+
+    <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mat.NonMatplanBean" >
+        <id column="non_matplan_id" property="nonMatplanId" jdbcType="VARCHAR" />
+        <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
+        <result column="serial_num" property="serialNum" jdbcType="VARCHAR" />
+        <result column="package_num" property="packageNum" jdbcType="VARCHAR" />
+        <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+        <result column="business_department" property="businessDepartment" jdbcType="VARCHAR" />
+        <result column="demand_company" property="demandCompany" jdbcType="VARCHAR" />
+        <result column="project_num" property="projectNum" jdbcType="VARCHAR" />
+        <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+        <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+        <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+        <result column="purchase_num" property="purchaseNum" jdbcType="VARCHAR" />
+        <result column="purchase_apply_num" property="purchaseApplyNum" jdbcType="VARCHAR" />
+        <result column="project_purchase_num" property="projectPurchaseNum" jdbcType="VARCHAR" />
+        <result column="approval_num" property="approvalNum" jdbcType="VARCHAR" />
+        <result column="non_matplan_source" property="nonMatplanSource" jdbcType="VARCHAR" />
+        <result column="supplier_source" property="supplierSource" jdbcType="VARCHAR" />
+        <result column="project_management_responsibilities" property="projectManagementResponsibilities" jdbcType="VARCHAR" />
+        <result column="technical_specification" property="technicalSpecification" jdbcType="VARCHAR" />
+        <result column="fund_source" property="fundSource" jdbcType="VARCHAR" />
+        <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+        <result column="purchase_strategy" property="purchaseStrategy" jdbcType="VARCHAR" />
+        <result column="pricing_way" property="pricingWay" jdbcType="VARCHAR" />
+        <result column="plan_total_price" property="planTotalPrice" jdbcType="VARCHAR" />
+        <result column="individual_tax_price" property="individualTaxPrice" jdbcType="VARCHAR" />
+        <result column="individual_no_tax_price" property="individualNoTaxPrice" jdbcType="VARCHAR" />
+        <result column="individual_tax_rate" property="individualTaxRate" jdbcType="VARCHAR" />
+        <result column="purchase_tax_rate" property="purchaseTaxRate" jdbcType="VARCHAR" />
+        <result column="highest_price" property="highestPrice" jdbcType="VARCHAR" />
+        <result column="work_time_limit" property="workTimeLimit" jdbcType="VARCHAR" />
+        <result column="xixing_company_num" property="xixingCompanyNum" jdbcType="VARCHAR" />
+        <result column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+        <result column="is_merge" property="isMerge" jdbcType="VARCHAR" />
+        <result column="merge_state" property="mergeState" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+        <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <result column="del" property="del" jdbcType="VARCHAR" />
+        <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+        <association property="batchmanageBean" javaType="com.yyc.oper.nobid.batch.BatchmanageBean">
+            <id column="batch_id" property="batchId" jdbcType="VARCHAR" />
+            <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+            <result column="batch_name" property="batchName" jdbcType="VARCHAR" />
+            <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+            <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+            <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+            <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+            <result column="oper_by" property="operBy" jdbcType="VARCHAR" />
+            <result column="oper_time" property="operTime" jdbcType="VARCHAR" />
+            <result column="state" property="state" jdbcType="VARCHAR" />
+            <result column="del" property="del" jdbcType="VARCHAR" />
+        </association>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        d.non_matplan_id, d.service_type, d.serial_num, d.package_num, d.package_name, d.business_department, 
+        d.demand_company, d.project_num, d.project_name, d.purchase_strategy, d.purchase_way, d.batch_num, d.purchase_num, 
+        d.purchase_apply_num, d.project_purchase_num, d.approval_num, d.non_matplan_source, d.supplier_source, 
+        d.project_management_responsibilities, d.technical_specification, d.fund_source, d.project_type, 
+        d.pricing_way, d.plan_total_price, d.individual_tax_price, d.individual_no_tax_price, d.individual_tax_rate, 
+        d.purchase_tax_rate, d.highest_price, d.work_time_limit, d.xixing_company_num, d.merge_id, 
+        d.is_merge, d.merge_state, d.remark, d.create_by, d.create_time, d.ope_by, d.ope_time, d.state, d.del, 
+        d.org_id
+    </sql>
+    <sql id="Base_Column_List_d" >
+        c3.batch_id, c3.batch_num, c3.batch_name, c3.begin_time, c3.end_time, c3.create_by, c3.create_time, c3.oper_by, 
+        c3.oper_time, c3.state, c3.del
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />,
+        <include refid="Base_Column_List_d" />
+        from nonbid_non_matplan d
+        LEFT JOIN nonbid_batchmanage c3 on d.batch_num = c3.batch_num
+        <where>
+        	<if test="1 == 1">
+        		and (d.del != 1 or d.del is null)
+        	</if>
+        	<if test="nonMatplanId != null and nonMatplanId != ''">
+        		and d.non_matplan_id = #{nonMatplanId,jdbcType=VARCHAR}
+        	</if>
+        	<if test="batchNum != null and batchNum != ''">
+	            and d.batch_num = #{batchNum}
+	        </if>
+	        <if test="projectName != null and projectName != ''">
+	            and d.project_name LIKE concat('%',#{projectName},'%')
+	        </if>
+	        <if test="purchaseWay != null and purchaseWay != ''">
+	            and d.purchase_way = #{purchaseWay}
+	        </if>
+	        <if test="demandCompany != null and demandCompany != ''">
+	            and d.demand_company LIKE concat('%',#{demandCompany},'%')
+	        </if>
+	        <if test="fundSource != null and fundSource != ''">
+	            and d.fund_source = #{fundSource}
+	        </if>
+	        <if test="nonMatplanSource != null and nonMatplanSource != ''">
+	            and d.non_matplan_source = #{nonMatplanSource}
+	        </if>
+        	<if test="state != null and state != ''">
+	            <if test='state == "-1"'>
+	                and (d.state = '1' or d.state = '5')
+	            </if>
+	            <if test='state != "-1"'>
+	                and d.state = #{state}
+	            </if>
+	        </if>
+	        <if test="nonMatplanIds != null">
+	    	    and d.non_matplan_id in 
+	    		<foreach collection="nonMatplanIds" item="item" index="index" open="(" separator="," close=")">
+	      			#{item}
+	    		</foreach>
+	  		</if>
+	  		<if test="serialNum != null and serialNum != ''">
+	            and d.serial_num = #{serialNum}
+	        </if>
+	        <if test="packageNum != null and packageNum != ''">
+	            and d.package_num = #{packageNum}
+	        </if>
+	        <if test="projectNum != null and projectNum != ''">
+	            and d.project_num = #{projectNum}
+	        </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from nonbid_non_matplan
+        where non_matplan_id = #{nonMatplanId,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.yyc.oper.nobid.mat.NonMatplanBean" >
+        insert into nonbid_non_matplan (non_matplan_id, service_type, serial_num, 
+            package_num, package_name, business_department, 
+            demand_company, project_num, project_name, 
+            purchase_way, batch_num, purchase_num, 
+            purchase_apply_num, project_purchase_num, 
+            approval_num, non_matplan_source, supplier_source, 
+            project_management_responsibilities, technical_specification, 
+            fund_source, project_type, pricing_way, 
+            plan_total_price, individual_tax_price, individual_no_tax_price, 
+            individual_tax_rate, purchase_tax_rate, highest_price, 
+            work_time_limit, xixing_company_num, merge_id, 
+            is_merge, merge_state, remark, 
+            create_by, create_time, ope_by, 
+            ope_time, state, del, 
+            org_id, purchase_strategy)
+        values 
+        <foreach collection ="list" item="item" index= "index" separator =",">
+      		(
+      		#{item.nonMatplanId,jdbcType=VARCHAR}, #{item.serviceType,jdbcType=VARCHAR}, #{item.serialNum,jdbcType=VARCHAR}, 
+            #{item.packageNum,jdbcType=VARCHAR}, #{item.packageName,jdbcType=VARCHAR}, #{item.businessDepartment,jdbcType=VARCHAR}, 
+            #{item.demandCompany,jdbcType=VARCHAR}, #{item.projectNum,jdbcType=VARCHAR}, #{item.projectName,jdbcType=VARCHAR}, 
+            #{item.purchaseWay,jdbcType=VARCHAR}, #{item.batchNum,jdbcType=VARCHAR}, #{item.purchaseNum,jdbcType=VARCHAR}, 
+            #{item.purchaseApplyNum,jdbcType=VARCHAR}, #{item.projectPurchaseNum,jdbcType=VARCHAR}, 
+            #{item.approvalNum,jdbcType=VARCHAR}, #{item.nonMatplanSource,jdbcType=VARCHAR}, #{item.supplierSource,jdbcType=VARCHAR}, 
+            #{item.projectManagementResponsibilities,jdbcType=VARCHAR}, #{item.technicalSpecification,jdbcType=VARCHAR}, 
+            #{item.fundSource,jdbcType=VARCHAR}, #{item.projectType,jdbcType=VARCHAR}, #{item.pricingWay,jdbcType=VARCHAR}, 
+            #{item.planTotalPrice,jdbcType=VARCHAR}, #{item.individualTaxPrice,jdbcType=VARCHAR}, #{item.individualNoTaxPrice,jdbcType=VARCHAR}, 
+            #{item.individualTaxRate,jdbcType=VARCHAR}, #{item.purchaseTaxRate,jdbcType=VARCHAR}, #{item.highestPrice,jdbcType=VARCHAR}, 
+            #{item.workTimeLimit,jdbcType=VARCHAR}, #{item.xixingCompanyNum,jdbcType=VARCHAR}, #{item.mergeId,jdbcType=VARCHAR}, 
+            #{item.isMerge,jdbcType=VARCHAR}, #{item.mergeState,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, 
+            #{item.createBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.opeBy,jdbcType=VARCHAR}, 
+            #{item.opeTime,jdbcType=TIMESTAMP}, #{item.state,jdbcType=VARCHAR}, #{item.del,jdbcType=VARCHAR}, 
+            #{item.orgId,jdbcType=VARCHAR}, #{item.purchaseStrategy,jdbcType=VARCHAR}
+            )
+		</foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.yyc.oper.nobid.mat.NonMatplanBean" >
+        insert into nonbid_non_matplan
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="nonMatplanId != null" >
+                non_matplan_id,
+            </if>
+            <if test="serviceType != null" >
+                service_type,
+            </if>
+            <if test="serialNum != null" >
+                serial_num,
+            </if>
+            <if test="packageNum != null" >
+                package_num,
+            </if>
+            <if test="packageName != null" >
+                package_name,
+            </if>
+            <if test="businessDepartment != null" >
+                business_department,
+            </if>
+            <if test="demandCompany != null" >
+                demand_company,
+            </if>
+            <if test="projectNum != null" >
+                project_num,
+            </if>
+            <if test="projectName != null" >
+                project_name,
+            </if>
+            <if test="purchaseWay != null" >
+                purchase_way,
+            </if>
+            <if test="batchNum != null" >
+                batch_num,
+            </if>
+            <if test="purchaseNum != null" >
+                purchase_num,
+            </if>
+            <if test="purchaseApplyNum != null" >
+                purchase_apply_num,
+            </if>
+            <if test="projectPurchaseNum != null" >
+                project_purchase_num,
+            </if>
+            <if test="approvalNum != null" >
+                approval_num,
+            </if>
+            <if test="nonMatplanSource != null" >
+                non_matplan_source,
+            </if>
+            <if test="supplierSource != null" >
+                supplier_source,
+            </if>
+            <if test="projectManagementResponsibilities != null" >
+                project_management_responsibilities,
+            </if>
+            <if test="technicalSpecification != null" >
+                technical_specification,
+            </if>
+            <if test="fundSource != null" >
+                fund_source,
+            </if>
+            <if test="projectType != null" >
+                project_type,
+            </if>
+            <if test="pricingWay != null" >
+                pricing_way,
+            </if>
+            <if test="planTotalPrice != null" >
+                plan_total_price,
+            </if>
+            <if test="individualTaxPrice != null" >
+                individual_tax_price,
+            </if>
+            <if test="individualNoTaxPrice != null" >
+                individual_no_tax_price,
+            </if>
+            <if test="individualTaxRate != null" >
+                individual_tax_rate,
+            </if>
+            <if test="purchaseTaxRate != null" >
+                purchase_tax_rate,
+            </if>
+            <if test="highestPrice != null" >
+                highest_price,
+            </if>
+            <if test="workTimeLimit != null" >
+                work_time_limit,
+            </if>
+            <if test="xixingCompanyNum != null" >
+                xixing_company_num,
+            </if>
+            <if test="mergeId != null" >
+                merge_id,
+            </if>
+            <if test="isMerge != null" >
+                is_merge,
+            </if>
+            <if test="mergeState != null" >
+                merge_state,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="opeBy != null" >
+                ope_by,
+            </if>
+            <if test="opeTime != null" >
+                ope_time,
+            </if>
+            <if test="state != null" >
+                state,
+            </if>
+            <if test="del != null" >
+                del,
+            </if>
+            <if test="orgId != null" >
+                org_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="nonMatplanId != null" >
+                #{nonMatplanId,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null" >
+                #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNum != null" >
+                #{serialNum,jdbcType=VARCHAR},
+            </if>
+            <if test="packageNum != null" >
+                #{packageNum,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null" >
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDepartment != null" >
+                #{businessDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="demandCompany != null" >
+                #{demandCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="projectNum != null" >
+                #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseWay != null" >
+                #{purchaseWay,jdbcType=VARCHAR},
+            </if>
+            <if test="batchNum != null" >
+                #{batchNum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseNum != null" >
+                #{purchaseNum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseApplyNum != null" >
+                #{purchaseApplyNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectPurchaseNum != null" >
+                #{projectPurchaseNum,jdbcType=VARCHAR},
+            </if>
+            <if test="approvalNum != null" >
+                #{approvalNum,jdbcType=VARCHAR},
+            </if>
+            <if test="nonMatplanSource != null" >
+                #{nonMatplanSource,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierSource != null" >
+                #{supplierSource,jdbcType=VARCHAR},
+            </if>
+            <if test="projectManagementResponsibilities != null" >
+                #{projectManagementResponsibilities,jdbcType=VARCHAR},
+            </if>
+            <if test="technicalSpecification != null" >
+                #{technicalSpecification,jdbcType=VARCHAR},
+            </if>
+            <if test="fundSource != null" >
+                #{fundSource,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null" >
+                #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="pricingWay != null" >
+                #{pricingWay,jdbcType=VARCHAR},
+            </if>
+            <if test="planTotalPrice != null" >
+                #{planTotalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualTaxPrice != null" >
+                #{individualTaxPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualNoTaxPrice != null" >
+                #{individualNoTaxPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualTaxRate != null" >
+                #{individualTaxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseTaxRate != null" >
+                #{purchaseTaxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="highestPrice != null" >
+                #{highestPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="workTimeLimit != null" >
+                #{workTimeLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="xixingCompanyNum != null" >
+                #{xixingCompanyNum,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeId != null" >
+                #{mergeId,jdbcType=VARCHAR},
+            </if>
+            <if test="isMerge != null" >
+                #{isMerge,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeState != null" >
+                #{mergeState,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opeBy != null" >
+                #{opeBy,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null" >
+                #{opeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null" >
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="del != null" >
+                #{del,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null" >
+                #{orgId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.mat.NonMatplanBean" >
+        update nonbid_non_matplan
+        <set >
+            <if test="serviceType != null" >
+                service_type = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNum != null" >
+                serial_num = #{serialNum,jdbcType=VARCHAR},
+            </if>
+            <if test="packageNum != null" >
+                package_num = #{packageNum,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null" >
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDepartment != null" >
+                business_department = #{businessDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="demandCompany != null" >
+                demand_company = #{demandCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="projectNum != null" >
+                project_num = #{projectNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                project_name = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseWay != null" >
+                purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+            </if>
+            <if test="batchNum != null" >
+                batch_num = #{batchNum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseNum != null" >
+                purchase_num = #{purchaseNum,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseApplyNum != null" >
+                purchase_apply_num = #{purchaseApplyNum,jdbcType=VARCHAR},
+            </if>
+            <if test="projectPurchaseNum != null" >
+                project_purchase_num = #{projectPurchaseNum,jdbcType=VARCHAR},
+            </if>
+            <if test="approvalNum != null" >
+                approval_num = #{approvalNum,jdbcType=VARCHAR},
+            </if>
+            <if test="nonMatplanSource != null" >
+                non_matplan_source = #{nonMatplanSource,jdbcType=VARCHAR},
+            </if>
+            <if test="supplierSource != null" >
+                supplier_source = #{supplierSource,jdbcType=VARCHAR},
+            </if>
+            <if test="projectManagementResponsibilities != null" >
+                project_management_responsibilities = #{projectManagementResponsibilities,jdbcType=VARCHAR},
+            </if>
+            <if test="technicalSpecification != null" >
+                technical_specification = #{technicalSpecification,jdbcType=VARCHAR},
+            </if>
+            <if test="fundSource != null" >
+                fund_source = #{fundSource,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null" >
+                project_type = #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="pricingWay != null" >
+                pricing_way = #{pricingWay,jdbcType=VARCHAR},
+            </if>
+            <if test="planTotalPrice != null" >
+                plan_total_price = #{planTotalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualTaxPrice != null" >
+                individual_tax_price = #{individualTaxPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualNoTaxPrice != null" >
+                individual_no_tax_price = #{individualNoTaxPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="individualTaxRate != null" >
+                individual_tax_rate = #{individualTaxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="purchaseTaxRate != null" >
+                purchase_tax_rate = #{purchaseTaxRate,jdbcType=VARCHAR},
+            </if>
+            <if test="highestPrice != null" >
+                highest_price = #{highestPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="workTimeLimit != null" >
+                work_time_limit = #{workTimeLimit,jdbcType=VARCHAR},
+            </if>
+            <if test="xixingCompanyNum != null" >
+                xixing_company_num = #{xixingCompanyNum,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeId != null" >
+                merge_id = #{mergeId,jdbcType=VARCHAR},
+            </if>
+            <if test="isMerge != null" >
+                is_merge = #{isMerge,jdbcType=VARCHAR},
+            </if>
+            <if test="mergeState != null" >
+                merge_state = #{mergeState,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null" >
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="opeBy != null" >
+                ope_by = #{opeBy,jdbcType=VARCHAR},
+            </if>
+            <if test="opeTime != null" >
+                ope_time = #{opeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="del != null" >
+                del = #{del,jdbcType=VARCHAR},
+            </if>
+            <if test="orgId != null" >
+                org_id = #{orgId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where non_matplan_id = #{nonMatplanId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.mat.NonMatplanBean" >
+        update nonbid_non_matplan
+        set service_type = #{serviceType,jdbcType=VARCHAR},
+            serial_num = #{serialNum,jdbcType=VARCHAR},
+            package_num = #{packageNum,jdbcType=VARCHAR},
+            package_name = #{packageName,jdbcType=VARCHAR},
+            business_department = #{businessDepartment,jdbcType=VARCHAR},
+            demand_company = #{demandCompany,jdbcType=VARCHAR},
+            project_num = #{projectNum,jdbcType=VARCHAR},
+            project_name = #{projectName,jdbcType=VARCHAR},
+            purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+            batch_num = #{batchNum,jdbcType=VARCHAR},
+            purchase_num = #{purchaseNum,jdbcType=VARCHAR},
+            purchase_apply_num = #{purchaseApplyNum,jdbcType=VARCHAR},
+            project_purchase_num = #{projectPurchaseNum,jdbcType=VARCHAR},
+            approval_num = #{approvalNum,jdbcType=VARCHAR},
+            non_matplan_source = #{nonMatplanSource,jdbcType=VARCHAR},
+            supplier_source = #{supplierSource,jdbcType=VARCHAR},
+            project_management_responsibilities = #{projectManagementResponsibilities,jdbcType=VARCHAR},
+            technical_specification = #{technicalSpecification,jdbcType=VARCHAR},
+            fund_source = #{fundSource,jdbcType=VARCHAR},
+            project_type = #{projectType,jdbcType=VARCHAR},
+            pricing_way = #{pricingWay,jdbcType=VARCHAR},
+            plan_total_price = #{planTotalPrice,jdbcType=VARCHAR},
+            individual_tax_price = #{individualTaxPrice,jdbcType=VARCHAR},
+            individual_no_tax_price = #{individualNoTaxPrice,jdbcType=VARCHAR},
+            individual_tax_rate = #{individualTaxRate,jdbcType=VARCHAR},
+            purchase_tax_rate = #{purchaseTaxRate,jdbcType=VARCHAR},
+            highest_price = #{highestPrice,jdbcType=VARCHAR},
+            work_time_limit = #{workTimeLimit,jdbcType=VARCHAR},
+            xixing_company_num = #{xixingCompanyNum,jdbcType=VARCHAR},
+            merge_id = #{mergeId,jdbcType=VARCHAR},
+            is_merge = #{isMerge,jdbcType=VARCHAR},
+            merge_state = #{mergeState,jdbcType=VARCHAR},
+            remark = #{remark,jdbcType=VARCHAR},
+            create_by = #{createBy,jdbcType=VARCHAR},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            ope_by = #{opeBy,jdbcType=VARCHAR},
+            ope_time = #{opeTime,jdbcType=TIMESTAMP},
+            state = #{state,jdbcType=VARCHAR},
+            del = #{del,jdbcType=VARCHAR},
+            org_id = #{orgId,jdbcType=VARCHAR}
+        where non_matplan_id = #{nonMatplanId,jdbcType=VARCHAR}
+    </update>
+</mapper>

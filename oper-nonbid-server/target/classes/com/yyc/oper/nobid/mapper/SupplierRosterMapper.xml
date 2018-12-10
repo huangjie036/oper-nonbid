@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierRosterMapper">
+	<resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierRosterBean">
+		<id column="supplier_roster_id" property="supplierRosterId"
+			jdbcType="VARCHAR" />
+		<result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+		<result column="supplier_name" property="supplierName"
+			jdbcType="VARCHAR" />
+		<result column="account_group" property="accountGroup"
+			jdbcType="VARCHAR" />
+		<result column="roster_type" property="rosterType" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="ope_by" property="opeBy" jdbcType="TIMESTAMP" />
+		<result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+		<result column="del" property="del" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		supplier_roster_id,supplier_id,supplier_name,account_group,roster_type,create_by,create_time,ope_by,ope_time,del
+	</sql>
+
+	<insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierRosterBean">
+		INSERT INTO
+		nonbid_supplier_roster
+		(
+		supplier_roster_id,
+		supplier_id,
+		supplier_name,
+		account_group,
+		roster_type,
+		create_by,
+		create_time,
+		ope_by,
+		ope_time,
+		del
+		)
+		VALUES
+		(
+		#{supplierRosterId,jdbcType=VARCHAR},
+		#{supplierId,jdbcType=VARCHAR},
+		#{supplierName,jdbcType=VARCHAR},
+		#{accountGroup,jdbcType=VARCHAR},
+		#{rosterType,jdbcType=VARCHAR},
+		#{createBy,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{opeBy,jdbcType=VARCHAR},
+		#{opeTime,jdbcType=VARCHAR}),
+		#{del,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO
+		nonbid_supplier_roster
+		(
+		supplier_roster_id,
+		supplier_id,
+		supplier_name,
+		account_group,
+		roster_type,
+		create_by,
+		create_time,
+		ope_by,
+		ope_time,
+		del
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.supplierRosterId,jdbcType=VARCHAR},
+			#{item.supplierId,jdbcType=VARCHAR},
+			#{item.supplierName,jdbcType=VARCHAR},
+			#{item.accountGroup,jdbcType=VARCHAR},
+			#{item.rosterType,jdbcType=VARCHAR},
+			#{item.createBy,jdbcType=VARCHAR},
+			#{item.createTime,jdbcType=VARCHAR},
+			#{item.opeBy,jdbcType=VARCHAR},
+			#{item.opeTime,jdbcType=VARCHAR}),
+			#{item.del,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 修改基本信息 -->
+	<update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierRosterBean">
+		UPDATE nonbid_supplier_roster
+		<trim prefix="set" suffixOverrides=",">
+			<if test="supplierId != null">
+				supplier_id = #{supplierId,jdbcType=VARCHAR},
+			</if>
+			<if test="rosterType != null">
+				roster_type = #{rosterType,jdbcType=VARCHAR},
+			</if>
+			<if test="accountGroup != null">
+				account_group = #{accountGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="supplierName != null">
+				supplier_name = #{supplierName,jdbcType=VARCHAR),
+			</if>
+			<if test="opeBy != null">
+				ope_by = #{opeBy,jdbcType=VARCHAR},
+			</if>
+			<if test="opeTime != null">
+				ope_time = #{opeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="del != null">
+				del = #{del,jdbcType=VARCHAR}
+			</if>
+		</trim>
+		WHERE supplier_roster_id = #{supplierRosterId,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		DELETE FROM
+		nonbid_supplier_roster
+		WHERE supplier_roster_id =
+		#{supplierRosterId,jdbcType=VARCHAR}
+	</delete>
+
+	<delete id="deleteBysupplierId" parameterType="java.lang.String">
+		DELETE FROM
+		nonbid_supplier_roster
+		WHERE supplier_id =
+		#{supplierId,jdbcType=VARCHAR}
+	</delete>
+
+	<delete id="deleteByRosterType" parameterType="java.lang.String">
+		DELETE FROM
+		nonbid_supplier_roster
+		WHERE roster_type =
+		#{rosterType,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM nonbid_supplier_roster
+		WHERE supplier_roster_id =
+		#{supplierRosterId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectBySupplierId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM nonbid_supplier_roster
+		WHERE supplier_id =
+		#{supplierId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByRosterType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM nonbid_supplier_roster
+		WHERE roster_type =
+		#{rosterType,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 根据实体单个属性或者多个属性联合查询实体列表 -->
+	<select id="selectByParam" resultMap="BaseResultMap"
+		parameterType="com.yyc.oper.nobid.supplier.SupplierRosterBean">
+		SELECT
+		*
+		FROM nonbid_supplier_roster
+		WHERE 1=1
+		<if test="supplierId != null">
+			AND supplier_id = #{supplierId,jdbcType=VARCHAR}
+		</if>
+		<if test="supplierRosterId != null">
+			AND supplier_roster_id =
+			#{supplierRosterId,jdbcType=VARCHAR}
+		</if>
+		<if test="rosterType != null">
+			AND roster_type = #{rosterType,jdbcType=VARCHAR}
+		</if>
+		<if test="accountGroup != null">
+			AND account_group = #{accountGroup,jdbcType=VARCHAR}
+		</if>
+		<if test="supplierName != null">
+			AND supplier_name like concat('%',#{supplierName},'%')
+		</if>
+		<if test="createBy != null">
+			AND create_by = #{createBy,jdbcType=VARCHAR}
+		</if>
+		<if test="createTime != null">
+			AND create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="opeBy != null">
+			AND ope_by = #{opeBy,jdbcType=VARCHAR}
+		</if>
+		<if test="opeTime != null">
+			AND ope_time = #{opeTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="del != null">
+			AND del = #{del,jdbcType=BOOLEAN}
+		</if>
+		ORDER BY create_time DESC
+	</select>
+
+	<select id="selectSupplierIdByRosterType" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT
+		supplier_id
+		FROM nonbid_supplier_roster
+		WHERE
+		roster_type =
+		#{rosterType,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

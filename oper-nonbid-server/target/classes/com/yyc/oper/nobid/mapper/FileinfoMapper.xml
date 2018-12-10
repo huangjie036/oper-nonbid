@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.FileinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.file.FileinfoBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="function_name" property="functionName" jdbcType="VARCHAR" />
+    <result column="original_name" property="originalName" jdbcType="VARCHAR" />
+    <result column="new_name" property="newName" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="downloadcount" property="downloadcount" jdbcType="INTEGER" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, business_id, function_name, original_name, new_name, size, path, downloadcount, 
+    extension, matplan_id, purchase_schme_id, org_id, create_by, create_time, ope_by, 
+    ope_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fileinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fileinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.file.FileinfoBean" >
+    insert into fileinfo (id, business_id, function_name, 
+      original_name, new_name, size, 
+      path, downloadcount, extension, 
+      matplan_id, purchase_schme_id, org_id, 
+      create_by, create_time, ope_by, 
+      ope_time)
+    values (#{id,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, 
+      #{originalName,jdbcType=VARCHAR}, #{newName,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{downloadcount,jdbcType=INTEGER}, #{extension,jdbcType=VARCHAR}, 
+      #{matplanId,jdbcType=VARCHAR}, #{purchaseSchmeId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{opeBy,jdbcType=VARCHAR}, 
+      #{opeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.file.FileinfoBean" >
+    insert into fileinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="functionName != null" >
+        function_name,
+      </if>
+      <if test="originalName != null" >
+        original_name,
+      </if>
+      <if test="newName != null" >
+        new_name,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="downloadcount != null" >
+        downloadcount,
+      </if>
+      <if test="extension != null" >
+        extension,
+      </if>
+      <if test="matplanId != null" >
+        matplan_id,
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalName != null" >
+        #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="newName != null" >
+        #{newName,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadcount != null" >
+        #{downloadcount,jdbcType=INTEGER},
+      </if>
+      <if test="extension != null" >
+        #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanId != null" >
+        #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.file.FileinfoBean" >
+    update fileinfo
+    <set >
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        function_name = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalName != null" >
+        original_name = #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="newName != null" >
+        new_name = #{newName,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadcount != null" >
+        downloadcount = #{downloadcount,jdbcType=INTEGER},
+      </if>
+      <if test="extension != null" >
+        extension = #{extension,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanId != null" >
+        matplan_id = #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.file.FileinfoBean" >
+    update fileinfo
+    set business_id = #{businessId,jdbcType=VARCHAR},
+      function_name = #{functionName,jdbcType=VARCHAR},
+      original_name = #{originalName,jdbcType=VARCHAR},
+      new_name = #{newName,jdbcType=VARCHAR},
+      size = #{size,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      downloadcount = #{downloadcount,jdbcType=INTEGER},
+      extension = #{extension,jdbcType=VARCHAR},
+      matplan_id = #{matplanId,jdbcType=VARCHAR},
+      purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

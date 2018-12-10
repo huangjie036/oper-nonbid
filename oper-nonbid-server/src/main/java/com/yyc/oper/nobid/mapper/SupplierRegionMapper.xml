@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierRegionMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierRegionBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, supplier_id, region_id, del
+  </sql>
+  <insert id="addRegionList">
+    INSERT INTO 
+    nonbid_supplier_region
+    	 (
+    	  id,
+    	  supplier_id,
+    	  region_id,
+    	  del
+    	  ) 
+    		VALUES
+    <foreach collection ="regionlist" item="item" separator =","  >
+    (
+    #{item.id,jdbcType=VARCHAR},
+    #{item.supplierId,jdbcType=VARCHAR}, 
+    #{item.regionId,jdbcType=VARCHAR},
+    #{item.del,jdbcType=VARCHAR}
+    )
+    </foreach>
+     ON DUPLICATE KEY UPDATE
+    supplier_id = VALUES(supplier_id),region_id = VALUES(region_id)
+  </insert>
+  </mapper>

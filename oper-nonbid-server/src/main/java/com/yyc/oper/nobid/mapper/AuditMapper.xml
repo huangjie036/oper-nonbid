@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.AuditMapper">
+  <resultMap type="com.aostar.audit.domain.AuditFunction" id="auditFun">
+		<result property="id" column="AUDIT_FUNCTION_ID" />
+		<result property="addTime" column="AUDIT_FUNCTION_ADD_TIME" />
+		<result property="updateTime" column="AUDIT_FUNCTION_UDPATE_TIME" />
+		<result property="name" column="AUDIT_FUNCTION_NAME" />
+		<result property="path" column="AUDIT_FUNCTION_PATH" />
+		<result property="auditModuleId" column="AUDIT_MODULE_ID" />
+	</resultMap>
+		<resultMap type="com.aostar.audit.domain.AuditItemType" id="auditItemTypess">
+		<result property="id" column="AUDIT_ITEM_TYPE_ID" />
+		<result property="addTime" column="AUDIT_ITEM_TYPE_ADD_TIME" />
+		<result property="updateTime" column="AUDIT_ITEM_TYPE_UPDATE_TIME" />
+		<result property="name" column="AUDIT_ITEM_TYPE_NAME" />
+	</resultMap>
+  <insert id="insertAudit"  parameterType="java.util.Map">
+		INSERT INTO
+		t_audit_visit (
+		AUDIT_VISIT_ID,
+		AUDIT_VISIT_ADD_TIME,
+		AUDIT_VISIT_BEGIN_TIME,
+		AUDIT_VISIT_END_TIME,
+		AUDIT_VISIT_URL,
+		AUDIT_VISIT_METHOD,
+		AUDIT_VISIT_PARAMETER,
+		AUDIT_VISIT_USER_NAME,
+		AUDIT_VISIT_IP,
+		AUDIT_VISIT_REFERER,
+		AUDIT_VISIT_RAW,
+		AUDIT_VISIT_CUSTOM,
+		AUDIT_SYSTEM_ID,
+		AUDIT_MODULE_ID,
+		AUDIT_FUNCTION_ID,
+		AUDIT_VISIT_AUDIT_EVENT,
+		AUDIT_VISIT_RESULT,
+		AUDIT_VISIT_AUDIT_LEVEL,
+		AUDIT_ITEM_TYPE_ID,
+		AUDIT_VISIT_TRACK_ID,
+		AUDIT_SYSTEM_NAME,
+		AUDIT_MODULE_NAME,
+		AUDIT_FUNCTION_NAME,
+		AUDIT_VISIT_IS_REST_SERVICE,
+		AUDIT_VISIT_REMARK,
+		AUDIT_ITEM_TYPE_NAME,
+		AUDIT_VISIT_TAG
+		)
+		VALUES
+		(
+		#{id},
+		#{addTime},
+		#{beginTime},
+		#{endTime},
+		#{url},
+		#{method},
+		#{parameter},
+		#{userName},
+		#{ip},
+		#{referer},
+		#{raw},
+		#{custom},
+		#{auditSystemId},
+		#{auditModuleId},
+		#{auditFunctionId},
+		#{auditEvent},
+		#{result},
+		#{auditLevel},
+		#{auditItemTypeId},
+		#{trackId},
+		#{auditSystemName},
+		#{auditModuleName},
+		#{auditFunctionName},
+		#{restService},
+		#{remark},
+		#{auditItemTypeName},
+		#{tag}
+		)
+	</insert>
+  
+	<select id="getByModuleIdAndPath" resultMap="auditFun">
+		SELECT
+		*
+		FROM
+		`t_audit_function`
+		WHERE
+		AUDIT_MODULE_ID=#{auditModuleId}
+		AND
+		AUDIT_FUNCTION_PATH=#{path}
+		LIMIT 1;
+	</select>
+	
+	
+	<select id="getByAuditSystemIdAndAuditModuleIdAndAuditFunctionId"
+		resultMap="auditItemTypess">
+			SELECT
+			*
+		FROM
+			t_audit_item_type
+		WHERE
+			AUDIT_ITEM_TYPE_NAME = #{name}
+		LIMIT 1;
+
+	</select>
+		
+	<select id="getMatPlantById" resultType="java.util.Map">
+			SELECT
+			serial_num as serialNum,package_num as packageNum
+		FROM
+			nonbid_matplan
+		WHERE
+			matplan_id = #{ids}
+		LIMIT 1;
+
+	</select>
+	
+		<select id="getBatchById" resultType="java.util.Map">
+			SELECT
+			batch_num as batchNum,batch_name as batchName
+		FROM
+			nonbid_batchmanage
+		WHERE
+			batch_id = #{ids}
+		LIMIT 1;
+
+	</select>
+</mapper>

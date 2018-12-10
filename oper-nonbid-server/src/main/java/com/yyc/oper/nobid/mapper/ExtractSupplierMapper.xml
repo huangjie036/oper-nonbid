@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.ExtractSupplierMapper">
+    <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExtractSupplier">
+        <id column="extract_id" property="extractId" jdbcType="VARCHAR"/>
+        <result column="supplier_win_id" property="supplierWinId"
+                jdbcType="VARCHAR"/>
+        <result column="merge_id" property="mergeId" jdbcType="TIMESTAMP"/>
+        <result column="purchase_schme_id" property="purchaseSchmeId"
+                jdbcType="VARCHAR"/>
+        <result column="purchase_schme_name" property="purchaseSchmeName"
+                jdbcType="VARCHAR"/>
+        <result column="purchase_schme_create_time" property="purchaseSchmeCreateTime"
+                jdbcType="TIMESTAMP"/>
+        <result column="extract_method" property="extractMethod" jdbcType="VARCHAR"/>
+        <result column="extract_num" property="extractNum" jdbcType="INTEGER"/>
+        <result column="states" property="state" jdbcType="VARCHAR"/>
+        <result column="ope_date" property="extractDate" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="ope_by" property="extractedBy" jdbcType="TIMESTAMP"/>
+        <result column="create_by" property="createBy" jdbcType="TIMESTAMP"/>
+        <result column="del" property="del" jdbcType="VARCHAR"/>
+    </resultMap>
+        <resultMap id="BaseResultMap1" type="String" >
+    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <insert id="insertrExtractSupplierExtract" parameterType="com.yyc.oper.nobid.expert.ExtractSupplier">
+		INSERT
+		INTO nonbid_supplier_extract_result
+		(
+		extract_id,
+		supplier_win_id,
+		merge_id,
+		purchase_schme_id,
+		purchase_schme_name,
+		purchase_schme_create_time,
+		extract_method,
+		extract_num,
+		states,
+		ope_date,
+		create_date,
+		ope_by,
+		create_by
+		
+		)
+		VALUES
+		(
+		#{extractId,jdbcType=VARCHAR},
+		#{supplierWinId,jdbcType=VARCHAR},
+		#{mergeId,jdbcType=VARCHAR},
+		#{purchaseSchmeId,jdbcType=VARCHAR},
+		#{purchaseSchmeName,jdbcType=VARCHAR},
+		#{purchaseSchmeCreateTime,jdbcType=TIMESTAMP},
+		#{extractMethod,jdbcType=VARCHAR},
+		#{extractNum,jdbcType=INTEGER},
+		#{state,jdbcType=VARCHAR},
+		#{extractDate,jdbcType=TIMESTAMP},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{extractedBy,jdbcType=VARCHAR},
+		#{createBy,jdbcType=VARCHAR}
+		
+		)
+	</insert>
+	
+  <update id="insertExtractSupplierState"  >
+    update nonbid_merge_record
+    set supplier_extract_state = '1'
+    where merge_id = #{mergeId,jdbcType=VARCHAR}
+  </update>
+
+    <insert id="insertSupplierExtractChild" parameterType="java.util.List">
+        INSERT
+        INTO nonbid_supplier_extract
+        (
+        extract_id,
+        supplier_win_id,
+        supplier_id,
+        create_by,
+        create_time,
+        ope_by,
+        ope_time
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            (
+            #{item.extractId,jdbcType=VARCHAR},
+            #{item.supplierWinId,jdbcType=VARCHAR},
+            #{item.supplierId,jdbcType=VARCHAR},
+            #{item.createBy,jdbcType=VARCHAR},
+            #{item.createDate,jdbcType=TIMESTAMP},
+            #{item.extractedBy,jdbcType=VARCHAR},
+            #{item.extractDate,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectRecommandedSupplierIdListByMergeId"
+            parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT DISTINCT
+		recommended_supplier
+		FROM
+		nonbid_matplan_mat
+		WHERE matplan_id IN
+		(SELECT
+		matplan_id FROM
+		nonbid_matplan
+		WHERE
+		merge_id
+		=#{mergeId,jdbcType=VARCHAR}
+		)
+	</select>
+
+
+    <select id="selectSupplierBySupplierIdList" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        SELECT supplier_id
+        FROM
+        mm_nonbid_supplier
+        WHERE supplier_id IN
+        <foreach item="supplierId" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{supplierId,jdbcType=VARCHAR}
+        </foreach>
+        AND (del != 1 or del is null)
+    </select>
+    
+        <select id="selectSupplierBySupplierNameList" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        SELECT supplier_id
+        FROM
+        mm_nonbid_supplier
+        WHERE supplier_name IN
+        <foreach item="supplierName" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{supplierName,jdbcType=VARCHAR}
+        </foreach>
+        AND (del != 1 or del is null)
+    </select>
+    
+        <select id="selectNewSupplierBySupplierIdList" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        SELECT supplier_name
+        FROM
+        mm_nonbid_supplier
+        WHERE supplier_id IN
+        <foreach item="supplierId" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{supplierId,jdbcType=VARCHAR}
+        </foreach>
+        AND (del != 1 or del is null)
+    </select>
+
+    <select id="selectMergeRecordByMergeId" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT *
+		FROM
+		nonbid_merge_record
+		WHERE
+		merge_id = #{mergeId,jdbcType=VARCHAR}
+	</select>
+	
+	    <select id="selectSupplierIdList" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+     
+   SELECT
+      supplier.supplier_id
+	  
+FROM
+	mm_nonbid_supplier supplier
+LEFT JOIN nonbid_supplier_colatitude colatitude ON supplier.supplier_id = colatitude.supplier_id
+LEFT JOIN mm_nonbid_colatitude mmcolatitude ON colatitude.colatitude_id = mmcolatitude.colatitude_id
+LEFT JOIN nonbid_supplier_qualification qualification ON supplier.supplier_id = qualification.supplier_id
+LEFT JOIN mm_nonbid_qualification mmqualification ON qualification.qualification_id = mmqualification.qualification_id
+LEFT JOIN mm_nonbid_supplier_tax tax ON supplier.supplier_id = tax.supplier_id
+LEFT JOIN nonbid_supplier_region relationregion ON relationregion.supplier_id = supplier.supplier_id 
+  
+    <where>
+      <if test="1 == 1">
+	    and (supplier.del != 1 or supplier.del is null) and supplier.state = 1
+	  </if>
+	  <if test="supplierId != null and supplierId != ''">
+	    and supplier.supplier_id LIKE concat('%',#{supplierId},'%')
+	  </if>
+	  <if test="taxType != null and taxType != ''">
+	    and tax_type = #{taxType}
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and supplier.supplier_name LIKE concat('%',#{supplierName},'%') 
+	  </if>
+	  <if test="regionIds != null and regionIds.length>0  ">
+			and relationregion.region_id in
+		<foreach item="regionId" collection="regionIds" open="(" separator="," close=")">
+			#{regionId}
+		</foreach>
+        </if>
+      <if test="qualificationIds != null and qualificationIds.length>0 ">
+			and qualification.qualification_id in
+		<foreach item="qualificationId" collection="qualificationIds" open="(" separator="," close=")">
+			#{qualificationId}
+		</foreach>
+      </if>
+      <if test="colatitudeIds != null and colatitudeIds.length>0  ">
+			and colatitude.colatitude_id in
+		<foreach item="colatitudeId" collection="colatitudeIds" open="(" separator="," close=")">
+			#{colatitudeId}
+		</foreach>
+      </if>
+      <if test="supplierIds != null and supplierIds.length>0  ">
+			and supplier.supplier_id not in
+		<foreach item="supplierId" collection="supplierIds" open="(" separator="," close=")">
+			#{supplierId}
+		</foreach>
+      </if>
+	</where>
+	group by supplier.supplier_name
+  </select>
+</mapper>

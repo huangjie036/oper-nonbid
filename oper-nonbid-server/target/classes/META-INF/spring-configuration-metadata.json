@@ -1,0 +1,72 @@
+{
+  "groups": [
+    {
+      "name": "oper",
+      "type": "com.yyc.oper.nobid.config.OperProperties",
+      "sourceType": "com.yyc.oper.nobid.config.OperProperties"
+    },
+    {
+      "name": "spring.redis",
+      "type": "com.yyc.oper.nobid.config.CustomRedisProperties",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "oper.file-extension",
+      "type": "java.lang.String",
+      "sourceType": "com.yyc.oper.nobid.config.OperProperties"
+    },
+    {
+      "name": "oper.file-path",
+      "type": "java.lang.String",
+      "sourceType": "com.yyc.oper.nobid.config.OperProperties"
+    },
+    {
+      "name": "spring.redis.cluster",
+      "type": "org.springframework.boot.autoconfigure.data.redis.RedisProperties$Cluster",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.database",
+      "type": "java.lang.Integer",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.host",
+      "type": "java.lang.String",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.p",
+      "type": "java.lang.String",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.password",
+      "type": "java.lang.String",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.pool",
+      "type": "org.springframework.boot.autoconfigure.data.redis.RedisProperties$Pool",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.sentinel",
+      "type": "org.springframework.boot.autoconfigure.data.redis.RedisProperties$Sentinel",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    },
+    {
+      "name": "spring.redis.timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "com.yyc.oper.nobid.config.CustomRedisProperties"
+    }
+  ],
+  "hints": []
+}

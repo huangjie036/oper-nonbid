@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierEvalTypeMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean">
+    <id column="supplier_eval_type_id" jdbcType="VARCHAR" property="supplierEvalTypeId" />
+    <result column="eval_type_name" jdbcType="VARCHAR" property="evalTypeName" />
+    <result column="order_num" jdbcType="VARCHAR" property="orderNum" />
+    <result column="states" jdbcType="VARCHAR" property="states" />
+    <result column="question_link_id" jdbcType="VARCHAR" property="questionLinkId" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+    <result column="ope_time" jdbcType="TIMESTAMP" property="opeTime" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    supplier_eval_type_id, eval_type_name, order_num, states, question_link_id, create_by, 
+    create_time, ope_by, ope_time, del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_supplier_eval_type
+    where supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nonbid_supplier_eval_type
+    where supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean">
+    insert into nonbid_supplier_eval_type (supplier_eval_type_id, eval_type_name, 
+      order_num, states, question_link_id, 
+      create_by, ope_by, 
+      ope_time)
+    values (#{supplierEvalTypeId,jdbcType=VARCHAR}, #{evalTypeName,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=VARCHAR}, #{states,jdbcType=VARCHAR}, #{questionLinkId,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{opeBy,jdbcType=VARCHAR}, 
+      #{opeTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean">
+    insert into nonbid_supplier_eval_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="supplierEvalTypeId != null">
+        supplier_eval_type_id,
+      </if>
+      <if test="evalTypeName != null">
+        eval_type_name,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="states != null">
+        states,
+      </if>
+      <if test="questionLinkId != null">
+        question_link_id,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="opeBy != null">
+        ope_by,
+      </if>
+      <if test="opeTime != null">
+        ope_time,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="supplierEvalTypeId != null">
+        #{supplierEvalTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="evalTypeName != null">
+        #{evalTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null">
+        #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="questionLinkId != null">
+        #{questionLinkId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null">
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean">
+    update nonbid_supplier_eval_type
+    <set>
+      <if test="evalTypeName != null and evalTypeName != ''">
+        eval_type_name = #{evalTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null and orderNum != ''">
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null and states != ''">
+        states = #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="questionLinkId != null and questionLinkId != ''">
+        question_link_id = #{questionLinkId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null and opeBy != ''">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null and del != ''">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean">
+    update nonbid_supplier_eval_type
+    set eval_type_name = #{evalTypeName,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      states = #{states,jdbcType=VARCHAR},
+      question_link_id = #{questionLinkId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR}
+    where supplier_eval_type_id = #{supplierEvalTypeId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectTypePage" parameterType="com.yyc.oper.nobid.supplier.SupplierEvalTypeBean" resultMap="BaseResultMap">
+  		select 
+  			<include refid="Base_Column_List" />
+  		from nonbid_supplier_eval_type
+  		<where>
+  			del = '0'
+  			<if test="evalTypeName != null and evalTypeName != ''">
+  				and eval_type_name like concat('%',#{evalTypeName},'%')
+  			</if>
+  			<if test="questionLinkId != null and questionLinkId != ''">
+  				and question_link_id = #{questionLinkId}
+  			</if>
+		</where>
+  </select>
+  <update id="deleteType" parameterType="java.lang.String">
+  		update nonbid_supplier_eval_type set del = '1' where supplier_eval_type_id = #{supplierEvalTypeId}
+  </update>
+  
+   <select id="getTypeByLinkId" parameterType="java.lang.String" resultType="java.lang.Integer">
+  		select count(*) from nonbid_supplier_eval_type where del = '0' and question_link_id = #{questionLinkId} 
+  </select>
+  
+  <select id="selectTypeByLinkId" parameterType="java.lang.String" resultType="java.util.Map" >
+  	select supplier_eval_type_id supplierEvalTypeId,
+  	 eval_type_name evalTypeName 
+  	 from nonbid_supplier_eval_type where del = '0' and question_link_id = #{questionLinkId}
+  </select>
+</mapper>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.MergeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.merge.MergeRecordBean" >
+    <id column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+    <result column="bag_num" property="bagNum" jdbcType="VARCHAR" />
+    <result column="qualification" property="qualification" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_name" property="purchaseSchmeName" jdbcType="VARCHAR" />
+    <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+    <result column="purchase_strategy" property="purchaseStrategy" jdbcType="VARCHAR" />
+    <result column="demand_supplier_num" property="demandSupplierNum" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="expert_extract_state" property="expertExtractState" jdbcType="VARCHAR" />
+    <result column="supplier_extract_state" property="supplierExtractState" jdbcType="VARCHAR" />
+    <result column="is_mat" property="isMat" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    merge_id, bag_num, qualification, purchase_schme_id, purchase_schme_name, batch_num, 
+    project_id, project_name, purchase_way, purchase_strategy, demand_supplier_num, create_by, 
+    create_time, ope_by, ope_time, del, state, expert_extract_state,supplier_extract_state, a.is_mat
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_merge_record
+    <where>
+      <if test="1 == 1">
+	    and (del != 1 or del is null)
+	  </if>
+	  <if test="mergeId != null and mergeId != ''">
+	    and merge_id = #{mergeId}
+	  </if>
+	  <if test="isMat != null and isMat != ''">
+        and is_mat = #{isMat,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_merge_record
+    where merge_id = #{mergeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.merge.MergeRecordBean" >
+    insert into nonbid_merge_record (merge_id, bag_num, qualification, 
+      purchase_schme_id, purchase_schme_name, batch_num, 
+      project_id, project_name, purchase_way, 
+      purchase_strategy, demand_supplier_num, create_by, 
+      create_time, ope_by, ope_time, 
+      del, state, expert_extract_state,
+      is_mat
+      )
+    values (#{mergeId,jdbcType=VARCHAR}, #{bagNum,jdbcType=VARCHAR}, #{qualification,jdbcType=VARCHAR}, 
+      #{purchaseSchmeId,jdbcType=VARCHAR}, #{purchaseSchmeName,jdbcType=VARCHAR}, #{batchNum,jdbcType=VARCHAR}, 
+      #{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{purchaseWay,jdbcType=VARCHAR}, 
+      #{purchaseStrategy,jdbcType=VARCHAR}, #{demandSupplierNum,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{opeBy,jdbcType=VARCHAR}, #{opeTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{expertExtractState,jdbcType=VARCHAR}, 
+      #{isMat,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.merge.MergeRecordBean" >
+    insert into nonbid_merge_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mergeId != null" >
+        merge_id,
+      </if>
+      <if test="bagNum != null" >
+        bag_num,
+      </if>
+      <if test="qualification != null" >
+        qualification,
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id,
+      </if>
+      <if test="purchaseSchmeName != null" >
+        purchase_schme_name,
+      </if>
+      <if test="batchNum != null" >
+        batch_num,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="purchaseWay != null" >
+        purchase_way,
+      </if>
+      <if test="purchaseStrategy != null" >
+        purchase_strategy,
+      </if>
+      <if test="demandSupplierNum != null" >
+        demand_supplier_num,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="expertExtractState != null" >
+        expert_extract_state,
+      </if>
+      <if test="packageNum != null" >
+        package_num,
+      </if>
+      <if test="isMat != null" >
+        is_mat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mergeId != null" >
+        #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="bagNum != null" >
+        #{bagNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qualification != null" >
+        #{qualification,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeName != null" >
+        #{purchaseSchmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWay != null" >
+        #{purchaseWay,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStrategy != null" >
+        #{purchaseStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="demandSupplierNum != null" >
+        #{demandSupplierNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="expertExtractState != null" >
+        #{expertExtractState,jdbcType=VARCHAR},
+      </if>
+      <if test="packageNum != null" >
+        #{packageNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isMat != null" >
+        #{isMat,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.merge.MergeRecordBean" >
+    update nonbid_merge_record
+    <set >
+      <if test="bagNum != null" >
+        bag_num = #{bagNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qualification != null" >
+        qualification = #{qualification,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeName != null" >
+        purchase_schme_name = #{purchaseSchmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        batch_num = #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWay != null" >
+        purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStrategy != null" >
+        purchase_strategy = #{purchaseStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="demandSupplierNum != null" >
+        demand_supplier_num = #{demandSupplierNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="expertExtractState != null" >
+        expert_extract_state = #{expertExtractState,jdbcType=VARCHAR},
+      </if>
+      <if test="isMat != null" >
+        is_mat = #{isMat,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where merge_id = #{mergeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.merge.MergeRecordBean" >
+    update nonbid_merge_record
+    set bag_num = #{bagNum,jdbcType=VARCHAR},
+      qualification = #{qualification,jdbcType=VARCHAR},
+      purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      purchase_schme_name = #{purchaseSchmeName,jdbcType=VARCHAR},
+      batch_num = #{batchNum,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+      purchase_strategy = #{purchaseStrategy,jdbcType=VARCHAR},
+      demand_supplier_num = #{demandSupplierNum,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      expert_extract_state = #{expertExtractState,jdbcType=VARCHAR},
+      is_mat = #{isMat,jdbcType=VARCHAR}
+    where merge_id = #{mergeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

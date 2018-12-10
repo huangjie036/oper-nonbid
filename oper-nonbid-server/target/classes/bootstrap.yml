@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: oper-nonbid-server
+    
+server:
+  port: 28020
+  tomcat:
+    uri-encoding: UTF-8 #编码集
+    max-threads: 1000 #线程数
+    max-connections: 20000   # 最大连接数
+oper:
+  eureka:
+    username: admin
+    password: admin123  
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-ser:8761/eureka/
+  instance:
+    prefer-ip-address: true  #采用ip注册,指定hostname便无效
+
+security.user.name: root
+#设置密码
+security.user.password: root
+
+#------------------------------------------------配置RabbitMQ属性信息---------------------------------------
+#rabbitmq服务器地址
+spring.rabbitmq.host: rabbitmq-server
+#rabbitmq端口号
+spring.rabbitmq.port: 5672
+#rabbit用户名
+spring.rabbitmq.username: yycadmin
+#rabbitmq密码
+spring.rabbitmq.password: yyc_admin

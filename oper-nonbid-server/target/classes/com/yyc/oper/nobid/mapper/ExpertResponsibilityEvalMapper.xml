@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.ExpertResponsibilityEvalMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="project_num" jdbcType="VARCHAR" property="projectNum" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="business_ability" jdbcType="VARCHAR" property="businessAbility" />
+    <result column="work_attitude" jdbcType="VARCHAR" property="workAttitude" />
+    <result column="honest_discipline" jdbcType="VARCHAR" property="honestDiscipline" />
+    <result column="eval_conclusion" jdbcType="VARCHAR" property="evalConclusion" />
+    <result column="eval_count_by" jdbcType="VARCHAR" property="evalCountBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="eval_start_time" jdbcType="VARCHAR" property="evalStartTime" />
+    <result column="eval_end_time" jdbcType="VARCHAR" property="evalEndTime" />
+    <result column="eval_count_time" jdbcType="VARCHAR" property="evalCountTime" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+    <result column="ope_time" jdbcType="VARCHAR" property="opeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_num, project_name, group_id, role, name, business_ability, work_attitude, 
+    honest_discipline, eval_conclusion, eval_count_by, remark, eval_start_time, eval_end_time, 
+    eval_count_time, del, create_by, create_time, ope_by, ope_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_expert_responsibility_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nonbid_expert_responsibility_eval
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean">
+    insert into nonbid_expert_responsibility_eval (id, project_num, project_name, 
+      group_id, role, name, 
+      business_ability, work_attitude, honest_discipline, 
+      eval_conclusion, eval_count_by, remark, 
+      eval_start_time, eval_end_time, eval_count_time, 
+      create_by, ope_by, ope_time)
+    values (#{id,jdbcType=VARCHAR}, #{projectNum,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, 
+      #{groupId,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{businessAbility,jdbcType=VARCHAR}, #{workAttitude,jdbcType=VARCHAR}, #{honestDiscipline,jdbcType=VARCHAR}, 
+      #{evalConclusion,jdbcType=VARCHAR}, #{evalCountBy,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{evalStartTime,jdbcType=VARCHAR}, #{evalEndTime,jdbcType=VARCHAR}, #{evalCountTime,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{opeBy,jdbcType=VARCHAR}, #{opeTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean">
+    insert into nonbid_expert_responsibility_eval
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectNum != null">
+        project_num,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="businessAbility != null">
+        business_ability,
+      </if>
+      <if test="workAttitude != null">
+        work_attitude,
+      </if>
+      <if test="honestDiscipline != null">
+        honest_discipline,
+      </if>
+      <if test="evalConclusion != null">
+        eval_conclusion,
+      </if>
+      <if test="evalCountBy != null">
+        eval_count_by,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="evalStartTime != null">
+        eval_start_time,
+      </if>
+      <if test="evalEndTime != null">
+        eval_end_time,
+      </if>
+      <if test="evalCountTime != null">
+        eval_count_time,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="opeBy != null">
+        ope_by,
+      </if>
+      <if test="opeTime != null">
+        ope_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="projectNum != null">
+        #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAbility != null">
+        #{businessAbility,jdbcType=VARCHAR},
+      </if>
+      <if test="workAttitude != null">
+        #{workAttitude,jdbcType=VARCHAR},
+      </if>
+      <if test="honestDiscipline != null">
+        #{honestDiscipline,jdbcType=VARCHAR},
+      </if>
+      <if test="evalConclusion != null">
+        #{evalConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null">
+        #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="evalStartTime != null">
+        #{evalStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalEndTime != null">
+        #{evalEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null">
+        #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null">
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean">
+    update nonbid_expert_responsibility_eval
+    <set>
+      <if test="projectNum != null and projectNum != ''">
+        project_num = #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null and projectName != ''">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null and groupId != ''">
+        group_id = #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null and role != ''">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAbility != null and businessAbility != ''">
+        business_ability = #{businessAbility,jdbcType=VARCHAR},
+      </if>
+      <if test="workAttitude != null and workAttitude != ''">
+        work_attitude = #{workAttitude,jdbcType=VARCHAR},
+      </if>
+      <if test="honestDiscipline != null and honestDiscipline != ''">
+        honest_discipline = #{honestDiscipline,jdbcType=VARCHAR},
+      </if>
+      <if test="evalConclusion != null and evalConclusion != ''">
+        eval_conclusion = #{evalConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountBy != null and evalCountBy != ''">
+        eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="evalStartTime != null and evalStartTime != ''">
+        eval_start_time = #{evalStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalEndTime != null and evalEndTime != ''">
+        eval_end_time = #{evalEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="evalCountTime != null and evalCountTime != ''">
+        eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null and del != ''">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null and opeBy != ''">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null and opeTime != ''">
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean">
+    update nonbid_expert_responsibility_eval
+    set project_num = #{projectNum,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      business_ability = #{businessAbility,jdbcType=VARCHAR},
+      work_attitude = #{workAttitude,jdbcType=VARCHAR},
+      honest_discipline = #{honestDiscipline,jdbcType=VARCHAR},
+      eval_conclusion = #{evalConclusion,jdbcType=VARCHAR},
+      eval_count_by = #{evalCountBy,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      eval_start_time = #{evalStartTime,jdbcType=VARCHAR},
+      eval_end_time = #{evalEndTime,jdbcType=VARCHAR},
+      eval_count_time = #{evalCountTime,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getResponsibilityCondition" parameterType="com.yyc.oper.nobid.expert.ExpertResponsibilityEvalBean" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from nonbid_expert_responsibility_eval
+  	<where>
+  		del = '0'
+  		<if test="projectNum != null and projectNum != ''">
+  			and project_num like concat('%',#{projectNum},'%')
+  		</if>
+  		<if test="projectName != null and projectName != ''">
+  			and project_name = like concat('%',#{projectName},'%')
+  		</if>
+  		<if test="evalCountBy != null and evalCountBy != ''">
+  			and eval_count_by like concat('%',#{evalCountBy},'%')
+  		</if>
+		ORDER BY create_time DESC
+  	</where>
+  </select>
+  
+    <update id="deleteResponsibility" parameterType="java.lang.String">
+   	update nonbid_expert_responsibility_eval set del = '1' where id = #{id}
+  </update>
+  
+  <select id="selectResponsibilitys" parameterType="java.lang.String" resultType="java.util.Map">
+  	select
+  		project_num projectNum, 
+  		project_name projectName, 
+  		group_id groupId, 
+  		role, 
+  		name, 
+  		business_ability businessAbility, 
+  		work_attitude workAttitude, 
+	    honest_discipline honestDiscipline, 
+	    eval_conclusion evalConclusion, 
+	    eval_count_by evalCountBy, 
+	    remark, 
+	    eval_start_time evalStartTime, 
+	    eval_end_time evalEndTime, 
+	    eval_count_time evalCountTime
+  	from nonbid_expert_responsibility_eval where id = #{id}
+  </select>
+</mapper>

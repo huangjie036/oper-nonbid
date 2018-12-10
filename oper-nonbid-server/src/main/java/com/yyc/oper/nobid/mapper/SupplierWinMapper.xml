@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierWinMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierWinBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_win_id" property="supplierWinId" jdbcType="VARCHAR" />
+    <result column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="purchase_result" property="purchaseResult" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <association property="mergeRecordBean" javaType="com.yyc.oper.nobid.merge.MergeRecordBean">   
+      <id column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+      <result column="bag_num" property="bagNum" jdbcType="VARCHAR" />
+      <result column="qualification" property="qualification" jdbcType="VARCHAR" />
+      <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+      <result column="purchase_schme_name" property="purchaseSchmeName" jdbcType="VARCHAR" />
+      <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+      <result column="project_id" property="projectId" jdbcType="VARCHAR" />
+      <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+      <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+      <result column="purchase_strategy" property="purchaseStrategy" jdbcType="VARCHAR" />
+      <result column="demand_supplier_num" property="demandSupplierNum" jdbcType="VARCHAR" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+      <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="expert_extract_state" property="expertExtractState" jdbcType="VARCHAR" />
+      <result column="package_num" property="packageNum" jdbcType="VARCHAR" />
+    </association>
+    <association property="batchmanageBean" javaType="com.yyc.oper.nobid.batch.BatchmanageBean">   
+      <id column="batch_id" property="batchId" jdbcType="VARCHAR" />
+      <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+      <result column="batch_name" property="batchName" jdbcType="VARCHAR" />
+      <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+      <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+      <result column="batch_source" property="batchSource" jdbcType="VARCHAR" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="oper_by" property="operBy" jdbcType="VARCHAR" />
+      <result column="oper_time" property="operTime" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+    <resultMap id="BaseResultMap1" type="com.yyc.oper.nobid.supplier.SupplierWinDetailBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_win_id" property="supplierWinId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_name" property="purchaseSchmeName" jdbcType="VARCHAR" />
+    <result column="bag_num" property="bagNum" jdbcType="VARCHAR" />
+    <result column="package_num" property="packageNum" jdbcType="VARCHAR" />
+    <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+    <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+    <result column="purchase_strategy" property="purchaseStrategy" jdbcType="TIMESTAMP" />
+    <result column="qualification" property="qualification" jdbcType="VARCHAR" />
+    <result column="demand_supplier_num" property="demandSupplierNum" jdbcType="VARCHAR" />
+    <result column="recommended_supplier" property="recommendSupplierIds" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierWinIds" jdbcType="VARCHAR" />
+    <result column="expert_code" property="expertWinIds" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="purchase_result" property="purchaseResult" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="mat_id" property="matIds" jdbcType="VARCHAR" />
+    	<collection property="matlist" javaType="java.util.List" ofType="com.yyc.oper.nobid.mat.MatplanMatBean">
+        </collection>
+        <collection property="supplierlist" javaType="java.util.List" ofType="com.yyc.oper.nobid.supplier.SupplierBean">
+        </collection>
+        <collection property="expertlist" javaType="java.util.List" ofType="com.yyc.oper.nobid.expert.ExpertBean">
+       </collection>
+    </resultMap>
+            <resultMap id="BaseResultMap3" type="com.yyc.oper.nobid.mat.MatplanMatBean" >
+            <id column="id" property="id" jdbcType="VARCHAR" />
+            <result column="mat_id" property="matId" jdbcType="VARCHAR" />
+            <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+            <result column="mat_des" property="matDes" jdbcType="VARCHAR" />
+            <result column="big_catagory" property="bigCatagory" jdbcType="VARCHAR" />
+            <result column="medium_catagory" property="mediumCatagory" jdbcType="VARCHAR" />
+            <result column="small_catagory" property="smallCatagory" jdbcType="VARCHAR" />
+            <result column="bigCatagoryName" property="bigCatagoryName" jdbcType="VARCHAR" />
+            <result column="middleCatagoryName" property="middleCatagoryName" jdbcType="VARCHAR" />
+            <result column="smallCatagoryName" property="smallCatagoryName" jdbcType="VARCHAR" />
+            <result column="mat_unit" property="matUnit" jdbcType="VARCHAR" />
+            <result column="mat_num" property="matNum" jdbcType="VARCHAR" />
+            <result column="estimate_unit_price" property="estimateUnitPrice" jdbcType="VARCHAR" />
+            <result column="estimate_total_price" property="estimateTotalPrice" jdbcType="VARCHAR" />
+            <result column="delivery_place" property="deliveryPlace" jdbcType="VARCHAR" />
+            <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+            </resultMap>
+            <resultMap id="BaseResultMap4" type="com.yyc.oper.nobid.expert.ExpertBean" >
+            <id column="id" property="id" jdbcType="VARCHAR" />
+            <result column="expert_code" property="expertCode" jdbcType="VARCHAR" />
+            <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+            <result column="expert_sex" property="expertSex" jdbcType="VARCHAR" />
+            <result column="major_qualification_type" property="majorQualificationType" jdbcType="VARCHAR" />
+            <result column="work_dep" property="workDep" jdbcType="VARCHAR" />
+            <result column="expert_mb_num" property="expertMbNum" jdbcType="VARCHAR" />
+            <result column="expert_tel_num" property="expertTelNum" jdbcType="VARCHAR" />
+            <result column="expert_mail" property="expertMail" jdbcType="VARCHAR" />
+            </resultMap>
+            <resultMap id="BaseResultMap5" type="com.yyc.oper.nobid.supplier.SupplierBean" >
+            <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+            <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+            <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+            <result column="recommend_plant" property="recommendPlant" jdbcType="VARCHAR" />
+            <result column="contact" property="contact" jdbcType="VARCHAR" />
+            <result column="contact_mb_num" property="contactMbNum" jdbcType="VARCHAR" />
+            <result column="contact_tel_num" property="contactTelNum" jdbcType="VARCHAR" />
+            <result column="contact_mail" property="contactMail" jdbcType="VARCHAR" />
+            <result column="remark" property="remark" jdbcType="VARCHAR" />
+            </resultMap>
+  <resultMap id="BaseResultMap6" type="com.yyc.oper.nobid.supplier.SupplierResponse" >
+    <result column="invitationSupplierIds" property="invitationSupplierIds" jdbcType="VARCHAR" />
+    <result column="invitationSupplierNames" property="invitationSupplierNames" jdbcType="VARCHAR" />
+    <result column="extractSupplierIds" property="extractSupplierIds" jdbcType="VARCHAR" />
+    <result column="extractSupplierNames" property="extractSupplierNames" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.id, a.supplier_win_id, a.merge_id, a.create_by, a.create_time, a.ope_by, a.ope_time, 
+    a.state, a.purchase_result, a.remark, a.money
+  </sql>
+  <sql id="Base_Column_List1" >
+    a2.merge_id, a2.bag_num, a2.qualification, a2.purchase_schme_id, a2.purchase_schme_name, a2.batch_num, 
+    a2.project_id, a2.project_name, a2.purchase_way, a2.purchase_strategy, a2.demand_supplier_num, a2.create_by, 
+    a2.create_time, a2.ope_by, a2.ope_time, a2.del, a2.state, a2.expert_extract_state, a2.package_num
+  </sql>
+  <sql id="Base_Column_List2" >
+    a3.batch_id, a3.batch_num, a3.batch_name, a3.begin_time, a3.end_time, a3.batch_source, a3.create_by, a3.create_time, 
+    a3.oper_by, a3.oper_time, a3.state, a3.del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List1" />,
+    <include refid="Base_Column_List2" />
+    from nonbid_merge_record a2
+	LEFT JOIN nonbid_supplier_win a ON a2.merge_id = a.merge_id
+	LEFT JOIN nonbid_batchmanage a3 ON a2.batch_num = a3.batch_num AND (a3.del != 1 OR a3.del IS NULL)
+    <where>
+      <if test="1 == 2">
+        and (a2.del != 1 or a2.del is null)
+      </if>
+      <if test="id != null and id != ''">
+        and a.id = #{id}
+      </if>
+      <if test="mergeId != null and mergeId != ''">
+        and a2.merge_id = #{mergeId}
+      </if>
+      <if test="mergeState != null and mergeState != ''">
+        and a2.state = #{mergeState}
+      </if>
+      <if test="isMat != null and isMat != ''">
+        and a2.is_mat = #{isMat,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY a.state DESC, a.ope_time DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_supplier_win
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierWinBean" >
+    insert into nonbid_supplier_win (id, supplier_win_id, merge_id, 
+      create_by, create_time, ope_by, 
+      ope_time, state, purchase_result, 
+      remark, money)
+    values (#{id,jdbcType=VARCHAR}, #{supplierWinId,jdbcType=VARCHAR}, #{mergeId,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{opeBy,jdbcType=VARCHAR}, 
+      #{opeTime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR}, #{purchaseResult,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierWinBean" >
+    insert into nonbid_supplier_win
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="supplierWinId != null" >
+        supplier_win_id,
+      </if>
+      <if test="mergeId != null" >
+        merge_id,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="purchaseResult != null" >
+        purchase_result,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierWinId != null" >
+        #{supplierWinId,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseResult != null" >
+        #{purchaseResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierWinBean" >
+    update nonbid_supplier_win
+    <set >
+      <if test="supplierWinId != null" >
+        supplier_win_id = #{supplierWinId,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        merge_id = #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseResult != null" >
+        purchase_result = #{purchaseResult,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierWinBean" >
+    update nonbid_supplier_win
+    set supplier_win_id = #{supplierWinId,jdbcType=VARCHAR},
+      merge_id = #{mergeId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      purchase_result = #{purchaseResult,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 为附件表添加业务信息 hlg2018-10-18 -->
+  <update id="updateFile" parameterType="java.util.Map">
+  		update fileinfo set businessId = #{businessId} ,functionName = #{businessName} where id = #{fileId}
+  </update>
+  
+    <select id="selectPurchaseResultDetail" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+   SELECT
+	record.package_num,
+	record.purchase_schme_id,
+	record.purchase_schme_name,
+	record.batch_num,
+	record.purchase_way,
+	record.purchase_strategy,
+	record.qualification,
+	record.demand_supplier_num,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT invitation.supplier_id
+		)
+	) AS recommended_supplier,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT extract.supplier_id
+		)
+	) AS supplier_id,
+	win.purchase_result,
+	win.money,
+	win.remark,
+	win.supplier_win_id,
+	supplier.supplier_name,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT expert_result_detail.expert_code
+		)
+	) AS expert_code,
+	concat(
+		GROUP_CONCAT(DISTINCT mat.mat_id)
+	) AS mat_id
+    FROM
+	nonbid_merge_record record
+    LEFT JOIN nonbid_supplier_extract_result result ON record.merge_id = result.merge_id
+    LEFT JOIN nonbid_supplier_extract extract ON extract.extract_id = result.extract_id
+    LEFT JOIN nonbid_expert_extract_result expert_result ON record.merge_id = expert_result.merge_id
+    LEFT JOIN nonbid_expert_extract_result_detail expert_result_detail ON expert_result_detail.extract_id = expert_result.extract_id
+    LEFT JOIN nonbid_supplier_win win ON extract.extract_id = win.extract_record_code 
+    LEFT JOIN mm_nonbid_supplier supplier ON win.supplier_win_id = supplier.supplier_id
+    LEFT JOIN nonbid_matplan matplan ON record.merge_id = matplan.merge_id
+    LEFT JOIN nonbid_matplan_mat mat ON matplan.matplan_id = mat.matplan_id
+    LEFT JOIN nonbid_invitation_supplier invitation ON invitation.matplan_id = mat.matplan_id
+    <where>
+	  <if test="mergeId != null and mergeId != ''">
+	    and record.merge_id = #{mergeId}
+	  </if>
+    </where>
+  </select>
+  
+      <select id="selectMatPlanId" resultMap="BaseResultMap3" parameterType="java.lang.String" >
+  SELECT
+	matplan_id
+    FROM
+	nonbid_matplan
+    <where>
+	  <if test="mergeId != null and mergeId != ''">
+	    and merge_id = #{mergeId}
+	  </if>
+    </where>
+  </select>
+  
+      <select id="selectMat" resultMap="BaseResultMap3" parameterType="java.lang.String" >
+   select
+        mat.mat_id,
+        mat.matplan_id,
+        erp_mat.mat_des,
+        erp_mat.big_catagory,
+        big.mat_group_des as bigCatagoryName,
+        erp_mat.medium_catagory,
+		middle.mat_group_des as middleCatagoryName,
+        erp_mat.small_catagory,
+		small.mat_group_des as smallCatagoryName,
+        mat.mat_unit,
+        mat.mat_num,
+        mat.estimate_unit_price,
+        mat.estimate_total_price,
+        mat.delivery_place,
+        mat.delivery_time
+ 	from 
+	nonbid_matplan_mat mat
+	LEFT JOIN mm_erp_mat erp_mat ON mat.mat_id = erp_mat.mat_id
+	LEFT JOIN mm_erp_mat_group big ON big.mat_group_id = erp_mat.big_catagory
+  LEFT JOIN mm_erp_mat_group middle ON middle.mat_group_id = erp_mat.medium_catagory
+  LEFT JOIN mm_erp_mat_group small ON small.mat_group_id = erp_mat.small_catagory
+	
+    where mat.mat_id in
+    <foreach collection="array" item="matId" index="index"
+            open="(" close=")" separator=",">
+            #{matId}
+    </foreach>
+  </select>
+  
+        <select id="selectExpert" resultMap="BaseResultMap4"  parameterType="java.lang.String">
+    select
+        expert_code,
+        expert_name,
+        expert_sex,
+        major_qualification_type,
+        work_dep,
+        expert_mb_num,
+        expert_tel_num,
+        expert_mail
+ 	from 
+	mm_nonbid_expert a
+
+    where a.expert_code in
+    <foreach collection="array" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+    </foreach>
+  </select>
+  
+          <select id="selectSupplier" resultMap="BaseResultMap5"  parameterType="java.lang.String">
+    select
+        supplier_id,
+        supplier_name,
+        business_scope,
+        recommend_plant,
+        contact,
+        contact_mb_num,
+        contact_tel_num,
+        contact_mail,
+        remark
+ 	from 
+	mm_nonbid_supplier a
+
+    where a.supplier_id in
+    <foreach collection="array" item="item" index="index"
+            open="(" close=")" separator=",">
+            #{item}
+    </foreach>
+  </select>
+  <select id="selectSupplierByMergeId" resultMap="BaseResultMap6" parameterType="java.lang.String" >
+    SELECT
+      GROUP_CONCAT(DISTINCT c2.supplier_id) invitationSupplierIds,
+      GROUP_CONCAT(DISTINCT c3.supplier_name) invitationSupplierNames,
+      GROUP_CONCAT(DISTINCT d2.supplier_id) extractSupplierIds,
+      GROUP_CONCAT(DISTINCT d3.supplier_name) extractSupplierNames
+    FROM nonbid_merge_record a
+	LEFT JOIN nonbid_matplan c1 ON c1.merge_id = a.merge_id AND (c1.del != 1 OR c1.del IS NULL)
+	LEFT JOIN nonbid_invitation_supplier c2 ON c2.matplan_id = c1.matplan_id
+	LEFT JOIN mm_nonbid_supplier c3 ON c3.supplier_id = c2.supplier_id AND (c3.del != 1 OR c3.del IS NULL)
+	LEFT JOIN nonbid_supplier_extract_result d1 ON d1.merge_id = a.merge_id AND (d1.del != 1 OR d1.del IS NULL)
+	LEFT JOIN nonbid_supplier_extract d2 ON d2.extract_id = d1.extract_id
+	LEFT JOIN mm_nonbid_supplier d3 ON d3.supplier_id = d2.supplier_id AND (d3.del != 1 OR d3.del IS NULL)
+    <where>
+      <if test="1 == 1">
+        AND (a.del != 1 OR a.del IS NULL)
+      </if>
+      <if test="mergeId != null and mergeId != ''">
+        AND a.merge_id = #{mergeId}
+      </if>
+    </where>
+  </select>
+</mapper>

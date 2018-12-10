@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.MdictMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mdict.MdictBean">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+    <result column="sort" jdbcType="DECIMAL" property="sort" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del" jdbcType="CHAR" property="del" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, parent_ids, `key`, `value`, keyword, `sort`, create_by, create_date, update_by, 
+    update_date, remarks, del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_mdict
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from nonbid_mdict
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.mdict.MdictBean">
+    insert into nonbid_mdict (id, parent_id, parent_ids, 
+      `key`, `value`, keyword, `sort`, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del
+      )
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{parentIds,jdbcType=VARCHAR}, 
+      #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{del,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.mdict.MdictBean">
+    insert into nonbid_mdict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        id,
+      </if>
+      <if test="parentId != null and parentId != ''">
+        parent_id,
+      </if>
+      <if test="parentIds != null and parentIds != ''">
+        parent_ids,
+      </if>
+      <if test="key != null and key != ''">
+        `key`,
+      </if>
+      <if test="value != null and value != ''">
+        `value`,
+      </if>
+      <if test="keyword != null and keyword != ''">
+        keyword,
+      </if>
+      <if test="sort != null and sort != ''">
+        `sort`,
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by,
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        update_by,
+      </if>
+      <if test="remarks != null and remarks != ''">
+        remarks
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id != ''">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null  and parentId != ''">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null and parentIds != ''">
+        #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null and key != ''">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null and value != ''">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null and keyword != ''">
+        #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null and sort != ''">
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null and remarks != ''">
+        #{remarks,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.mdict.MdictBean">
+    update nonbid_mdict
+    <set>
+      <if test="parentId != null and parentId != ''" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null and parentIds != ''">
+        parent_ids = #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null and key != ''">
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null and value != ''">
+        `value` = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword != null and keyword != ''">
+        keyword = #{keyword,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null and sort != ''">
+        `sort` = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null and createBy != ''">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null and remarks != ''">
+        remarks = #{remarks,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.mdict.MdictBean">
+    update nonbid_mdict
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      parent_ids = #{parentIds,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR},
+      keyword = #{keyword,jdbcType=VARCHAR},
+      `sort` = #{sort,jdbcType=DECIMAL},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del = #{del,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectMadicts" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from nonbid_mdict
+  	<where>
+  		del = '0'
+  		<if test="key != null and key != ''" >
+  			and `key` = #{key}
+  		</if>
+  		<if test="keyword != null and keyword != ''">
+  			and keyword = #{keyword}
+  		</if>
+  	</where>
+  	order by sort
+  </select>
+  <update id="deleteMdictById" parameterType="java.lang.String" >
+  		update nonbid_mdict set del = '1' where id = #{id}
+  </update>
+  <select id="selectMdictsByType" parameterType="java.lang.String" resultType="java.util.Map">
+  		select 
+  		id,
+  		`key`,
+  		`value`,
+  		keyword,
+  		`sort`
+  		from nonbid_mdict 
+  		where keyword = #{keyword}
+  		order by sort
+  </select>
+</mapper>

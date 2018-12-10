@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.MatplanQueryMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mat.MatplanQueryResponse" >
+    <id column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="non_matplan_id" property="nonMatplanId" jdbcType="VARCHAR" />
+    <result column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+    <result column="resultId" property="resultId" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+    <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+    <result column="demand_company" property="demandCompany" jdbcType="VARCHAR" />
+    <result column="purchase_num" property="purchaseNum" jdbcType="VARCHAR" />
+    <result column="mat_des" property="matDes" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_name" property="purchaseSchmeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap1" type="com.yyc.oper.nobid.mat.MatGroupBean" >
+    <id column="mat_group_id" property="matGroupId" jdbcType="VARCHAR" />
+    <result column="mat_group_des" property="matGroupDes" jdbcType="VARCHAR" />
+    <result column="mat_group_des2" property="matGroupDes2" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    d.matplan_id, d.serial_num, d.batch_num, d.package_num, d.package_name, d.demand_company, d.purchase_num, 
+    d.fund_source, d.matplan_source, d.approval_num, d.project_name, d.project_num, d.demand_mat, 
+    d.purchase_strategy, d.purchase_way, d.person_liable, d.phone_num, d.work_time_limit, d.state, 
+    d.merge_state, d.remark, d.merge_id, d.is_merge, d.create_by, d.create_time, d.ope_by, d.ope_time, 
+    d.del
+  </sql>
+  
+  <select id="selectByMatplanQueryRequest" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from 
+    (
+    select
+    DISTINCT
+    a1.matplan_id,
+    b1.merge_id,
+    b3.id resultId,
+    a2.id,
+    CASE WHEN b1.project_id is null THEN a1.project_num 
+    ELSE b1.project_id END project_num,
+    CASE WHEN b1.project_name is null THEN a1.project_name 
+    ELSE b1.project_name END project_name,
+    a4.batch_num,
+    CASE WHEN b1.purchase_way is null THEN a1.purchase_way 
+    ELSE b1.purchase_way END purchase_way,
+    a1.demand_company,
+    a1.purchase_num,
+    b1.purchase_schme_id,
+    b1.purchase_schme_name,
+    a5.mat_des,
+    CASE WHEN b3.state is null 
+    THEN CASE WHEN b1.state is null THEN a1.state 
+    ELSE b1.state END
+    ELSE a1.state END state
+    from nonbid_matplan a1 
+    LEFT JOIN nonbid_matplan_mat a2 ON a1.matplan_id = a2.matplan_id
+    LEFT JOIN nonbid_invitation_supplier a3 ON a1.matplan_id = a3.matplan_id
+    LEFT JOIN nonbid_batchmanage a4 ON a1.batch_num = a4.batch_num
+    LEFT JOIN mm_erp_mat a5 ON a2.mat_id = a5.mat_id
+    LEFT JOIN mm_erp_mat_group a6 ON a2.small_class = a6.mat_group_id
+    LEFT JOIN mm_erp_mat_group a7 ON a2.middle_class = a7.mat_group_id
+    LEFT JOIN mm_erp_mat_group a8 ON a2.large_class = a8.mat_group_id
+    LEFT JOIN mm_nonbid_supplier a9 ON a3.supplier_id = a9.supplier_id
+    LEFT JOIN nonbid_merge_record b1 ON a1.merge_id = b1.merge_id
+    LEFT JOIN nonbid_supplier_extract_result b2 ON b1.merge_id = b2.merge_id
+    LEFT JOIN nonbid_supplier_win b3 ON b1.merge_id = b3.merge_id
+    LEFT JOIN nonbid_supplier_extract b4 ON b2.extract_id = b4.extract_id
+    LEFT JOIN mm_nonbid_supplier b5 ON b4.supplier_id = b5.supplier_id
+    <where>
+      <if test="1 == 1">
+	    and (a1.del != 1 or a1.del is null)
+	  </if>
+      <if test="matplanId != null and matplanId != ''">
+	    and a1.matplan_id = #{matplanId}
+	  </if>
+	  <if test="mergeId != null and mergeId != ''">
+	    and b1.merge_id = #{mergeId}
+	  </if>
+	  <if test="startTime != null and startTime != ''">
+	    and a1.create_time >= #{startTime}
+	  </if>
+	  <if test="endTime != null and endTime != ''">
+	    and a1.create_time &lt;= #{endTime}
+	  </if>
+	  <if test="matDes != null and matDes != ''">
+	    and a5.mat_des LIKE concat('%',#{matDes},'%')
+	  </if>
+	  <if test="matGroupIds != null">
+	    and a2.small_class in 
+	    <foreach collection="matGroupIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+	  <if test="demandCompany != null and demandCompany != ''">
+	    and a1.demand_company = #{demandCompany}
+	  </if>
+	  <if test="purchaseSchmeId != null and purchaseSchmeId != ''">
+	    and b1.purchase_schme_id LIKE concat('%',#{purchaseSchmeId},'%')
+	  </if>
+	  <if test="purchaseNum != null and purchaseNum != ''">
+	    and a1.purchase_num LIKE concat('%',#{purchaseNum},'%')
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and (a9.supplier_name = #{supplierName} or b5.supplier_name = #{supplierName})
+	  </if>
+	  <if test="planState != null and planState != ''">
+	    and a1.state = #{planState}
+	  </if>
+	  <if test="schemeState != null and schemeState != ''">
+	    and b1.state = #{schemeState}
+	  </if>
+	  <if test="resultState != null and resultState != ''">
+	    and b3.state = #{resultState}
+	  </if>
+    </where>
+    ) t
+    <where>
+      <if test="projectNum != null and projectNum != ''">
+	    and t.project_num LIKE concat('%',#{projectNum},'%')
+	  </if>
+	  <if test="projectName != null and projectName != ''">
+	    and t.project_name LIKE concat('%',#{projectName},'%')
+	  </if>
+	</where>
+  </select>
+  
+  <select id="selectByNonMatplanQueryRequest" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from 
+    (
+    select
+    DISTINCT
+    a1.non_matplan_id,
+    b1.merge_id,
+    b3.id resultId,
+    CASE WHEN b1.project_id is null THEN a1.project_num 
+    ELSE b1.project_id END project_num,
+    CASE WHEN b1.project_name is null THEN a1.project_name 
+    ELSE b1.project_name END project_name,
+    a4.batch_num,
+    CASE WHEN b1.purchase_way is null THEN a1.purchase_way 
+    ELSE b1.purchase_way END purchase_way,
+    a1.demand_company,
+    a1.purchase_num,
+    b1.purchase_schme_id,
+    b1.purchase_schme_name,
+    CASE WHEN b3.state is null 
+    THEN CASE WHEN b1.state is null THEN a1.state 
+    ELSE b1.state END
+    ELSE a1.state END state
+    from nonbid_non_matplan a1 
+    LEFT JOIN nonbid_invitation_supplier a3 ON a1.non_matplan_id = a3.matplan_id
+    LEFT JOIN nonbid_batchmanage a4 ON a1.batch_num = a4.batch_num
+    LEFT JOIN mm_nonbid_supplier a9 ON a3.supplier_id = a9.supplier_id
+    LEFT JOIN nonbid_merge_record b1 ON a1.merge_id = b1.merge_id
+    LEFT JOIN nonbid_supplier_extract_result b2 ON b1.merge_id = b2.merge_id
+    LEFT JOIN nonbid_supplier_win b3 ON b1.merge_id = b3.merge_id
+    LEFT JOIN nonbid_supplier_extract b4 ON b2.extract_id = b4.extract_id
+    LEFT JOIN mm_nonbid_supplier b5 ON b4.supplier_id = b5.supplier_id
+    <where>
+      <if test="1 == 1">
+	    and (a1.del != 1 or a1.del is null)
+	  </if>
+      <if test="matplanId != null and matplanId != ''">
+	    and a1.matplan_id = #{matplanId}
+	  </if>
+	  <if test="mergeId != null and mergeId != ''">
+	    and b1.merge_id = #{mergeId}
+	  </if>
+	  <if test="startTime != null and startTime != ''">
+	    and a1.create_time >= #{startTime}
+	  </if>
+	  <if test="endTime != null and endTime != ''">
+	    and a1.create_time &lt;= #{endTime}
+	  </if>
+	  <if test="matGroupIds != null">
+	    and a2.small_class in 
+	    <foreach collection="matGroupIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+	  <if test="demandCompany != null and demandCompany != ''">
+	    and a1.demand_company = #{demandCompany}
+	  </if>
+	  <if test="purchaseSchmeId != null and purchaseSchmeId != ''">
+	    and b1.purchase_schme_id LIKE concat('%',#{purchaseSchmeId},'%')
+	  </if>
+	  <if test="purchaseNum != null and purchaseNum != ''">
+	    and a1.purchase_num LIKE concat('%',#{purchaseNum},'%')
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and (a9.supplier_name = #{supplierName} or b5.supplier_name = #{supplierName})
+	  </if>
+	  <if test="planState != null and planState != ''">
+	    and a1.state = #{planState}
+	  </if>
+	  <if test="schemeState != null and schemeState != ''">
+	    and b1.state = #{schemeState}
+	  </if>
+	  <if test="resultState != null and resultState != ''">
+	    and b3.state = #{resultState}
+	  </if>
+    </where>
+    ) t
+    <where>
+      <if test="projectNum != null and projectNum != ''">
+	    and t.project_num LIKE concat('%',#{projectNum},'%')
+	  </if>
+	  <if test="projectName != null and projectName != ''">
+	    and t.project_name LIKE concat('%',#{projectName},'%')
+	  </if>
+	</where>
+  </select>
+  
+  <select id="getMatGroupList" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+    select mat_group_id, mat_group_des, mat_group_des2, del, parent_id
+    from mm_erp_mat_group
+  </select>
+  
+</mapper>

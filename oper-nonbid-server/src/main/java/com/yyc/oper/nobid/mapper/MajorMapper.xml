@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyc.oper.nobid.mapper.MajorMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.major.MajorBean">
+    <id column="major_id" jdbcType="VARCHAR" property="majorId" />
+    <result column="major_name" jdbcType="VARCHAR" property="majorName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="ope_by" jdbcType="VARCHAR" property="opeBy" />
+    <result column="ope_time" jdbcType="VARCHAR" property="opeTime" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    a.major_id, a.major_name, a.remark, a.order_no, a.parent_id, a.path, a.create_by, a.create_time, 
+    a.ope_by, a.ope_time, a.del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mm_nonbid_major a
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mm_nonbid_major
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.major.MajorBean">
+    insert into mm_nonbid_major (major_id, major_name, remark, 
+      order_no, parent_id, path, 
+      create_by, ope_by, 
+      ope_time)
+    values (#{majorId,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{opeBy,jdbcType=VARCHAR}, 
+      #{opeTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.major.MajorBean">
+    insert into mm_nonbid_major
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="majorName != null">
+        major_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="opeBy != null">
+        ope_by,
+      </if>
+      <if test="opeTime != null">
+        ope_time,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="majorId != null">
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null">
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null">
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.major.MajorBean">
+    update mm_nonbid_major
+    <set>
+      <if test="majorName != null">
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null">
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null">
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.major.MajorBean">
+    update mm_nonbid_major
+    set major_name = #{majorName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR}
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- <select id="getMajorList" resultType="com.yyc.oper.nobid.major.MajorBean">
+	  	SELECT 
+			a.major_id as "parent.majorId",
+			a.major_name,
+			a.remark,
+			a.order_no,
+			a.parent_id ,
+			a.path,
+			a.create_by,
+			a.create_time,
+			a.ope_by,
+			a.ope_time,
+			a.del,
+			p.major_name as "parent.majorName"
+			FROM mm_nonbid_major a LEFT JOIN mm_nonbid_major p ON p.major_id = a.parent_id ORDER BY a.order_no
+  </select> -->
+  
+  <select id="getMajorList" resultMap="BaseResultMap">
+  	SELECT 
+		<include refid="Base_Column_List" />
+	FROM mm_nonbid_major where del = '0'
+  </select> 
+  
+  <select id="getMajorByMajorName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		select 
+  		<include refid="Base_Column_List" />
+  		from mm_nonbid_major where major_name = #{majorName} and del = '0'
+  </select>
+  
+  <select id="getIsChildNode" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select count(*) from mm_nonbid_major where parent_id = #{majorId} and del = '0'
+  </select>
+  
+  <select id="deleteById" parameterType="java.lang.String">
+  	update mm_nonbid_major set del = '1' where major_id = #{majorId}
+  </select>
+</mapper>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierExtractResultMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierExtractResultBean" >
+    <id column="extract_id" property="extractId" jdbcType="VARCHAR" />
+    <result column="supplier_win_id" property="supplierWinId" jdbcType="VARCHAR" />
+    <result column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+    <result column="ope_date" property="opeDate" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="states" property="states" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_name" property="purchaseSchmeName" jdbcType="VARCHAR" />
+    <result column="purchase_schme_create_time" property="purchaseSchmeCreateTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="extract_method" property="extractMethod" jdbcType="VARCHAR" />
+    <result column="extract_num" property="extractNum" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="VARCHAR" />
+    <collection property="listSupplierBean" ofType="com.yyc.oper.nobid.supplier.SupplierBean">
+      <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+      <result column="plant_id" property="plantId" jdbcType="VARCHAR" />
+      <result column="id" property="id" jdbcType="VARCHAR" />
+      <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+      <result column="account_group" property="accountGroup" jdbcType="VARCHAR" />
+      <result column="colatitude_name" property="colatitudeName" jdbcType="VARCHAR" />
+      <result column="qualification_name" property="qualificationName" jdbcType="VARCHAR" />
+      <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+      <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+      <result column="tax_type" property="taxType" jdbcType="VARCHAR" />
+      <result column="deposite_bank_name" property="depositeBankName" jdbcType="VARCHAR" />
+      <result column="deposite_bank_account" property="depositeBankAccount" jdbcType="VARCHAR" />
+      <result column="addr" property="addr" jdbcType="VARCHAR" />
+      <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+      <result column="fax" property="fax" jdbcType="VARCHAR" />
+      <result column="business_license_num" property="businessLicenseNum" jdbcType="VARCHAR" />
+      <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+      <result column="tax_num" property="taxNum" jdbcType="VARCHAR" />
+      <result column="contact" property="contact" jdbcType="VARCHAR" />
+      <result column="contact_mb_num" property="contactMbNum" jdbcType="VARCHAR" />
+      <result column="contact_tel_num" property="contactTelNum" jdbcType="VARCHAR" />
+      <result column="contact_mail" property="contactMail" jdbcType="VARCHAR" />
+      <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="main_achievement" property="mainAchievement" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+      <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+      <result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+      <result column="recommend_plant" property="recommendPlant" jdbcType="VARCHAR" />
+      <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+      <result column="stock_holder" property="stockHolder" jdbcType="VARCHAR" />
+      <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+      <result column="legal_risk_num" property="legalRiskNum" jdbcType="VARCHAR" />
+      <result column="registered_capital" property="registeredCapitalpe" jdbcType="VARCHAR" />
+      <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.extract_id, a.supplier_win_id, a.merge_id, a.ope_date, a.create_date, a.create_by, a.ope_by, 
+    a.states, a.purchase_schme_id, a.purchase_schme_name, a.purchase_schme_create_time, a.del, 
+    a.extract_method, a.extract_num, a.org_id
+  </sql>
+  <sql id="Base_Column_List1" >
+    a1.id, a1.extract_id, a1.supplier_id, a1.supplier_win_id, a1.extract_record_code, a1.create_by, a1.create_time, 
+    a1.ope_by, a1.ope_time, a1.org_id
+  </sql>
+  <sql id="Base_Column_List2" >
+    a2.supplier_id, a2.supplier_name, a2.account_group, a2.deposite_bank_name, a2.deposite_bank_account, 
+    a2.addr, a2.phone_num, a2.fax, a2.business_license_num, a2.institution_code, a2.tax_num, a2.contact, a2.contact_mb_num, 
+    a2.contact_tel_num, a2.contact_mail, a2.order_num, a2.state, a2.main_achievement, a2.del, a2.plant_id, 
+    a2.create_by, a2.create_time, a2.ope_by, a2.ope_time, a2.recommend_plant, a2.business_scope, a2.stock_holder, a2.legal_representative,
+    a2.legal_risk_num, a2.registered_capital, a2.remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_supplier_extract_result a
+    <where>
+      <if test="1 == 1">
+	    and (del != 1 or del is null)
+	  </if>
+      <if test="mergeId != null and mergeId != ''">
+        and merge_id = #{mergeId,jdbcType=VARCHAR}
+      </if>
+      <if test="extractId != null and extractId != ''">
+        and extract_id = #{extractId,jdbcType=VARCHAR}
+      </if>
+      <if test="states != null and states != ''">
+        and states = #{states,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectSupplierExtractByMergeId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List2" />
+    from nonbid_supplier_extract_result a
+    LEFT JOIN nonbid_supplier_extract a1 on a.extract_id = a1.extract_id
+    LEFT JOIN mm_nonbid_supplier a2 on a1.supplier_id = a2.supplier_id
+    <where>
+      <if test="1 == 1">
+	    and (a.del != 1 or a.del is null)
+	  </if>
+      <if test="mergeId != null and mergeId != ''">
+        and a.merge_id = #{mergeId,jdbcType=VARCHAR}
+      </if>
+      <if test="extractId != null and extractId != ''">
+        and a.extract_id = #{extractId,jdbcType=VARCHAR}
+      </if>
+      <if test="states != null and states != ''">
+        and a.states = #{states,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_supplier_extract_result
+    where extract_id = #{extractId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierExtractResultBean" >
+    insert into nonbid_supplier_extract_result (extract_id, supplier_win_id, merge_id, 
+      ope_date, create_date, create_by, 
+      ope_by, states, purchase_schme_id, 
+      purchase_schme_name, purchase_schme_create_time, 
+      del, extract_method, extract_num, 
+      org_id)
+    values (#{extractId,jdbcType=VARCHAR}, #{supplierWinId,jdbcType=VARCHAR}, #{mergeId,jdbcType=VARCHAR}, 
+      #{opeDate,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{opeBy,jdbcType=VARCHAR}, #{states,jdbcType=VARCHAR}, #{purchaseSchmeId,jdbcType=VARCHAR}, 
+      #{purchaseSchmeName,jdbcType=VARCHAR}, #{purchaseSchmeCreateTime,jdbcType=TIMESTAMP}, 
+      #{del,jdbcType=VARCHAR}, #{extractMethod,jdbcType=VARCHAR}, #{extractNum,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierExtractResultBean" >
+    insert into nonbid_supplier_extract_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="extractId != null" >
+        extract_id,
+      </if>
+      <if test="supplierWinId != null" >
+        supplier_win_id,
+      </if>
+      <if test="mergeId != null" >
+        merge_id,
+      </if>
+      <if test="opeDate != null" >
+        ope_date,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="states != null" >
+        states,
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id,
+      </if>
+      <if test="purchaseSchmeName != null" >
+        purchase_schme_name,
+      </if>
+      <if test="purchaseSchmeCreateTime != null" >
+        purchase_schme_create_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="extractMethod != null" >
+        extract_method,
+      </if>
+      <if test="extractNum != null" >
+        extract_num,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="extractId != null" >
+        #{extractId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierWinId != null" >
+        #{supplierWinId,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="opeDate != null" >
+        #{opeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeName != null" >
+        #{purchaseSchmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeCreateTime != null" >
+        #{purchaseSchmeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="extractMethod != null" >
+        #{extractMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="extractNum != null" >
+        #{extractNum,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierExtractResultBean" >
+    update nonbid_supplier_extract_result
+    <set >
+      <if test="supplierWinId != null" >
+        supplier_win_id = #{supplierWinId,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        merge_id = #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="opeDate != null" >
+        ope_date = #{opeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="states != null" >
+        states = #{states,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeId != null" >
+        purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeName != null" >
+        purchase_schme_name = #{purchaseSchmeName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseSchmeCreateTime != null" >
+        purchase_schme_create_time = #{purchaseSchmeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="extractMethod != null" >
+        extract_method = #{extractMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="extractNum != null" >
+        extract_num = #{extractNum,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where extract_id = #{extractId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierExtractResultBean" >
+    update nonbid_supplier_extract_result
+    set supplier_win_id = #{supplierWinId,jdbcType=VARCHAR},
+      merge_id = #{mergeId,jdbcType=VARCHAR},
+      ope_date = #{opeDate,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      states = #{states,jdbcType=VARCHAR},
+      purchase_schme_id = #{purchaseSchmeId,jdbcType=VARCHAR},
+      purchase_schme_name = #{purchaseSchmeName,jdbcType=VARCHAR},
+      purchase_schme_create_time = #{purchaseSchmeCreateTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR},
+      extract_method = #{extractMethod,jdbcType=VARCHAR},
+      extract_num = #{extractNum,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=VARCHAR}
+    where extract_id = #{extractId,jdbcType=VARCHAR}
+  </update>
+</mapper>

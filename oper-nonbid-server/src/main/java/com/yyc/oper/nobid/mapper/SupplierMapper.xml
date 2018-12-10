@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierBean" >
+    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="plant_id" property="plantId" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="account_group" property="accountGroup" jdbcType="VARCHAR" />
+    <result column="colatitude_name" property="colatitudeName" jdbcType="VARCHAR" />
+    <result column="colatitude_id" property="colatitudeId" jdbcType="VARCHAR" />
+    <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+    <result column="qualification_name" property="qualificationName" jdbcType="VARCHAR" />
+    <result column="qualification_id" property="qualificationId" jdbcType="VARCHAR" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="tax_type" property="taxType" jdbcType="VARCHAR" />
+    <result column="deposite_bank_name" property="depositeBankName" jdbcType="VARCHAR" />
+    <result column="deposite_bank_account" property="depositeBankAccount" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="VARCHAR" />
+    <result column="business_license_num" property="businessLicenseNum" jdbcType="VARCHAR" />
+    <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contact_mb_num" property="contactMbNum" jdbcType="VARCHAR" />
+    <result column="contact_tel_num" property="contactTelNum" jdbcType="VARCHAR" />
+    <result column="contact_mail" property="contactMail" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="main_achievement" property="mainAchievement" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+    <result column="recommend_plant" property="recommendPlant" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="stock_holder" property="stockHolder" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="legal_risk_num" property="legalRiskNum" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="BaseResultMap1" type="HashMap" >
+    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="account_group" property="accountGroup" jdbcType="VARCHAR" />
+    <result column="colatitude_name" property="colatitudeName" jdbcType="VARCHAR" />
+    <result column="qualification_name" property="qualificationName" jdbcType="VARCHAR" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="tax_type" property="taxType" jdbcType="VARCHAR" />
+    <result column="deposite_bank_name" property="depositeBankName" jdbcType="VARCHAR" />
+    <result column="deposite_bank_account" property="depositeBankAccount" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="business_license_num" property="businessLicenseNum" jdbcType="VARCHAR" />
+    <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contact_mb_num" property="contactMbNum" jdbcType="VARCHAR" />
+    <result column="contact_tel_num" property="contactTelNum" jdbcType="VARCHAR" />
+    <result column="contact_mail" property="contactMail" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="main_achievement" property="mainAchievement" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="plant_id" property="plantId" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+    <result column="recommend_plant" property="recommendPlant" jdbcType="VARCHAR" />
+    <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+    <result column="stock_holder" property="stockHolder" jdbcType="VARCHAR" />
+    <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+    <result column="legal_risk_num" property="legalRiskNum" jdbcType="VARCHAR" />
+    <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.yyc.oper.nobid.supplier.SupplierBean" >
+    <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    supplier_id, supplier_name, account_group, deposite_bank_name, deposite_bank_account, 
+    addr, phone_num, fax, business_license_num, institution_code, contact, contact_mb_num, 
+    contact_tel_num, contact_mail, order_num, state, main_achievement, del, plant_id, 
+    create_by, create_time, ope_by, ope_time,recommend_plant,business_scope,stock_holder,legal_representative,
+    legal_risk_num,registered_capital,remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     
+  SELECT
+    supplier.supplier_id,
+	supplier.supplier_name,
+	supplier.account_group,
+	supplier.state,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT mmcolatitude.colatitude_name
+		)
+	) AS colatitude_name,
+		concat(
+		GROUP_CONCAT(
+			DISTINCT mmcolatitude.colatitude_id
+		)
+	) AS colatitude_id,
+			concat(
+		GROUP_CONCAT(
+			DISTINCT mmqualification.qualification_id
+		)
+	) AS qualification_id,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT mmqualification.qualification_name
+		)
+	) AS qualification_name,
+	supplier.business_scope,
+	tax.tax_type,
+		concat(
+		GROUP_CONCAT(
+			DISTINCT tax.tax
+		)
+	) AS tax,
+		concat(
+		GROUP_CONCAT(
+			DISTINCT relationregion.region_id
+		)
+	) AS region_id,
+	supplier.recommend_plant,
+	supplier.contact,
+	supplier.contact_mail,
+	supplier.contact_mb_num,
+	supplier.contact_tel_num,
+	supplier.stock_holder,
+	supplier.legal_representative,
+	supplier.legal_risk_num,
+	supplier.registered_capital,
+	supplier.remark
+FROM
+	mm_nonbid_supplier supplier
+LEFT JOIN nonbid_supplier_colatitude colatitude ON supplier.supplier_id = colatitude.supplier_id
+LEFT JOIN mm_nonbid_colatitude mmcolatitude ON colatitude.colatitude_id = mmcolatitude.colatitude_id
+LEFT JOIN nonbid_supplier_qualification qualification ON supplier.supplier_id = qualification.supplier_id
+LEFT JOIN mm_nonbid_qualification mmqualification ON qualification.qualification_id = mmqualification.qualification_id
+LEFT JOIN mm_nonbid_supplier_tax tax ON supplier.supplier_id = tax.supplier_id
+LEFT JOIN nonbid_supplier_region relationregion ON relationregion.supplier_id = supplier.supplier_id 
+  
+    <where>
+      <if test="1 == 1">
+	    and (supplier.del != 1 or supplier.del is null)
+	  </if>
+	  <if test="supplierId != null and supplierId != ''">
+	    and supplier_id LIKE concat('%',#{supplierId},'%')
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and supplier_name LIKE concat('%',#{supplierName},'%') 
+	  </if>
+	  <if test="taxType != null and taxType != ''">
+	    and tax.tax_type = #{taxType}
+	  </if>
+	  <if test="tax != null and tax != ''">
+	    and tax = #{tax}
+	  </if>
+	  <if test="accountGroup != null and accountGroup != ''">
+	    and supplier.account_group = #{accountGroup}
+	  </if>
+	  <if test="recommendPlant != null and recommendPlant != ''">
+	    and supplier.recommend_plant = #{recommendPlant}
+	  </if>
+	  <if test="regionIds != null and regionIds.length>0   ">
+			and relationregion.region_id in
+		<foreach item="regionId" collection="regionIds" open="(" separator="," close=")">
+			#{regionId}
+		</foreach>
+        </if>
+      <if test="qualificationIds != null and qualificationIds.length>0  ">
+			and qualification.qualification_id in
+		<foreach item="qualificationId" collection="qualificationIds" open="(" separator="," close=")">
+			#{qualificationId}
+		</foreach>
+      </if>
+      <if test="colatitudeIds != null and colatitudeIds.length>0  ">
+			and colatitude.colatitude_id in
+		<foreach item="colatitudeId" collection="colatitudeIds" open="(" separator="," close=")">
+			#{colatitudeId}
+		</foreach>
+      </if>
+	</where>
+	group by supplier.supplier_id
+	order by supplier.account_group asc
+  </select>
+  
+  <select id="selectBySupplierBean" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  SELECT
+    <include refid="Base_Column_List" />
+  FROM mm_nonbid_supplier supplier
+    <where>
+      <if test="1 == 1">
+	    and (supplier.del != 1 or supplier.del is null)
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and supplier_name = #{supplierName}
+	  </if>
+	</where>
+  </select>
+  
+    <select id="selectSupplierInfo" resultMap="BaseResultMap1" parameterType="java.lang.String" >
+     
+   SELECT
+      supplier.supplier_id,
+	  supplier.supplier_name
+FROM
+	mm_nonbid_supplier supplier
+LEFT JOIN nonbid_supplier_colatitude colatitude ON supplier.supplier_id = colatitude.supplier_id
+LEFT JOIN mm_nonbid_colatitude mmcolatitude ON colatitude.colatitude_id = mmcolatitude.colatitude_id
+LEFT JOIN nonbid_supplier_qualification qualification ON supplier.supplier_id = qualification.supplier_id
+LEFT JOIN mm_nonbid_qualification mmqualification ON qualification.qualification_id = mmqualification.qualification_id
+LEFT JOIN mm_nonbid_supplier_tax tax ON supplier.supplier_id = tax.supplier_id
+LEFT JOIN nonbid_supplier_region relationregion ON relationregion.supplier_id = supplier.supplier_id 
+  
+    <where>
+      <if test="1 == 1">
+	    and (supplier.del != 1 or supplier.del is null) and supplier.state = 1
+	  </if>
+	  <if test="supplierId != null and supplierId != ''">
+	    and supplier.supplier_id LIKE concat('%',#{supplierId},'%')
+	  </if>
+	  <if test="taxType != null and taxType != ''">
+	    and tax_type = #{taxType}
+	  </if>
+	  <if test="supplierName != null and supplierName != ''">
+	    and supplier.supplier_name LIKE concat('%',#{supplierName},'%') 
+	  </if>
+	  <if test="regionIds != null and regionIds.length>0  ">
+			and relationregion.region_id in
+		<foreach item="regionId" collection="regionIds" open="(" separator="," close=")">
+			#{regionId}
+		</foreach>
+        </if>
+      <if test="qualificationIds != null and qualificationIds.length>0 ">
+			and qualification.qualification_id in
+		<foreach item="qualificationId" collection="qualificationIds" open="(" separator="," close=")">
+			#{qualificationId}
+		</foreach>
+      </if>
+      <if test="colatitudeIds != null and colatitudeIds.length>0  ">
+			and colatitude.colatitude_id in
+		<foreach item="colatitudeId" collection="colatitudeIds" open="(" separator="," close=")">
+			#{colatitudeId}
+		</foreach>
+      </if>
+      <if test="supplierIds != null and supplierIds.length>0  ">
+			and supplier.supplier_id not in
+		<foreach item="supplierId" collection="supplierIds" open="(" separator="," close=")">
+			#{supplierId}
+		</foreach>
+      </if>
+	</where>
+	group by supplier.supplier_name
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mm_nonbid_supplier
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.SupplierBean" >
+    insert into mm_nonbid_supplier (supplier_id, supplier_name, 
+      account_group, deposite_bank_name, deposite_bank_account, 
+      addr, phone_num, fax, 
+      business_license_num, institution_code,  
+      contact, contact_mb_num, contact_tel_num, 
+      contact_mail, order_num, state, 
+      main_achievement, del, plant_id, 
+      create_by, create_time, ope_by, 
+      ope_time,recommend_plant,business_scope,stock_holder,legal_representative,
+      legal_risk_num,registered_capital,remark)
+    values (#{supplierId,jdbcType=VARCHAR},#{supplierName,jdbcType=VARCHAR}, 
+      #{accountGroup,jdbcType=VARCHAR}, #{depositeBankName,jdbcType=VARCHAR}, #{depositeBankAccount,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{businessLicenseNum,jdbcType=VARCHAR}, #{institutionCode,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{contactMbNum,jdbcType=VARCHAR}, #{contactTelNum,jdbcType=VARCHAR}, 
+      #{contactMail,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{mainAchievement,jdbcType=VARCHAR}, #{del,jdbcType=VARCHAR}, #{plantId,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{opeBy,jdbcType=VARCHAR}, 
+      #{opeTime,jdbcType=VARCHAR},#{recommendPlant,jdbcType=VARCHAR},#{businessScope,jdbcType=VARCHAR},#{stockHolder,jdbcType=VARCHAR},
+      #{legalRepresentative,jdbcType=VARCHAR},#{legalRiskNum,jdbcType=VARCHAR},#{registeredCapital,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.SupplierBean" >
+    insert into mm_nonbid_supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="supplierName != null" >
+        supplier_name,
+      </if>
+      <if test="accountGroup != null" >
+        account_group,
+      </if>
+      <if test="depositeBankName != null" >
+        deposite_bank_name,
+      </if>
+      <if test="depositeBankAccount != null" >
+        deposite_bank_account,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="businessLicenseNum != null" >
+        business_license_num,
+      </if>
+      <if test="institutionCode != null" >
+        institution_code,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="contactMbNum != null" >
+        contact_mb_num,
+      </if>
+      <if test="contactTelNum != null" >
+        contact_tel_num,
+      </if>
+      <if test="contactMail != null" >
+        contact_mail,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="mainAchievement != null" >
+        main_achievement,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+      <if test="plantId != null" >
+        plant_id,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+       <if test="recommendPlant != null" >
+        recommend_plant,
+      </if>
+      <if test="businessScope != null" >
+        business_scope,
+      </if>
+      <if test="stockHolder != null" >
+        stock_holder,
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative,
+      </if>
+      <if test="legalRiskNum != null" >
+        legal_risk_num,
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountGroup != null" >
+        #{accountGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="depositeBankName != null" >
+        #{depositeBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="depositeBankAccount != null" >
+        #{depositeBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseNum != null" >
+        #{businessLicenseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCode != null" >
+        #{institutionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMbNum != null" >
+        #{contactMbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelNum != null" >
+        #{contactTelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMail != null" >
+        #{contactMail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAchievement != null" >
+        #{mainAchievement,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="plantId != null" >
+        #{plantId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPlant != null" >
+        #{recommendPlant,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHolder != null" >
+        #{stockHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRiskNum != null" >
+        #{legalRiskNum,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.SupplierBean" >
+    update mm_nonbid_supplier
+    <set >
+      <if test="supplierName != null" >
+        supplier_name= #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountGroup != null" >
+        account_group = #{accountGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="depositeBankName != null" >
+        deposite_bank_name = #{depositeBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="depositeBankAccount != null" >
+        deposite_bank_account = #{depositeBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseNum != null" >
+        business_license_num = #{businessLicenseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="institutionCode != null" >
+        institution_code = #{institutionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMbNum != null" >
+        contact_mb_num = #{contactMbNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTelNum != null" >
+        contact_tel_num = #{contactTelNum,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMail != null" >
+        contact_mail = #{contactMail,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="mainAchievement != null" >
+        main_achievement = #{mainAchievement,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="plantId != null" >
+        plant_id = #{plantId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendPlant != null" >
+        recommend_plant = #{recommendPlant,jdbcType=VARCHAR},
+      </if>
+      <if test="businessScope != null" >
+        business_scope = #{businessScope,jdbcType=VARCHAR},
+      </if>
+      <if test="stockHolder != null" >
+        stock_holder = #{stockHolder,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRepresentative != null" >
+        legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      </if>
+      <if test="legalRiskNum != null" >
+        legal_risk_num = #{legalRiskNum,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null" >
+        registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.SupplierBean" >
+    update mm_nonbid_supplier
+    set 
+      supplier_name = #{supplierName,jdbcType=VARCHAR},
+      account_group = #{accountGroup,jdbcType=VARCHAR},
+      deposite_bank_name = #{depositeBankName,jdbcType=VARCHAR},
+      deposite_bank_account = #{depositeBankAccount,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      business_license_num = #{businessLicenseNum,jdbcType=VARCHAR},
+      institution_code = #{institutionCode,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      contact_mb_num = #{contactMbNum,jdbcType=VARCHAR},
+      contact_tel_num = #{contactTelNum,jdbcType=VARCHAR},
+      contact_mail = #{contactMail,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      main_achievement = #{mainAchievement,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR},
+      plant_id = #{plantId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=VARCHAR},
+      recommend_plant = #{recommendPlant,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      stock_holder = #{stockHolder,jdbcType=VARCHAR},
+      legal_representative = #{legalRepresentative,jdbcType=VARCHAR},
+      legal_riskNum = #{legalRiskNum,jdbcType=VARCHAR},
+      registered_capitalpe = #{registeredCapital,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where supplier_id = #{supplierId,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询导出的供应商信息 -->
+   	<select id="getSupplierList" resultType="java.util.Map" >
+    SELECT
+    supplier.supplier_id,
+	supplier.supplier_name,
+	supplier.account_group,
+	supplier.state,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT mmcolatitude.colatitude_name
+		)
+	) AS colatitude_name,
+	concat(
+		GROUP_CONCAT(
+			DISTINCT mmqualification.qualification_name
+		)
+	) AS qualification_name,
+	supplier.business_scope,
+	(
+		SELECT 
+			GROUP_CONCAT( DISTINCT mmregion.region_name)
+		FROM
+			mm_nonbid_region mmregion
+		INNER JOIN nonbid_supplier_region relationregion ON relationregion.region_id = mmregion.region_id
+		WHERE
+			relationregion.supplier_id = supplier.supplier_id
+		AND mmregion.region_pid = '-1'
+	) AS province_name,
+	(
+		SELECT
+			GROUP_CONCAT(DISTINCT mmregion.region_name)
+		FROM
+			mm_nonbid_region mmregion
+		INNER JOIN nonbid_supplier_region relationregion ON relationregion.region_id = mmregion.region_id
+		WHERE
+			relationregion.supplier_id = supplier.supplier_id
+		AND mmregion.region_pid != '-1'
+	) AS city_name,
+	tax.tax_type,
+	tax.tax,
+	supplier.recommend_plant,
+	supplier.contact,
+	supplier.contact_mail,
+	supplier.contact_mb_num,
+	supplier.contact_tel_num,
+	supplier.stock_holder,
+	supplier.legal_representative,
+	supplier.legal_risk_num,
+	supplier.registered_capital,
+	supplier.remark
+FROM
+	mm_nonbid_supplier supplier
+LEFT JOIN nonbid_supplier_colatitude colatitude ON supplier.supplier_id = colatitude.supplier_id
+LEFT JOIN mm_nonbid_colatitude mmcolatitude ON colatitude.colatitude_id = mmcolatitude.colatitude_id
+LEFT JOIN nonbid_supplier_qualification qualification ON supplier.supplier_id = qualification.supplier_id
+LEFT JOIN mm_nonbid_qualification mmqualification ON qualification.qualification_id = mmqualification.qualification_id
+LEFT JOIN mm_nonbid_supplier_tax tax ON supplier.supplier_id = tax.supplier_id
+
+   
+    where 
+    	supplier.del = '0'
+    and 
+    	supplier.supplier_id = #{str} 
+    group by supplier.supplier_name	
+  </select>
+  
+	<insert id="insertSupplierList" parameterType="com.yyc.oper.nobid.supplier.SupplierBean">
+		INSERT INTO mm_nonbid_supplier (
+			supplier_id,
+			supplier_name,
+			plant_id
+		)
+		VALUES
+         <foreach collection="list" item="item" index="index" separator=","> 
+            ( 
+            #{item.supplierId},
+            #{item.supplierName},
+            #{item.plantId}
+            ) 
+        </foreach> 
+        ON DUPLICATE KEY UPDATE
+        supplier_id= values(supplier_id),
+		supplier_name= values(supplier_name),
+		plant_id= values(plant_id)
+	</insert>
+	
+		<insert id="insertRelation" parameterType="com.yyc.oper.nobid.supplier.SupplierBean">
+		INSERT INTO mm_erp_supplier_plant (
+			id,
+			supplier_id,
+			plant_id
+		)
+		VALUES
+         <foreach collection="list" item="item" index="index" separator=","> 
+            ( 
+            #{item.id},
+            #{item.supplierId},
+            #{item.plantId}
+            ) 
+        </foreach> 
+        ON DUPLICATE KEY UPDATE
+        id= values(id),
+        supplier_id= values(supplier_id),
+		plant_id= values(plant_id)
+	</insert>
+	
+	      <insert id="insertImportSupplierList">
+    INSERT INTO 
+    mm_nonbid_supplier
+    	 (
+    	  supplier_id,
+    	  supplier_name,
+    	  account_group,
+    	  business_scope,
+    	  recommend_plant,
+    	  contact,
+    	  contact_mail,
+    	  contact_mb_num,
+    	  contact_tel_num,
+    	  stock_holder,
+    	  legal_representative,
+    	  legal_risk_num,
+    	  registered_capital,
+    	  remark,
+    	  state,
+    	  del
+    	  ) 
+    		VALUES
+    <foreach collection ="list" item="supplierlist" separator =","  >
+    (
+    #{supplierlist.supplierId,jdbcType=VARCHAR}, 
+    #{supplierlist.supplierName,jdbcType=VARCHAR},
+    #{supplierlist.accountGroup,jdbcType=VARCHAR},
+    #{supplierlist.businessScope,jdbcType=VARCHAR},
+    #{supplierlist.recommendPlant,jdbcType=VARCHAR},
+    #{supplierlist.contact,jdbcType=VARCHAR},
+    #{supplierlist.contactMail,jdbcType=VARCHAR},
+    #{supplierlist.contactMbNum,jdbcType=VARCHAR},
+    #{supplierlist.contactTelNum,jdbcType=VARCHAR},
+    #{supplierlist.stockHolder,jdbcType=VARCHAR},
+    #{supplierlist.legalRepresentative,jdbcType=VARCHAR},
+    #{supplierlist.legalRiskNum,jdbcType=VARCHAR},
+    #{supplierlist.registeredCapital,jdbcType=VARCHAR},
+    #{supplierlist.remark,jdbcType=VARCHAR},
+    #{supplierlist.state,jdbcType=VARCHAR},
+    #{supplierlist.del,jdbcType=VARCHAR}
+    )
+    </foreach>
+        ON DUPLICATE KEY UPDATE
+    supplier_name = VALUES(supplier_name)
+  </insert>
+  
+          <select id="selectSupplierBySupplierNameList" parameterType="java.lang.String"
+            resultType="java.lang.String">
+        SELECT supplier_name
+        FROM
+        mm_nonbid_supplier
+        WHERE supplier_name IN
+        <foreach item="supplierName" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{supplierName,jdbcType=VARCHAR}
+        </foreach>
+        AND (del != 1 or del is null)
+    </select>
+  
+</mapper>

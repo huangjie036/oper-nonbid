@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.FileInfoCrudMapper">
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.file.FileinfoBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="function_name" property="functionName" jdbcType="VARCHAR" />
+    <result column="original_name" property="originalName" jdbcType="VARCHAR" />
+    <result column="new_name" property="newName" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="downloadcount" property="downloadcount" jdbcType="INTEGER" />
+    <result column="extension" property="extension" jdbcType="VARCHAR" />
+    <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="purchase_schme_id" property="purchaseSchmeId" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <sql id="Base_Column_List" >
+    id, business_id, function_name, original_name, new_name, size, path, downloadcount, 
+    extension, matplan_id, purchase_schme_id, org_id, create_by, create_time, ope_by, 
+    ope_time
+  </sql>
+	<insert id="saveFileInfo" parameterType="com.yyc.brace.util.entity.FileInfoVO">
+		INSERT INTO
+		brace_file_info
+		(
+		id,original_name,new_name,size,path,add_time,download_count,extension
+		)
+		VALUES
+		(
+		#{id,jdbcType=VARCHAR},
+		#{originalName,jdbcType=VARCHAR},
+		#{newName,jdbcType=VARCHAR},
+		#{size,jdbcType=BIGINT},
+		#{path,jdbcType=VARCHAR},
+		#{addTime,jdbcType=TIMESTAMP},
+		#{downloadCount,jdbcType=INTEGER},
+		#{extension,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	  <insert id="insertFile" >
+    insert into 
+    mm_fileinfo 
+    (
+      id,
+      function_name, 
+      original_name, 
+      new_name,
+      size,
+      path, 
+      purchase_schme_id,
+      matplan_id,
+      create_time,  
+      del
+      )
+    values 
+    <foreach collection="list" item="file" separator=",">
+    	(
+    	#{file.id,jdbcType=VARCHAR}, 
+    	#{file.functionName,jdbcType=VARCHAR}, 
+    	#{file.originalName,jdbcType=VARCHAR}, 
+        #{file.newName,jdbcType=VARCHAR},
+        #{file.size,jdbcType=VARCHAR},
+        #{file.path,jdbcType=VARCHAR}, 
+        #{file.purchaseSchmeId,jdbcType=VARCHAR}, 
+        #{file.matplanId,jdbcType=VARCHAR}, 
+        #{file.createTime,jdbcType=TIMESTAMP},
+        #{file.del,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mm_fileinfo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+     <select id="selectFileList" resultMap="BaseResultMap" parameterType="java.lang.String"
+      >
+        SELECT 
+            id, 
+            business_id, 
+            function_name, 
+            original_name, 
+            new_name, 
+            size, 
+            path, 
+            downloadcount, 
+            extension, 
+            matplan_id, 
+            purchase_schme_id, 
+            create_by, 
+            create_time, 
+            ope_by, 
+            ope_time
+        from mm_fileinfo
+        WHERE purchase_schme_id =#{purchaseSchmeId,jdbcType=VARCHAR}
+        AND (del != 1 or del is null)
+    </select>
+    
+    <select id="selectFileListByFileinfoBean" resultMap="BaseResultMap" parameterType="com.yyc.oper.nobid.file.FileinfoBean">
+        SELECT 
+            id, 
+            business_id, 
+            function_name, 
+            original_name, 
+            new_name, 
+            size, 
+            path, 
+            downloadcount, 
+            extension, 
+            matplan_id, 
+            purchase_schme_id, 
+            create_by, 
+            create_time, 
+            ope_by, 
+            ope_time
+        from mm_fileinfo
+        <where>
+          <if test="1 == 1 ">
+            AND (del != 1 or del is null)
+          </if>
+          <if test="purchaseSchmeId != null and purchaseSchmeId != ''">
+            AND purchase_schme_id =#{purchaseSchmeId,jdbcType=VARCHAR}
+          </if>
+          <if test="matplanId != null and matplanId != ''">
+            AND matplan_id =#{matplanId,jdbcType=VARCHAR}
+          </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.yyc.oper</groupId>
+		<artifactId>oper-nonbid</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>oper-nonbid-boi</artifactId>
+	<name>oper-nonbid-boi</name>
+	<description>非招标业务实体</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.yyc.brace</groupId>
+			<artifactId>brace-util</artifactId>
+			<version>${oper.version}</version>
+		</dependency>
+
+	</dependencies>
+</project>

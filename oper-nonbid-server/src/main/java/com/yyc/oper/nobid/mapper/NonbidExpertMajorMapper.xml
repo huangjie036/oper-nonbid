@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.NonbidExpertMajorMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="expert_id" property="expertId" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+    <association property="expertBean" javaType="com.yyc.oper.nobid.expert.ExpertBean">   
+      <id column="expert_code" property="expertCode" jdbcType="VARCHAR" />
+      <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+      <result column="expert_id" property="expertId" jdbcType="VARCHAR" />
+      <result column="expert_sex" property="expertSex" jdbcType="VARCHAR" />
+      <result column="expert_mb_num" property="expertMbNum" jdbcType="VARCHAR" />
+      <result column="expert_tel_num" property="expertTelNum" jdbcType="VARCHAR" />
+      <result column="expert_mail" property="expertMail" jdbcType="VARCHAR" />
+      <result column="declaration_dep" property="declarationDep" jdbcType="VARCHAR" />
+      <result column="graduate_from" property="graduateFrom" jdbcType="VARCHAR" />
+      <result column="work_dep" property="workDep" jdbcType="VARCHAR" />
+      <result column="work_position" property="workPosition" jdbcType="VARCHAR" />
+      <result column="position_kind" property="positionKind" jdbcType="VARCHAR" />
+      <result column="start_work_time" property="startWorkTime" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+      <result column="major_qualification_name" property="majorQualificationName" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="major_qualification_type" property="majorQualificationType" jdbcType="VARCHAR" />
+    </association>
+    <association property="nonbidMajorBean" javaType="com.yyc.oper.nobid.major.NonbidMajorBean">   
+      <id column="major_id" property="majorId" jdbcType="VARCHAR" />
+      <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+      <result column="remark" property="remark" jdbcType="VARCHAR" />
+      <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+      <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+      <result column="path" property="path" jdbcType="VARCHAR" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+      <result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.id, a.expert_id, a.major_id
+  </sql>
+  <sql id="Base_Column_List1" >
+    b1.expert_code, expert_name, b1.expert_id, b1.expert_sex, b1.expert_mb_num, b1.expert_tel_num, b1.expert_mail, 
+    b1.declaration_dep, b1.graduate_from, b1.work_dep, b1.work_position, b1.position_kind, b1.start_work_time, 
+    b1.del, b1.major_qualification_name, b1.state, b1.major_qualification_type
+  </sql>
+  <sql id="Base_Column_List2" >
+    b2.major_id, b2.major_name, b2.remark, b2.order_no, b2.parent_id, b2.path, b2.create_by, b2.create_time, 
+    b2.ope_by, b2.ope_time, b2.del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List1" />,
+    <include refid="Base_Column_List2" />
+    from mm_nonbid_expert_major a
+left join mm_nonbid_expert b1 on b1.expert_code = a.expert_id and (b1.del != 1 or b1.del is null)
+left join mm_nonbid_major b2 on b2.major_id = a.major_id and (b2.del != 1 or b2.del is null)
+    <where>
+      <if test="id != null and id != ''">
+        and a.id = #{id}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mm_nonbid_expert_major
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    insert into mm_nonbid_expert_major (id, expert_id, major_id
+      )
+    values (#{id,jdbcType=VARCHAR}, #{expertId,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    insert into mm_nonbid_expert_major
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="expertId != null" >
+        expert_id,
+      </if>
+      <if test="majorId != null" >
+        major_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="expertId != null" >
+        #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    update mm_nonbid_expert_major
+    <set >
+      <if test="expertId != null" >
+        expert_id = #{expertId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.NonbidExpertMajorBean" >
+    update mm_nonbid_expert_major
+    set expert_id = #{expertId,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

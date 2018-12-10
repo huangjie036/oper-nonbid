@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.MatplanMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mat.MatplanBean" >
+    <id column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="serial_num" property="serialNum" jdbcType="VARCHAR" />
+    <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+    <result column="package_num" property="packageNum" jdbcType="VARCHAR" />
+    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+    <result column="demand_company" property="demandCompany" jdbcType="VARCHAR" />
+    <result column="purchase_num" property="purchaseNum" jdbcType="VARCHAR" />
+    <result column="fund_source" property="fundSource" jdbcType="VARCHAR" />
+    <result column="matplan_source" property="matplanSource" jdbcType="VARCHAR" />
+    <result column="approval_num" property="approvalNum" jdbcType="VARCHAR" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="demand_mat" property="demandMat" jdbcType="VARCHAR" />
+    <result column="purchase_strategy" property="purchaseStrategy" jdbcType="VARCHAR" />
+    <result column="purchase_way" property="purchaseWay" jdbcType="VARCHAR" />
+    <result column="person_liable" property="personLiable" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="work_time_limit" property="workTimeLimit" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="merge_state" property="mergeState" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="merge_id" property="mergeId" jdbcType="VARCHAR" />
+    <result column="is_merge" property="isMerge" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="ope_time" property="opeTime" jdbcType="TIMESTAMP" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+ 
+    <association property="batchmanageBean" javaType="com.yyc.oper.nobid.batch.BatchmanageBean">
+      <id column="batch_id" property="batchId" jdbcType="VARCHAR" />
+      <result column="batch_num" property="batchNum" jdbcType="VARCHAR" />
+      <result column="batch_name" property="batchName" jdbcType="VARCHAR" />
+      <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+      <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="oper_by" property="operBy" jdbcType="VARCHAR" />
+      <result column="oper_time" property="operTime" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+
+    </association>
+    <collection property="listMatplanMatBean" ofType="com.yyc.oper.nobid.mat.MatplanMatBean">
+	  <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+      <result column="matplan_type" property="matplanType" jdbcType="VARCHAR" />
+      <result column="mat_id" property="matId" jdbcType="VARCHAR" />
+      <result column="mat_des" property="matDes" jdbcType="VARCHAR" />
+      <result column="small_class_id" property="smallClassId" jdbcType="VARCHAR" />
+      <result column="small_class" property="smallClass" jdbcType="VARCHAR" />
+      <result column="middle_class_id" property="middleClassId" jdbcType="VARCHAR" />
+      <result column="middle_class" property="middleClass" jdbcType="VARCHAR" />
+      <result column="large_class_id" property="largeClassId" jdbcType="VARCHAR" />
+      <result column="large_class" property="largeClass" jdbcType="VARCHAR" />
+      <result column="mat_num" property="matNum" jdbcType="VARCHAR" />
+      <result column="mat_unit" property="matUnit" jdbcType="VARCHAR" />
+      <result column="estimate_unit_price" property="estimateUnitPrice" jdbcType="VARCHAR" />
+      <result column="estimate_total_price" property="estimateTotalPrice" jdbcType="VARCHAR" />
+      <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+      <result column="delivery_place" property="deliveryPlace" jdbcType="VARCHAR" />
+      <result column="recommended_supplier" property="recommendedSupplier" jdbcType="VARCHAR" />
+      <result column="recommended_supplier_phone" property="recommendedSupplierPhone" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+
+	</collection>
+  </resultMap>
+  <sql id="Base_Column_List1" >
+    d.matplan_id, d.serial_num, d.batch_num, d.package_num, d.package_name, d.demand_company, d.purchase_num, 
+    d.fund_source, d.matplan_source, d.approval_num, d.project_name, d.project_num, d.demand_mat, 
+    d.purchase_strategy, d.purchase_way, d.person_liable, d.phone_num, d.work_time_limit, d.state, 
+    d.merge_state, d.remark, d.merge_id, d.is_merge, d.create_by, d.create_time, d.ope_by, d.ope_time, 
+    d.del
+  </sql>
+  <sql id="Base_Column_List2" >
+    c2.id, c2.matplan_id, c2.matplan_type, c2.mat_id, c9.mat_des, c2.mat_num, 
+    c2.mat_unit, c2.estimate_unit_price, c2.estimate_total_price, c2.delivery_time, c2.delivery_place, 
+    c2.recommended_supplier, c2.recommended_supplier_phone, c2.del
+  </sql>
+  <sql id="Base_Column_List3" >
+    c3.batch_id, c3.batch_num, c3.batch_name, c3.begin_time, c3.end_time, c3.create_by, c3.create_time, c3.oper_by, 
+    c3.oper_time, c3.state, c3.del
+  </sql>
+  <sql id="Base_Column_List_d123" >
+    d1.mat_group_id small_class_id, d1.mat_group_des small_class, 
+    d2.mat_group_id middle_class_id, d2.mat_group_des middle_class, 
+    d3.mat_group_id large_class_id, d3.mat_group_des large_class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List1" />
+    from nonbid_matplan d 
+    <where>
+      <if test="1 == 1">
+	    and (d.del != 1 or d.del is null)
+	  </if>
+      <if test="matplanId != null and matplanId != ''">
+	    and d.matplan_id = #{matplanId}
+	  </if>
+	  <if test="matplanIds != null">
+	    and d.matplan_id in 
+	    <foreach collection="matplanIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+	  <if test="batchNum != null and batchNum != ''">
+	    and d.batch_num = #{batchNum}
+	  </if>
+	  <if test="purchaseNum != null and purchaseNum != ''">
+	    and d.purchase_num = #{purchaseNum}
+	  </if>
+	  <if test="demandCompany != null and demandCompany != ''">
+	    and d.demand_company LIKE concat('%',#{demandCompany},'%')
+	  </if>
+	  <if test="projectName != null and projectName != ''">
+	    and d.project_name LIKE concat('%',#{projectName},'%')
+	  </if>
+	  <if test="mergeId != null and mergeId != ''">
+	    and d.merge_id = #{mergeId}
+	  </if>
+	  <if test="purchaseWay != null and purchaseWay != ''">
+	    and d.purchase_way = #{purchaseWay}
+	  </if>
+	  <if test="fundSource != null and fundSource != ''">
+	    and d.fund_source = #{fundSource}
+	  </if>
+	  <if test="matplanSource != null and matplanSource != ''">
+	    and d.matplan_source = #{matplanSource}
+	  </if>
+	  <if test='mergeState == "-1"'>
+	    and (d.merge_state != 1 or d.merge_state is null)
+	  </if>
+	  <if test="state != null and state != ''">
+	    <if test='state == "-1"'>
+	      and (d.state = '1' or d.state = '5')
+	    </if>
+	    <if test='state != "-1"'>
+	      and d.state = #{state}
+	    </if>
+	  </if>
+	  <if test="serialNum != null and serialNum != ''">
+	    and d.serial_num = #{serialNum}
+	  </if>
+	  <if test="packageNum != null and packageNum != ''">
+	    and d.package_num = #{packageNum}
+	  </if>
+	  <if test="projectNum != null and projectNum != ''">
+	    and d.project_num = #{projectNum}
+	  </if>
+    </where>
+    order by d.batch_num, d.demand_company, d.serial_num, d.project_name, d.ope_time desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_matplan
+    where matplan_id = #{matplanId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.mat.MatplanBean" >
+    insert into nonbid_matplan (matplan_id, serial_num, batch_num, 
+      package_num, package_name, demand_company, 
+      purchase_num, fund_source, matplan_source, 
+      approval_num, project_name, project_num, 
+      demand_mat, purchase_strategy, purchase_way, 
+      person_liable, phone_num, work_time_limit, 
+      state, merge_state, remark, 
+      merge_id, is_merge, create_by, 
+      create_time, ope_by, ope_time, 
+      del)
+    values 
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.matplanId,jdbcType=VARCHAR}, #{item.serialNum,jdbcType=VARCHAR}, #{item.batchNum,jdbcType=VARCHAR}, 
+      #{item.packageNum,jdbcType=VARCHAR}, #{item.packageName,jdbcType=VARCHAR}, #{item.demandCompany,jdbcType=VARCHAR}, 
+      #{item.purchaseNum,jdbcType=VARCHAR}, #{item.fundSource,jdbcType=VARCHAR}, #{item.matplanSource,jdbcType=VARCHAR}, 
+      #{item.approvalNum,jdbcType=VARCHAR}, #{item.projectName,jdbcType=VARCHAR}, #{item.projectNum,jdbcType=VARCHAR}, 
+      #{item.demandMat,jdbcType=VARCHAR}, #{item.purchaseStrategy,jdbcType=VARCHAR}, #{item.purchaseWay,jdbcType=VARCHAR}, 
+      #{item.personLiable,jdbcType=VARCHAR}, #{item.phoneNum,jdbcType=VARCHAR}, #{item.workTimeLimit,jdbcType=VARCHAR}, 
+      #{item.state,jdbcType=VARCHAR}, #{item.mergeState,jdbcType=VARCHAR}, #{item.remark,jdbcType=VARCHAR}, 
+      #{item.mergeId,jdbcType=VARCHAR}, #{item.isMerge,jdbcType=VARCHAR}, #{item.createBy,jdbcType=VARCHAR}, 
+      #{item.createTime,jdbcType=TIMESTAMP}, #{item.opeBy,jdbcType=VARCHAR}, #{item.opeTime,jdbcType=TIMESTAMP}, 
+      #{item.del,jdbcType=VARCHAR}
+      )
+	</foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.mat.MatplanBean" >
+    insert into nonbid_matplan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="matplanId != null" >
+        matplan_id,
+      </if>
+      <if test="serialNum != null" >
+        serial_num,
+      </if>
+      <if test="batchNum != null" >
+        batch_num,
+      </if>
+      <if test="packageNum != null" >
+        package_num,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="demandCompany != null" >
+        demand_company,
+      </if>
+      <if test="purchaseNum != null" >
+        purchase_num,
+      </if>
+      <if test="fundSource != null" >
+        fund_source,
+      </if>
+      <if test="matplanSource != null" >
+        matplan_source,
+      </if>
+      <if test="approvalNum != null" >
+        approval_num,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="projectNum != null" >
+        project_num,
+      </if>
+      <if test="demandMat != null" >
+        demand_mat,
+      </if>
+      <if test="purchaseStrategy != null" >
+        purchase_strategy,
+      </if>
+      <if test="purchaseWay != null" >
+        purchase_way,
+      </if>
+      <if test="personLiable != null" >
+        person_liable,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="workTimeLimit != null" >
+        work_time_limit,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="mergeState != null" >
+        merge_state,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="mergeId != null" >
+        merge_id,
+      </if>
+      <if test="isMerge != null" >
+        is_merge,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="opeTime != null" >
+        ope_time,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="matplanId != null" >
+        #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNum != null" >
+        #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="packageNum != null" >
+        #{packageNum,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="demandCompany != null" >
+        #{demandCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseNum != null" >
+        #{purchaseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fundSource != null" >
+        #{fundSource,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanSource != null" >
+        #{matplanSource,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalNum != null" >
+        #{approvalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectNum != null" >
+        #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="demandMat != null" >
+        #{demandMat,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStrategy != null" >
+        #{purchaseStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWay != null" >
+        #{purchaseWay,jdbcType=VARCHAR},
+      </if>
+      <if test="personLiable != null" >
+        #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="workTimeLimit != null" >
+        #{workTimeLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeState != null" >
+        #{mergeState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="isMerge != null" >
+        #{isMerge,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.mat.MatplanBean" >
+    update nonbid_matplan
+    <set >
+      <if test="serialNum != null" >
+        serial_num = #{serialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNum != null" >
+        batch_num = #{batchNum,jdbcType=VARCHAR},
+      </if>
+      <if test="packageNum != null" >
+        package_num = #{packageNum,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=VARCHAR},
+      </if>
+      <if test="demandCompany != null" >
+        demand_company = #{demandCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseNum != null" >
+        purchase_num = #{purchaseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="fundSource != null" >
+        fund_source = #{fundSource,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanSource != null" >
+        matplan_source = #{matplanSource,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalNum != null" >
+        approval_num = #{approvalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectNum != null" >
+        project_num = #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="demandMat != null" >
+        demand_mat = #{demandMat,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseStrategy != null" >
+        purchase_strategy = #{purchaseStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseWay != null" >
+        purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+      </if>
+      <if test="personLiable != null" >
+        person_liable = #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="workTimeLimit != null" >
+        work_time_limit = #{workTimeLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeState != null" >
+        merge_state = #{mergeState,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mergeId != null" >
+        merge_id = #{mergeId,jdbcType=VARCHAR},
+      </if>
+      <if test="isMerge != null" >
+        is_merge = #{isMerge,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeTime != null" >
+        ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where matplan_id = #{matplanId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.mat.MatplanBean" >
+    update nonbid_matplan
+    set serial_num = #{serialNum,jdbcType=VARCHAR},
+      batch_num = #{batchNum,jdbcType=VARCHAR},
+      package_num = #{packageNum,jdbcType=VARCHAR},
+      package_name = #{packageName,jdbcType=VARCHAR},
+      demand_company = #{demandCompany,jdbcType=VARCHAR},
+      purchase_num = #{purchaseNum,jdbcType=VARCHAR},
+      fund_source = #{fundSource,jdbcType=VARCHAR},
+      matplan_source = #{matplanSource,jdbcType=VARCHAR},
+      approval_num = #{approvalNum,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_num = #{projectNum,jdbcType=VARCHAR},
+      demand_mat = #{demandMat,jdbcType=VARCHAR},
+      purchase_strategy = #{purchaseStrategy,jdbcType=VARCHAR},
+      purchase_way = #{purchaseWay,jdbcType=VARCHAR},
+      person_liable = #{personLiable,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      work_time_limit = #{workTimeLimit,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      merge_state = #{mergeState,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      merge_id = #{mergeId,jdbcType=VARCHAR},
+      is_merge = #{isMerge,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      ope_time = #{opeTime,jdbcType=TIMESTAMP},
+      del = #{del,jdbcType=VARCHAR}
+
+    where matplan_id = #{matplanId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectMatplanAndMat" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List1" />, 
+    <include refid="Base_Column_List2" />,
+    <include refid="Base_Column_List3" />,
+    <include refid="Base_Column_List_d123" />
+    from nonbid_matplan d 
+    LEFT JOIN nonbid_batchmanage c3 on d.batch_num = c3.batch_num and (c3.del != 1 or c3.del is null)
+    LEFT JOIN nonbid_matplan_mat c2 on d.matplan_id = c2.matplan_id and (c2.del != 1 or c2.del is null)
+	LEFT JOIN mm_erp_mat c9 on c9.mat_id = c2.mat_id 
+	LEFT JOIN mm_erp_mat_group d1 on c2.small_class = d1.mat_group_id
+	LEFT JOIN mm_erp_mat_group d2 on c2.middle_class = d2.mat_group_id
+	LEFT JOIN mm_erp_mat_group d3 on c2.large_class = d3.mat_group_id
+    <where>
+      <if test="1 == 1">
+	    and (d.del != 1 or d.del is null)
+	  </if>
+      <if test="matplanId != null and matplanId != ''">
+	    and d.matplan_id = #{matplanId}
+	  </if>
+	  <if test="matplanIds != null">
+	    and d.matplan_id in 
+	    <foreach collection="matplanIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+	  <if test="batchNum != null and batchNum != ''">
+	    and d.batch_num = #{batchNum}
+	  </if>
+	  <if test="purchaseNum != null and purchaseNum != ''">
+	    and d.purchase_num = #{purchaseNum}
+	  </if>
+	  <if test="demandCompany != null and demandCompany != ''">
+	    and d.demand_company LIKE concat('%',#{demandCompany},'%')
+	  </if>
+	  <if test="projectName != null and projectName != ''">
+	    and d.project_name LIKE concat('%',#{projectName},'%')
+	  </if>
+	  <if test="mergeId != null and mergeId != ''">
+	    and d.merge_id = #{mergeId}
+	  </if>
+	  <if test="purchaseWay != null and purchaseWay != ''">
+	    and d.purchase_way = #{purchaseWay}
+	  </if>
+	  <if test="fundSource != null and fundSource != ''">
+	    and d.fund_source = #{fundSource}
+	  </if>
+	  <if test="matplanSource != null and matplanSource != ''">
+	    and d.matplan_source = #{matplanSource}
+	  </if>
+	  <if test='mergeState == "-1"'>
+	    and (d.merge_state != 1 or d.merge_state is null)
+	  </if>
+	  <if test="state != null and state != ''">
+	    <if test='state == "-1"'>
+	      and (d.state = '1' or d.state = '5')
+	    </if>
+	    <if test='state != "-1"'>
+	      and d.state = #{state}
+	    </if>
+	  </if>
+    </where>
+    order by d.ope_time desc, d.create_time desc
+  </select>
+</mapper>

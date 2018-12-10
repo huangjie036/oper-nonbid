@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.MatMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mat.MatBean" >
+    <id column="mat_id" property="matId" jdbcType="VARCHAR" />
+    <result column="big_catagory" property="bigCatagory" jdbcType="VARCHAR" />
+    <result column="medium_catagory" property="mediumCatagory" jdbcType="VARCHAR" />
+    <result column="small_catagory" property="smallCatagory" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="mat_des" property="matDes" jdbcType="VARCHAR" />
+    <result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mat_id, big_catagory,medium_catagory,small_catagory,specification,model,remark, mat_des,state,unit_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mm_erp_mat
+    <where>
+	  <if test="1 == 1">
+	    and (del != 1 or del is null)
+	  </if>
+	  <if test="matId != null and matId != ''">
+	    and mat_id = #{matId}
+	  </if>
+	  <if test="matDes != null and matDes != ''">
+	    and mat_des LIKE concat('%',#{matDes},'%') 
+	  </if>
+	</where>
+  </select>
+  
+    <select id="selectMatBySmallCatagory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mm_erp_mat
+    <where>
+	  <if test="1 == 1">
+	    and (del != 1 or del is null)
+	  </if>
+	  <if test="smallCatagory != null and smallCatagory != ''">
+	    and small_catagory = #{smallCatagory}
+	  </if>
+	</where>
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mm_erp_mat
+    where mat_id = #{matId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.mat.MatBean" >
+    insert into mm_erp_mat (mat_id, mat_group_id, mat_des, 
+      unit_name, del)
+    values (#{matId,jdbcType=VARCHAR}, #{matGroupId,jdbcType=VARCHAR}, #{matDes,jdbcType=VARCHAR}, 
+      #{unitName,jdbcType=VARCHAR}, #{del,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.mat.MatBean" >
+    insert into mm_erp_mat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="matId != null" >
+        mat_id,
+      </if>
+      <if test="bigCatagory != null" >
+        big_catagory,
+      </if>
+      <if test="mediumCatagory != null" >
+        medium_catagory,
+      </if>
+      <if test="smallCatagory != null" >
+        small_catagory,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="matDes != null" >
+        mat_des,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="matId != null" >
+        #{matId,jdbcType=VARCHAR},
+      </if>
+      <if test="bigCatagory != null" >
+        #{bigCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumCatagory != null" >
+        #{mediumCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="smallCatagory != null" >
+        #{smallCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="matDes != null" >
+        #{matDes,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.mat.MatBean" >
+    update mm_erp_mat
+    <set >
+      <if test="bigCatagory != null" >
+        big_catagory = #{bigCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumCatagory != null" >
+        medium_catagory = #{mediumCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="smallCatagory != null" >
+        small_catagory = #{smallCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="matDes != null" >
+        mat_des = #{matDes,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mat_id = #{matId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.mat.MatBean" >
+    update mm_erp_mat
+    set mat_group_id = #{matGroupId,jdbcType=VARCHAR},
+      mat_des = #{matDes,jdbcType=VARCHAR},
+      unit_name = #{unitName,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR}
+    where mat_id = #{matId,jdbcType=VARCHAR}
+  </update>
+  
+        <insert id="insertMatlist" parameterType="com.yyc.oper.nobid.mat.MatBean" >
+    insert into 
+    mm_erp_mat 
+    (
+      mat_id,
+      mat_des,
+      big_catagory,
+      medium_catagory,
+      small_catagory,
+      unit_name
+      )
+    values
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+        #{item.matId,jdbcType=VARCHAR},
+        #{item.matDes,jdbcType=VARCHAR},
+        #{item.bigCatagory,jdbcType=VARCHAR},
+        #{item.mediumCatagory,jdbcType=VARCHAR},
+        #{item.smallCatagory,jdbcType=VARCHAR},
+        #{item.unitName,jdbcType=VARCHAR}
+        )
+	</foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,104 @@
+spring:
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  datasource:
+    url: jdbc:mysql://mysql-server:3306/mat_provide_platform?useUnicode=true&characterEncoding=utf-8
+    username: ENC(cKnyC3XDZ7WE3VfHoL8Ddw==)
+    password: ENC(Vkgml9noAwjnS0Gyp66sYk85DEiQGDrr)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    favicon:
+      enabled: false
+    servlet:
+      load-on-startup: 1
+  http:
+    encoding:
+      force: true 
+      
+
+#------------------------------------------------缓存配置-----------------------------------------
+#redis配置
+#单机模式
+#redis数据库索引，默认为0
+spring.redis.database: 0
+#redis服务器地址
+spring.redis.host: redis-server
+#redis服务器连接端口号
+spring.redis.port: 6379
+#redis服务器连接密码，默认为空
+spring.redis.p: 
+#redis连接池最大活跃连接数
+spring.redis.pool.max-active: 8
+#redis连接池最大阻塞等待时间
+spring.redis.pool.max.wait: -1
+#redis连接池最大空闲连接数
+srping.redis.pool.max-idle: 8
+#redis连接池最小空闲连接数
+spring.redis.pool.min-idle: 0
+#redis连接池超时时间，单位为毫秒
+spring.redis.pool.timeout: 60000
+      
+      
+yyc:
+  swagger2:
+    base-package: com.yyc.oper #自动扫描的包路径
+    verison: 1.0.0 #版本
+    title: xxx #服务名称
+
+security.basic.enabled: false
+logging:
+  level:
+    com.yyc.oper: debug
+    com.aostar.audit: debug
+      
+jasypt.encryptor.password: nmyswls #默认
+
+mybatis:
+  type-aliases-package: com.yyc.oper.nobid
+
+mapper:
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+management.security.enabled: false  
+
+oper:
+  filePath: /home/mat_provide_platform/upload
+  fileExtension: gif,jpg,png,bmp
+isc.app-id: f8ce670065e6ed1d0165e6f841390004
+
+
+log4j.logger.com.ibatis: DEBUG
+log4j.logger.com.ibatis.common.jdbc.SimpleDataSource: DEBUG
+log4j.logger.com.ibatis.common.jdbc.ScriptRunner: DEBUG
+log4j.logger.com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate: DEBUG
+log4j.logger.Java.sql.Connection: DEBUG
+log4j.logger.java.sql.Statement: DEBUG
+log4j.logger.java.sql.PreparedStatement: DEBUG
+
+
+#------------------------------------------------审计配置-----------------------------------------  
+accessaudit.db.driver-class-name: com.mysql.jdbc.Driver
+accessaudit.db.url: jdbc:mysql://mysql-server:3306/mat_provide_platform?useUnicode=true&characterEncoding=utf-8
+accessaudit.db.us: root
+accessaudit.db.pd: pctitanic2017
+accessaudit.db.type: mysql
+accessaudit.backup.dir: D:\logfile
+accessaudit.allow-domain: www.yunids.com,www.yyc.com
+accessaudit.visit-queue.max-length: 0
+accessaudit.visit-queue.job.initial-delay: 0
+accessaudit.visit-queue.job.period-time: 0
+accessaudit.visit-queue.job.stop-timeout: 0
+accessaudit.monitor.job.initial-delay: 0
+accessaudit.monitor.job.period-time: 0
+accessaudit.monitor.job.stop-timeout: 0
+accessaudit.audit-item.default: oper-nonbid-server
+
+

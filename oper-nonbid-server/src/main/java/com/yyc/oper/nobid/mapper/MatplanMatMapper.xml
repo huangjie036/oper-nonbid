@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.MatplanMatMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.mat.MatplanMatBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="matplan_type" property="matplanType" jdbcType="VARCHAR" />
+    <result column="mat_id" property="matId" jdbcType="VARCHAR" />
+    <result column="small_class_id" property="smallClassId" jdbcType="VARCHAR" />
+    <result column="small_class" property="smallClass" jdbcType="VARCHAR" />
+    <result column="middle_class_id" property="middleClassId" jdbcType="VARCHAR" />
+    <result column="middle_class" property="middleClass" jdbcType="VARCHAR" />
+    <result column="large_class_id" property="largeClassId" jdbcType="VARCHAR" />
+    <result column="large_class" property="largeClass" jdbcType="VARCHAR" />
+    <result column="mat_num" property="matNum" jdbcType="VARCHAR" />
+    <result column="mat_unit" property="matUnit" jdbcType="VARCHAR" />
+    <result column="estimate_unit_price" property="estimateUnitPrice" jdbcType="VARCHAR" />
+    <result column="estimate_total_price" property="estimateTotalPrice" jdbcType="VARCHAR" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_place" property="deliveryPlace" jdbcType="VARCHAR" />
+    <result column="recommended_supplier" property="recommendedSupplier" jdbcType="VARCHAR" />
+    <result column="recommended_supplier_phone" property="recommendedSupplierPhone" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+    <result column="mat_des" property="matDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b1.id, b1.matplan_id, b1.matplan_type, b1.mat_id, b1.mat_num, 
+    b1.mat_unit, b1.estimate_unit_price, b1.estimate_total_price, b1.delivery_time, b1.delivery_place, 
+    b1.recommended_supplier, b1.recommended_supplier_phone, b1.del, c1.mat_des
+  </sql>
+  <sql id="Base_Column_List_d123" >
+    d1.mat_group_id small_class_id, d1.mat_group_des small_class, 
+    d2.mat_group_id middle_class_id, d2.mat_group_des middle_class, 
+    d3.mat_group_id large_class_id, d3.mat_group_des large_class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List_d123" />
+    from nonbid_matplan_mat b1
+    LEFT JOIN mm_erp_mat c1 on b1.mat_id = c1.mat_id
+	LEFT JOIN mm_erp_mat_group d1 on b1.small_class = d1.mat_group_id
+	LEFT JOIN mm_erp_mat_group d2 on b1.middle_class = d2.mat_group_id
+	LEFT JOIN mm_erp_mat_group d3 on b1.large_class = d3.mat_group_id
+    <where>
+      <if test="1 == 1">
+	    and (b1.del != 1 or b1.del is null)
+	  </if>
+	  <if test="id != null and id != ''">
+	    and b1.id = #{id,jdbcType=VARCHAR}
+	  </if>
+	  <if test="matplanId != null and matplanId != ''">
+	    and b1.matplan_id = #{matplanId,jdbcType=VARCHAR}
+	  </if>
+	  <if test="matplanIds != null">
+	    and b1.matplan_id in 
+	    <foreach collection="matplanIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_matplan_mat
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.mat.MatplanMatBean" >
+    insert into nonbid_matplan_mat (id, matplan_id, matplan_type, 
+      mat_id, small_class, middle_class, 
+      large_class, mat_num, mat_unit, 
+      estimate_unit_price, estimate_total_price, 
+      delivery_time, delivery_place, recommended_supplier, 
+      recommended_supplier_phone, del)
+    values 
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.id,jdbcType=VARCHAR}, #{item.matplanId,jdbcType=VARCHAR}, #{item.matplanType,jdbcType=VARCHAR}, 
+      #{item.matId,jdbcType=VARCHAR}, #{item.smallClassId,jdbcType=VARCHAR}, #{item.middleClassId,jdbcType=VARCHAR}, 
+      #{item.largeClassId,jdbcType=VARCHAR}, #{item.matNum,jdbcType=VARCHAR}, #{item.matUnit,jdbcType=VARCHAR}, 
+      #{item.estimateUnitPrice,jdbcType=VARCHAR}, #{item.estimateTotalPrice,jdbcType=VARCHAR}, 
+      #{item.deliveryTime,jdbcType=TIMESTAMP}, #{item.deliveryPlace,jdbcType=VARCHAR}, #{item.recommendedSupplier,jdbcType=VARCHAR}, 
+      #{item.recommendedSupplierPhone,jdbcType=VARCHAR}, #{item.del,jdbcType=VARCHAR}
+      )
+	</foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.mat.MatplanMatBean" >
+    insert into nonbid_matplan_mat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="matplanId != null" >
+        matplan_id,
+      </if>
+      <if test="matplanType != null" >
+        matplan_type,
+      </if>
+      <if test="matId != null" >
+        mat_id,
+      </if>
+      <if test="smallClassId != null" >
+        small_class,
+      </if>
+      <if test="middleClassId != null" >
+        middle_class,
+      </if>
+      <if test="largeClassId != null" >
+        large_class,
+      </if>
+      <if test="matNum != null" >
+        mat_num,
+      </if>
+      <if test="matUnit != null" >
+        mat_unit,
+      </if>
+      <if test="estimateUnitPrice != null" >
+        estimate_unit_price,
+      </if>
+      <if test="estimateTotalPrice != null" >
+        estimate_total_price,
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time,
+      </if>
+      <if test="deliveryPlace != null" >
+        delivery_place,
+      </if>
+      <if test="recommendedSupplier != null" >
+        recommended_supplier,
+      </if>
+      <if test="recommendedSupplierPhone != null" >
+        recommended_supplier_phone,
+      </if>
+      <if test="del != null" >
+        del,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanId != null" >
+        #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanType != null" >
+        #{matplanType,jdbcType=VARCHAR},
+      </if>
+      <if test="matId != null" >
+        #{matId,jdbcType=VARCHAR},
+      </if>
+      <if test="smallClassId != null" >
+        #{smallClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="middleClassId != null" >
+        #{middleClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="largeClassId != null" >
+        #{largeClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="matNum != null" >
+        #{matNum,jdbcType=VARCHAR},
+      </if>
+      <if test="matUnit != null" >
+        #{matUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateUnitPrice != null" >
+        #{estimateUnitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateTotalPrice != null" >
+        #{estimateTotalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryPlace != null" >
+        #{deliveryPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedSupplier != null" >
+        #{recommendedSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedSupplierPhone != null" >
+        #{recommendedSupplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        #{del,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.mat.MatplanMatBean" >
+    update nonbid_matplan_mat
+    <set >
+      <if test="matplanId != null" >
+        matplan_id = #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanType != null" >
+        matplan_type = #{matplanType,jdbcType=VARCHAR},
+      </if>
+      <if test="matId != null" >
+        mat_id = #{matId,jdbcType=VARCHAR},
+      </if>
+      <if test="smallClassId != null" >
+        small_class = #{smallClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="middleClassId != null" >
+        middle_class = #{middleClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="largeClassId != null" >
+        large_class = #{largeClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="matNum != null" >
+        mat_num = #{matNum,jdbcType=VARCHAR},
+      </if>
+      <if test="matUnit != null" >
+        mat_unit = #{matUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateUnitPrice != null" >
+        estimate_unit_price = #{estimateUnitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="estimateTotalPrice != null" >
+        estimate_total_price = #{estimateTotalPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryTime != null" >
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryPlace != null" >
+        delivery_place = #{deliveryPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedSupplier != null" >
+        recommended_supplier = #{recommendedSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendedSupplierPhone != null" >
+        recommended_supplier_phone = #{recommendedSupplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null" >
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.mat.MatplanMatBean" >
+    update nonbid_matplan_mat
+    set matplan_id = #{matplanId,jdbcType=VARCHAR},
+      matplan_type = #{matplanType,jdbcType=VARCHAR},
+      mat_id = #{matId,jdbcType=VARCHAR},
+      small_class = #{smallClassId,jdbcType=VARCHAR},
+      middle_class = #{middleClassId,jdbcType=VARCHAR},
+      large_class = #{largeClassId,jdbcType=VARCHAR},
+      mat_num = #{matNum,jdbcType=VARCHAR},
+      mat_unit = #{matUnit,jdbcType=VARCHAR},
+      estimate_unit_price = #{estimateUnitPrice,jdbcType=VARCHAR},
+      estimate_total_price = #{estimateTotalPrice,jdbcType=VARCHAR},
+      delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      delivery_place = #{deliveryPlace,jdbcType=VARCHAR},
+      recommended_supplier = #{recommendedSupplier,jdbcType=VARCHAR},
+      recommended_supplier_phone = #{recommendedSupplierPhone,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR}
+
+    where id = #{id,jdbcType=VARCHAR}
+  </update> 
+  <delete id="deleteByMatplanId" parameterType="java.lang.String" >
+    delete from nonbid_matplan_mat
+    where matplan_id = #{matplan_id,jdbcType=VARCHAR}
+  </delete>
+</mapper>

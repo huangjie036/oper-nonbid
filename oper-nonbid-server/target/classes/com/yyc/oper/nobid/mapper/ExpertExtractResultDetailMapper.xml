@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.ExpertExtractResultDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.expert.ExpertExtractResultDetailBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="extract_id" property="extractId" jdbcType="VARCHAR" />
+    <result column="expert_code" property="expertCode" jdbcType="VARCHAR" />
+    <result column="ope_date" property="opeDate" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="expert_name" property="expertName" jdbcType="VARCHAR" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, extract_id, expert_code, ope_date, create_date, create_by, ope_by, state, expert_name, 
+    major_name, major_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from nonbid_expert_extract_result_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_expert_extract_result_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.expert.ExpertExtractResultDetailBean" >
+    insert into nonbid_expert_extract_result_detail (id, extract_id, expert_code, 
+      ope_date, create_date, create_by, 
+      ope_by, state, expert_name, 
+      major_name, major_id)
+    values (#{id,jdbcType=VARCHAR}, #{extractId,jdbcType=VARCHAR}, #{expertCode,jdbcType=VARCHAR}, 
+      #{opeDate,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{opeBy,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{expertName,jdbcType=VARCHAR}, 
+      #{majorName,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.expert.ExpertExtractResultDetailBean" >
+    insert into nonbid_expert_extract_result_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="extractId != null" >
+        extract_id,
+      </if>
+      <if test="expertCode != null" >
+        expert_code,
+      </if>
+      <if test="opeDate != null" >
+        ope_date,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="opeBy != null" >
+        ope_by,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="expertName != null" >
+        expert_name,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="majorId != null" >
+        major_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="extractId != null" >
+        #{extractId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCode != null" >
+        #{expertCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeDate != null" >
+        #{opeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null" >
+        #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.expert.ExpertExtractResultDetailBean" >
+    update nonbid_expert_extract_result_detail
+    <set >
+      <if test="extractId != null" >
+        extract_id = #{extractId,jdbcType=VARCHAR},
+      </if>
+      <if test="expertCode != null" >
+        expert_code = #{expertCode,jdbcType=VARCHAR},
+      </if>
+      <if test="opeDate != null" >
+        ope_date = #{opeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="opeBy != null" >
+        ope_by = #{opeBy,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="expertName != null" >
+        expert_name = #{expertName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.expert.ExpertExtractResultDetailBean" >
+    update nonbid_expert_extract_result_detail
+    set extract_id = #{extractId,jdbcType=VARCHAR},
+      expert_code = #{expertCode,jdbcType=VARCHAR},
+      ope_date = #{opeDate,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      ope_by = #{opeBy,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      expert_name = #{expertName,jdbcType=VARCHAR},
+      major_name = #{majorName,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.InvitationSupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.InvitationSupplierBean" >
+    <id column="invitation_id" property="invitationId" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="matplan_id" property="matplanId" jdbcType="VARCHAR" />
+    <result column="phone_num" property="supplierPhone" jdbcType="VARCHAR" />
+    <result column="is_mat" property="isMat" jdbcType="VARCHAR" />
+    <result column="supplier_name" property="supplierName" jdbcType="VARCHAR" />
+    <association property="supplierBean" javaType="com.yyc.oper.nobid.supplier.SupplierBean">
+      <id column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+      <result column="plant_id" property="plantId" jdbcType="VARCHAR" />
+      <result column="id" property="id" jdbcType="VARCHAR" />
+      <result column="supplier_name1" property="supplierName" jdbcType="VARCHAR" />
+      <result column="account_group" property="accountGroup" jdbcType="VARCHAR" />
+      <result column="colatitude_name" property="colatitudeName" jdbcType="VARCHAR" />
+      <result column="colatitude_id" property="colatitudeId" jdbcType="VARCHAR" />
+      <result column="region_id" property="regionId" jdbcType="VARCHAR" />
+      <result column="qualification_name" property="qualificationName" jdbcType="VARCHAR" />
+      <result column="qualification_id" property="qualificationId" jdbcType="VARCHAR" />
+      <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+      <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+      <result column="tax_type" property="taxType" jdbcType="VARCHAR" />
+      <result column="deposite_bank_name" property="depositeBankName" jdbcType="VARCHAR" />
+      <result column="deposite_bank_account" property="depositeBankAccount" jdbcType="VARCHAR" />
+      <result column="addr" property="addr" jdbcType="VARCHAR" />
+      <result column="phone_num1" property="phoneNum" jdbcType="VARCHAR" />
+      <result column="fax" property="fax" jdbcType="VARCHAR" />
+      <result column="tax" property="tax" jdbcType="VARCHAR" />
+      <result column="business_license_num" property="businessLicenseNum" jdbcType="VARCHAR" />
+      <result column="institution_code" property="institutionCode" jdbcType="VARCHAR" />
+      <result column="contact" property="contact" jdbcType="VARCHAR" />
+      <result column="contact_mb_num" property="contactMbNum" jdbcType="VARCHAR" />
+      <result column="contact_tel_num" property="contactTelNum" jdbcType="VARCHAR" />
+      <result column="contact_mail" property="contactMail" jdbcType="VARCHAR" />
+      <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+      <result column="state" property="state" jdbcType="VARCHAR" />
+      <result column="main_achievement" property="mainAchievement" jdbcType="VARCHAR" />
+      <result column="del" property="del" jdbcType="VARCHAR" />
+      <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+      <result column="ope_by" property="opeBy" jdbcType="VARCHAR" />
+      <result column="ope_time" property="opeTime" jdbcType="VARCHAR" />
+      <result column="recommend_plant" property="recommendPlant" jdbcType="VARCHAR" />
+      <result column="business_scope" property="businessScope" jdbcType="VARCHAR" />
+      <result column="stock_holder" property="stockHolder" jdbcType="VARCHAR" />
+      <result column="legal_representative" property="legalRepresentative" jdbcType="VARCHAR" />
+      <result column="legal_risk_num" property="legalRiskNum" jdbcType="VARCHAR" />
+      <result column="registered_capital" property="registeredCapital" jdbcType="VARCHAR" />
+      <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.invitation_id, a.supplier_id, a.matplan_id, a.supplier_phone, a.is_mat, c8.supplier_name, c8.phone_num
+  </sql>
+  <sql id="Base_Column_List8" >
+    c8.supplier_id, c8.supplier_name supplier_name1, c8.account_group, c8.deposite_bank_name, c8.deposite_bank_account, 
+    c8.addr, c8.phone_num phone_num1, c8.fax, c8.business_license_num, c8.institution_code, c8.tax_num, c8.contact, c8.contact_mb_num, 
+    c8.contact_tel_num, c8.contact_mail, c8.order_num, c8.state, c8.main_achievement, c8.del, c8.plant_id, 
+    c8.create_by, c8.create_time, c8.ope_by, c8.ope_time, c8.recommend_plant, c8.business_scope, c8.stock_holder, c8.legal_representative,
+    c8.legal_risk_num, c8.registered_capital, c8.remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="Base_Column_List8" />
+    from nonbid_invitation_supplier a
+    LEFT JOIN mm_nonbid_supplier c8 on a.supplier_id = c8.supplier_id
+    <where>
+      <if test="invitationId != null and invitationId != ''">
+        and a.invitation_id = #{invitationId,jdbcType=VARCHAR}
+      </if>
+      <if test="matplanId != null and matplanId != ''">
+        and a.matplan_id = #{matplanId,jdbcType=VARCHAR}
+      </if>
+      <if test="matplanIds != null">
+	    and a.matplan_id in 
+	    <foreach collection="matplanIds" item="item" index="index" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	  </if>
+	  <if test="isMat != null and isMat != ''">
+        and a.is_mat = #{isMat,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from nonbid_invitation_supplier
+    where invitation_id = #{invitationId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yyc.oper.nobid.supplier.InvitationSupplierBean" >
+    insert into nonbid_invitation_supplier (invitation_id, supplier_id, matplan_id, 
+      supplier_phone,is_mat)
+    values 
+    <foreach collection ="list" item="item" index= "index" separator =",">
+      (
+      #{item.invitationId,jdbcType=VARCHAR}, #{item.supplierId,jdbcType=VARCHAR}, 
+      #{item.matplanId,jdbcType=VARCHAR}, #{item.supplierPhone,jdbcType=VARCHAR}, 
+      #{item.isMat,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyc.oper.nobid.supplier.InvitationSupplierBean" >
+    insert into nonbid_invitation_supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invitationId != null" >
+        invitation_id,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="matplanId != null" >
+        matplan_id,
+      </if>
+      <if test="supplierPhone != null" >
+        supplier_phone,
+      </if>
+	  <if test="isMat != null" >
+        is_mat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invitationId != null" >
+        #{invitationId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanId != null" >
+        #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPhone != null" >
+        #{supplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isMat != null" >
+        #{isMat,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yyc.oper.nobid.supplier.InvitationSupplierBean" >
+    update nonbid_invitation_supplier
+    <set >
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=VARCHAR},
+      </if>
+      <if test="matplanId != null" >
+        matplan_id = #{matplanId,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPhone != null" >
+        supplier_phone = #{supplierPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="isMat != null" >
+        is_mat = #{isMat,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where invitation_id = #{invitationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yyc.oper.nobid.supplier.InvitationSupplierBean" >
+    update nonbid_invitation_supplier
+    set supplier_id = #{supplierId,jdbcType=VARCHAR},
+      matplan_id = #{matplanId,jdbcType=VARCHAR},
+      supplier_phone = #{supplierPhone,jdbcType=VARCHAR},
+      is_mat = #{isMat,jdbcType=VARCHAR}
+    where invitation_id = #{invitationId,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByMatplanId" parameterType="java.lang.String" >
+    delete from nonbid_invitation_supplier
+    where matplan_id = #{matplanId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yyc.oper.nobid.mapper.SupplierTaxMapper" >
+  <resultMap id="BaseResultMap" type="com.yyc.oper.nobid.supplier.SupplierTaxBean" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="VARCHAR" />
+    <result column="tax_type" property="taxType" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, supplier_id, tax_type,tax,del
+  </sql>
+  <insert id="addTaxList">
+    INSERT INTO 
+    mm_nonbid_supplier_tax
+    	 (
+    	  id,
+    	  supplier_id,
+    	  tax_type,
+    	  tax,
+    	  del
+    	  ) 
+    		VALUES
+    <foreach collection ="taxlist" item="taxlist" separator =","  >
+    (
+    #{taxlist.id,jdbcType=VARCHAR},
+    #{taxlist.supplierId,jdbcType=VARCHAR}, 
+    #{taxlist.taxType,jdbcType=VARCHAR},
+    #{taxlist.tax,jdbcType=VARCHAR},
+    #{taxlist.del,jdbcType=VARCHAR}
+    )
+    </foreach>
+            ON DUPLICATE KEY UPDATE
+    supplier_id = VALUES(supplier_id),tax_type = VALUES(tax_type),tax = VALUES(tax)
+  </insert>
+  </mapper>
